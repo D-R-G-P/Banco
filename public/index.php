@@ -24,17 +24,30 @@
       <a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
     </div>
 
-    <div class="user">
-      <i class="fa-solid fa-user"></i>
-    </div>
+    <button id="user" class="user" onclick="menuUser();">
+    <i id="userI" class="fa-solid fa-user"></i>
+      <i id="flecha" class="fa-solid fa-caret-down"></i>
+    </button>
 
-    <div class="userOptions">
-      Bienvenido/a <br>
-      $user <br>
-      Perfil: <br>
-      $permisos <br>
-      Cargo: <br>
-      $cargo
+    <div id="userOptions" class="userOptions">
+      <div class="datos">
+        <div>
+          Bienvenido/a <br>
+          $user
+        </div>
+        <div>
+          Perfil: <br>
+          $permisos
+        </div>
+        <div>
+          Cargo: <br>
+          $cargo
+        </div>
+      </div>
+      <div class="botones">
+        <a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
+        <a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+      </div>
     </div>
   </header>
 
@@ -42,5 +55,7 @@
     ESTADISTICA
   </article>
 </body>
+
+<script src="/Banco/public/js/header.js"></script>
 
 </html>

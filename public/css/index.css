@@ -80,9 +80,66 @@ header .links a.disabled:hover {
 header .user {
   font-size: 2vw;
   color: #fff;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+header .user #flecha {
+  font-size: 1.4vw;
+  color: #fff;
+  margin: 0;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+}
+
+header .user #flecha.active {
+  transform: rotate(180deg);
+  transition: .5s ease-in-out;
 }
 
 header .userOptions {
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
+  background-color: #fff;
+  font-size: 1.45vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  right: 1vw;
+  top: -30vw;
+  border-top: 0.3vw #5c5c5c solid;
+  transition: all .5s ease-in-out;
+}
+
+header .userOptions.active {
+  top: 5vw;
+  transition: all .5s ease-in-out;
+}
+
+header .userOptions::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 1vw solid transparent;
+  border-right: 1vw solid transparent;
+  border-bottom: 1vw solid #5c5c5c;
+  position: absolute;
+  top: -1vw;
+  right: 0.6vw;
+  border-radius: 0.8vw;
+}
+
+header .userOptions .datos div {
+  margin: .5vw 0;
+}
+
+header .userOptions .botones {
+  display: flex;
+  flex-direction: column;
+}
+
+header .userOptions .botones a {
+  margin: .5vw 0;
+  text-decoration: none;
 }
