@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S.C.S. - Inicio</title>
+  <link rel="stylesheet" href="/Banco/public/css/header.css">
   <link rel="stylesheet" href="/Banco/public/css/index.css">
 
   <!-- FontAwesome -->
@@ -25,7 +26,7 @@
     </div>
 
     <button id="user" class="user" onclick="menuUser();">
-    <i id="userI" class="fa-solid fa-user"></i>
+      <i id="userI" class="fa-solid fa-user"></i>
       <i id="flecha" class="fa-solid fa-caret-down"></i>
     </button>
 
@@ -52,8 +53,81 @@
   </header>
 
   <article>
-    ESTADISTICA
+    <div class="banco">
+      Banco: <select name="" id="">
+        <option value="">Cirugía General - CIGE</option>
+      </select>
+    </div>
+
+    <hr>
+
+    <div class="tablas">
+      <table>
+        <thead>
+          <th>Item</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Endosutura de 35mm</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Sutura circular de 35mm</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <th>Item</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Endosutura de 35mm</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Sutura circular de 35mm</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <th>Item</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Endosutura de 35mm</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Sutura circular de 35mm</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </article>
+
+  <footer>
+    &copy; Dirección de Redes y Gestión de Personas
+  </footer>
+
 </body>
 
 <script src="/Banco/public/js/header.js"></script>

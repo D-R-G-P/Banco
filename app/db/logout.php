@@ -5,5 +5,5 @@
     $userSession = new UserSession();
     $userSession->closeSession();
 
-    header('Location: /GDC/index.php');
+    header('Location: /Banco/index.php');
 ?>
