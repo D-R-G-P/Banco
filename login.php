@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCS - Login</title>
   <link rel="shortcut icon" href="/GDC/public/image/GDC.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/GDC/public/css/login.css">
+  <link rel="stylesheet" href="/Banco/public/css/login.css">
 
   <!-- FontAwesome -->
   <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
@@ -16,17 +16,18 @@
 
 <body>
   <div class="container">
-    <img src="/GDC/public/image/GDC.png" alt="Logo de Gestión de Camas">
+    <!-- <img src="/GDC/public/image/GDC.png" alt="Logo de Gestión de Camas"> -->
+    <i class="fa-solid fa-dolly iconoLogo"></i>
     <div class="wrapper">
       <div class="title">
         <span>Iniciar sesión</span>
-        <p>S.A.I. de G.D.C.</p>
+        <p>S.C.S. de Banco</p>
       </div>
       <p id="malLogin"><?php echo $errorLogin ?></p>
       <form method="post">
         <div class="row">
           <div class="icon">
-            <i class="fa-solid fa-user icono"></i>
+            <i class="fa-solid fa-user"></i>
           </div>
           <input type="text" name="username" placeholder="Username" required>
         </div>
