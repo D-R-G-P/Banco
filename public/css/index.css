@@ -12,7 +12,7 @@ article {
 
 article .banco {
   padding: 0 0 1vw 0;
-  font-size: 4.5vw;
+  font-size: 3vw;
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -23,7 +23,7 @@ article .banco {
 
 article .banco select {
   background: transparent;
-  border: 0.3vw #8d8d8d solid;
+  border: 0.15vw #8d8d8d solid;
   border-radius: 1vw;
   font-size: 2vw;
   min-width: 60%;
@@ -38,33 +38,61 @@ article .tablas {
   justify-content: space-around;
 }
 
-article .tablas table {
-  background-color: #eeeeee;
+article .tablas div {
   width: 30%;
-  text-align: center;
-  border-collapse: collapse;
-  border-radius: 1vw;
 }
 
-article .tablas table td,
-article .tablas table th {
-  border: 1px solid #aaaaaa;
-  padding: 3px 2px;
-  border-radius: 1vw;
+table { 
+  border: .2vw solid #646464;
+  border-collapse: separate;
+  border-left: 0;
+  border-radius: .8vw;
+  border-spacing: 0px;
+  width: 100%;
+  
 }
 
-table.blueTable tbody td {
-  font-size: 13px;
-  border-radius: 1vw;
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  border-collapse: separate;
+  background-color: #b1b1b1;
+  border-radius: .8vw;
 }
 
-table.blueTable thead {
-  background: #5e5e5e;
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
 }
 
-table.blueTable thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #ffffff;
-  text-align: center;
+th, td {
+  padding: .3vw; 
+  text-align: left;
+  vertical-align: top;
+  border-left: .2vw solid #646464;
+}
+
+td {
+  border-top: .2vw solid #646464;
+  background-color: #fff;
+}
+
+thead:first-child tr:first-child th:first-child,
+tbody:first-child tr:first-child td:first-child {
+  border-radius: .8vw 0 0 0;
+}
+
+thead:last-child tr:last-child th:first-child, 
+tbody:last-child tr:last-child td:first-child {
+  border-radius: 0 0 0 .8vw;
+}
+
+thead tr th:last-child {
+  border-radius: 0 .7vw 0 0;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 .7vw 0;
 }

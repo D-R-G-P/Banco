@@ -62,65 +62,83 @@
     <hr>
 
     <div class="tablas">
-      <table>
-        <thead>
-          <th>Item</th>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Endosutura de 35mm</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Sutura circular de 35mm</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Endosutura de 35mm</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Sutura circular de 35mm</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Sutura circular de 35mm</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Sutura circular de 35mm</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <table>
-        <thead>
-          <th>Item</th>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Endosutura de 35mm</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Sutura circular de 35mm</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <thead>
+            <th>Item</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Endosutura de 35mm</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Sutura circular de 35mm</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <table>
-        <thead>
-          <th>Item</th>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Endosutura de 35mm</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Sutura circular de 35mm</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <thead>
+            <th>Item</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Endosutura de 35mm</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Sutura circular de 35mm</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </article>
 
