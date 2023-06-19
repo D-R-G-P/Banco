@@ -1,23 +1,26 @@
-<?php 
+<?php
 
-class UserSession {
+class UserSession
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         session_start();
     }
 
-    public function setCurrentUser($user) {
+    public function setCurrentUser($user)
+    {
         $_SESSION['user'] = $user;
     }
 
-    public function getCurrentUser() {
+    public function getCurrentUser()
+    {
         return $_SESSION['user'];
     }
 
-    public function closeSession() {
+    public function closeSession()
+    {
         session_unset();
         session_destroy();
     }
 }
-
-?>

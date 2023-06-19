@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S.C.S. - Inicio</title>
+  <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/Banco/public/css/base.css">
   <link rel="stylesheet" href="/Banco/public/css/header.css">
   <link rel="stylesheet" href="/Banco/public/css/index.css">
 
@@ -106,7 +108,7 @@
           <tbody>
             <tr>
               <td>1</td>
-              <td>Endosutura de 35mm</td>
+              <td>Malla de polipropileno macroporoso 30cm x 30cm</td>
               <td>10</td>
             </tr>
             <tr>
@@ -143,7 +145,7 @@
   </article>
 
   <footer>
-    &copy; Dirección de Redes y Gestión de Personas
+    &copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
   </footer>
 
 </body>

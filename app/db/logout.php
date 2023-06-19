@@ -1,9 +1,8 @@
-<?php 
+<?php
 
-    include_once 'user_session.php';
+include_once 'user_session.php';
 
-    $userSession = new UserSession();
-    $userSession->closeSession();
+$userSession = new UserSession();
+$userSession->closeSession();
 
-    header('Location: /Banco/index.php');
-?>
+header('Location: /Banco/index.php');

@@ -17,9 +17,9 @@ body {
   width: 100%;
   margin: 0;
   background-color: #dddddd;
-  background-image: radial-gradient(#c1c0c0d4 1px, transparent 0);
-  background-size: 20px 20px;
-  background-position: -19px -19px;
+  background-image: radial-gradient(#cfcfcfd4 .1vw, transparent 0);
+  background-size: 1vw 1vw;
+  background-position: -19vw -19vw;
 }
 
 header {
@@ -30,7 +30,7 @@ header {
     align-content: center;
     justify-content: space-between;
     align-items: center;
-    background-color: #712cf9;
+    background-color: var(--color2);
     padding: 0.5vw;
     height: 3.5vw;
     width: 100%;
@@ -60,12 +60,12 @@ header .links a {
   color: #fff;
   border-radius: 0.5vw;
   transition: 0.5s ease-in-out;
-  background-color: #712cf9;
+  background-color: var(--color2);
   padding: 0.2vw;
 }
 
 header .links a:hover {
-  color: #712cf9;
+  color: var(--color2);
   background-color: #fff;
   transition: 0.5s ease-in-out;
   padding: 0.2vw;
@@ -75,7 +75,7 @@ header .links a:hover {
 header .links a.disabled {
   cursor: default;
   color: #b1b1b1;
-  background-color: #712cf9;
+  background-color: var(--color2);
 }
 
 header .links a.disabled:hover {
@@ -88,6 +88,8 @@ header .user {
   cursor: pointer;
   border: none;
   background-color: transparent;
+  height: 3.5vw;
+  width: 4vw;
 }
 
 header .user #flecha {
@@ -150,7 +152,7 @@ header .userOptions .botones a {
 }
 
 footer {
-  background-color: #712cf9;
+  background-color: var(--color2);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -162,4 +164,5 @@ footer {
     width: 100%;
     position: fixed;
     bottom: 0;
+    color: #8d8d8d;
 }

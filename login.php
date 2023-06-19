@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCS - Login</title>
   <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/Banco/public/css/base.css">
   <link rel="stylesheet" href="/Banco/public/css/login.css">
 
   <!-- FontAwesome -->
