@@ -1,3 +1,10 @@
+<?php
+
+$db = new DB();
+$pdo = $db->connect();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -36,16 +43,17 @@
       <div class="datos">
         <div>
           Bienvenido/a <br>
-          $user
+          <?php echo $user->getNombre() . " " . $user->getApellido(); ?>
         </div>
         <div>
           Perfil: <br>
-          $permisos
+          <?php echo $user->getTipo_usuario() ?>
         </div>
         <div>
           Cargo: <br>
-          $cargo
+          <?php echo $user->getCargo() ?>
         </div>
+
       </div>
       <div class="botones">
         <a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
@@ -56,93 +64,64 @@
 
   <article>
     <div class="banco">
-      Banco: <select name="" id="">
-        <option value="">Cirugía General - CIGE</option>
+      Banco:
+      <select name="banco" id="bancoSelect">
+        <?php
+        try {
+          $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+          $stmt->execute();
+
+          $options = "";
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id_banco = $row['id'];
+            $banco = $row['banco'];
+            $siglas = $row['siglas'];
+            $options .= "<option value='$id_banco'>$banco - $siglas</option>";
+          }
+
+          // Escribir las opciones en el DOM
+          echo $options;
+        } catch (PDOException $e) {
+          echo 'Error: ' . $e->getMessage();
+        }
+        ?>
       </select>
     </div>
 
     <hr>
 
-    <div class="tablas">
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descripción</th>
-              <th>Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Endosutura de 35mm</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Sutura circular de 35mm</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Sutura circular de 35mm</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Sutura circular de 35mm</td>
-              <td>4</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <table>
-          <thead>
-            <th>Item</th>
-            <th>Descripción</th>
-            <th>Cantidad</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Malla de polipropileno macroporoso 30cm x 30cm</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Sutura circular de 35mm</td>
-              <td>4</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <table>
-          <thead>
-            <th>Item</th>
-            <th>Descripción</th>
-            <th>Cantidad</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Endosutura de 35mm</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Sutura circular de 35mm</td>
-              <td>4</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="tablas" id="tablasContainer">
+      <!-- Las tablas se generarán dinámicamente aquí -->
     </div>
   </article>
+
+  <script>
+    // Obtener referencia al elemento select y al contenedor de las tablas
+    const bancoSelect = document.getElementById('bancoSelect');
+    const tablasContainer = document.getElementById('tablasContainer');
+
+    // Función para actualizar las tablas según el banco seleccionado
+    function actualizarTablas() {
+      const idBanco = bancoSelect.value;
+
+      // Realizar una solicitud al servidor para obtener las categorías y los datos de las tablas actualizados
+      fetch(`app/config/actualizar_tablas.php?idBanco=${idBanco}`)
+        .then(response => response.text())
+        .then(html => {
+          // Actualizar el contenido del contenedor de las tablas con el HTML obtenido
+          tablasContainer.innerHTML = html;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Escuchar el evento de cambio en el elemento select
+    bancoSelect.addEventListener('change', actualizarTablas);
+
+    // Actualizar las tablas al cargar la página inicialmente
+    actualizarTablas();
+  </script>
 
   <footer>
     &copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
