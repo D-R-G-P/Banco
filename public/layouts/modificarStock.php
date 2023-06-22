@@ -13,6 +13,8 @@ $user->setUser($currentUser);
 $db = new DB();
 $pdo = $db->connect();
 
+$botonAnadir = false;
+
 ?>
 
 <!DOCTYPE html>
@@ -32,16 +34,13 @@ $pdo = $db->connect();
 </head>
 
 <body>
-<?php
-      if (isset($_SESSION['success_message'])) {
-        echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
-        // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
-        unset($_SESSION['success_message']);
-      }
-      ?>
-
-
-
+  <?php
+  if (isset($_SESSION['success_message'])) {
+    echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
+    // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+    unset($_SESSION['success_message']);
+  }
+  ?>
 
   <header>
     <div class="logo">
@@ -87,19 +86,23 @@ $pdo = $db->connect();
   <article>
 
     <div class="acciones">
-      <button class="anadir"><i class="fa-solid fa-plus"></i> Añadir stock</button>
+      <button class="anadir" onclick="cerrarAnadirForm()"><i class="fa-solid fa-plus"></i> Añadir stock</button>
       <button class="eliminar"><i class="fa-solid fa-minus"></i> Eliminar stock</button>
       <button class="agregar"><i class="fa-solid fa-file-circle-plus"></i> Añadir item</button>
 
-      <div class="back">
-        <div class="anadirForm">
-
-
-
-          <button><i class="fa-solid fa-xmark"></i></button>!!!!!!!!
-
-
-
+      <div class="back" id="back" style="<?php if ($back == true) {
+                                            echo 'display: flex;';
+                                          } else {
+                                            echo 'display: none;';
+                                          }
+                                          ?>">
+        <div class="anadirForm" id="anadirForm" style="<?php if ($anadirForm == true) {
+                                                          echo 'display: flex;';
+                                                        } else {
+                                                          echo 'display: none;';
+                                                        }
+                                                        ?>">
+          <button onclick="cerrarAnadirForm()" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
           <h2>Añadir stock</h2>
           <hr>
           <form action="" method="post">
@@ -110,40 +113,68 @@ $pdo = $db->connect();
             </div>
           </form>
           <div class="datos">
-            <span>Item: <?php echo $item; ?></span>
-            <span>Nombre: <?php echo $nombre; ?></span>
-            <span>Categoría: <?php echo $categoria; ?></span>
-            <span>Banco: <?php echo $banco; ?></span>
+            <span>Item: <?php echo isset($item) ? $item : ''; ?></span>
+            <span>Nombre: <?php echo isset($nombre) ? $nombre : ''; ?></span>
+            <span>Categoría: <?php echo isset($categoria) ? $categoria : ''; ?></span>
+            <span>Banco: <?php echo isset($banco) ? $banco : ''; ?></span>
           </div>
           <form class="add" action="/Banco/app/modificarStock/anadirForm.php" method="post">
-            <input type="hidden" name="codebar" value="<?php echo $barcode; ?>" id="codebar" required>
+            <input type="hidden" name="codebar" value="<?php echo isset($barcode) ? $barcode : ''; ?>" id="codebar" required>
             <label for="stock">Stock a añadir</label>
             <input name="stock" type="number" min="1" value="1" required>
             <label for="lote">Lote</label>
             <input type="text" name="lote" required>
-
             <?php
-
-            if ($boton == true) {
+            if ($botonAnadir == true) {
               echo '<button type="submit" class="btn-verde addB"><i class="fa-solid fa-plus"></i> Añadir</button>';
             } else {
               echo '<button type="submit" class="btn-verde addB disabled" disabled><i class="fa-solid fa-plus"></i> Añadir</button>';
             }
-
             ?>
           </form>
         </div>
       </div>
 
 
+      <div class="eliminarForm" id="eliminarForm" style="<?php if ($eliminarForm == true) {
+                                                            echo 'display: flex;';
+                                                          } else {
+                                                            echo 'display: none;';
+                                                          }
+                                                          ?>">
+        <button onclick="cerrarEliminarForm()" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
+        <h2>Eliminar stock</h2>
+        <hr>
+        <form action="" method="post">
+          <label for="barcode">Código de barras</label>
+          <div class="search">
+            <input type="text" name="barcode" required id="barcode" value="" autofocus>
+            <button type="submit" class="btn-verde"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </form>
+        <div class="datos">
+          <span>Item: <?php echo isset($itemEliminar) ? $itemEliminar : ''; ?></span>
+          <span>Nombre: <?php echo isset($nombreEliminar) ? $nombreEliminar : ''; ?></span>
+          <span>Categoría: <?php echo isset($categoriaEliminar) ? $categoriaEliminar : ''; ?></span>
+          <span>Banco: <?php echo isset($bancoEliminar) ? $bancoEliminar : ''; ?></span>
+        </div>
+        <form class="add" action="/Banco/app/modificarStock/anadirForm.php" method="post">
+          <input type="hidden" name="codebar" value="<?php echo isset($barcodeEliminar) ? $barcodeEliminar : ''; ?>" id="codebar" required>
+          <label for="stock">Stock a añadir</label>
+          <input name="stock" type="number" min="1" value="1" required>
+          <label for="lote">Lote</label>
+          <input type="text" name="lote" required>
+          <?php
+          if ($botonEliminar == true) {
+            echo '<button type="submit" class="btn-verde addB"><i class="fa-solid fa-plus"></i> Añadir</button>';
+          } else {
+            echo '<button type="submit" class="btn-verde addB disabled" disabled><i class="fa-solid fa-plus"></i> Añadir</button>';
+          }
+          ?>
+        </form>
+      </div>
 
 
-
-
-
-
-
-      <div class="aliminarForm"></div>
       <div class="agregarForm"></div>
     </div>
 
@@ -201,7 +232,6 @@ $pdo = $db->connect();
 
 
 
-
   </article>
 
   <footer>
@@ -211,5 +241,6 @@ $pdo = $db->connect();
 </body>
 
 <script src="/Banco/public/js/header.js"></script>
+<script src="/Banco/public/js/modificarStock.js"></script>
 
 </html>

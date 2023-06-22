@@ -58,6 +58,7 @@ article .acciones .agregar:hover {
   transition: all 0.15s ease-in-out;
 }
 
+.btn-rojo,
 article .acciones .eliminar {
   color: #fff;
   background-color: #dc3545;
@@ -70,6 +71,7 @@ article .acciones .eliminar {
   transition: all 0.15s ease-in-out;
 }
 
+.btn-rojo:hover,
 article .acciones .eliminar:hover {
   background-color: #b02a37;
   border: #b02a37;
@@ -89,7 +91,7 @@ article .acciones .back {
   background-color: #0000007a;
   margin: auto;
   position: absolute;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   top: 0;
@@ -107,7 +109,7 @@ article .acciones .anadirForm {
   background-color: #dddddd;
   border: #000 .2vw solid;
   border-radius: .8vw;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding: 3vw;
@@ -115,6 +117,12 @@ article .acciones .anadirForm {
   top: 10vw;
   left: 10vw;
   font-size: 1vw;
+}
+
+article .acciones .anadirForm button.btn-rojo {
+  top: -3.8vw;
+  right: -14.7vw;
+  position: relative;
 }
 
 article .acciones .anadirForm form {
