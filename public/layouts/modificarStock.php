@@ -13,12 +13,10 @@ $db = new DB();
 $pdo = $db->connect();
 
 $botonAnadir = false;
-$botonEliminar = false;
 $back = false;
 $anadirForm = false;
-$eliminarForm = false;
 
-require_once '../../app/modificarStock/searchBarcodeAdd.php';
+require_once '../../app/modificarStock/searchBarcode.php';
 
 
 ?>
@@ -114,7 +112,7 @@ require_once '../../app/modificarStock/searchBarcodeAdd.php';
           <form action="" method="post">
             <label for="barcode">Código de barras</label>
             <div class="search">
-              <input type="text" name="barcodeadd" required id="barcode" value="" autofocus>
+              <input type="text" name="barcode" required id="barcode" value="" autofocus>
               <button type="submit" class="btn-verde"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
@@ -139,104 +137,66 @@ require_once '../../app/modificarStock/searchBarcodeAdd.php';
             ?>
           </form>
         </div>
-      
 
 
-      <div class="eliminarForm" id="eliminarForm" style="<?php if ($eliminarForm == true) {
-                                                            echo 'display: flex;';
-                                                          } else {
-                                                            echo 'display: none;';
-                                                          }
-                                                          ?>">
-        <button onclick="cerrarEliminarForm()" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
-        <h2>Eliminar stock</h2>
-        <hr>
-        <form action="" method="post">
-          <label for="barcode">Código de barras</label>
-          <div class="search">
-            <input type="text" name="barcodedelete" required id="barcode" value="" autofocus>
-            <button type="submit" class="btn-verde"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-        </form>
-        <div class="datos">
-          <span>Item: <?php echo isset($itemEliminar) ? $itemEliminar : ''; ?></span>
-          <span>Nombre: <?php echo isset($nombreEliminar) ? $nombreEliminar : ''; ?></span>
-          <span>Categoría: <?php echo isset($categoriaEliminar) ? $categoriaEliminar : ''; ?></span>
-          <span>Banco: <?php echo isset($bancoEliminar) ? $bancoEliminar : ''; ?></span>
-        </div>
+
+        <div class="eliminarForm" id="eliminarForm"></div>
 
 
-        <form class="add" action="/Banco/app/modificarStock/anadirForm.php" method="post">
-          <input type="hidden" name="codebar" value="<?php echo isset($barcodeEliminar) ? $barcodeEliminar : ''; ?>" id="codebar" required>
-          <label for="stock">Stock a añadir</label>
-          <input name="stock" type="number" min="1" value="1" required>
-          <label for="lote">Lote</label>
-          <input type="text" name="lote" required>
-          <?php
-          if ($botonEliminar == true) {
-            echo '<button type="submit" class="btn-verde addB"><i class="fa-solid fa-plus"></i> Añadir</button>';
-          } else {
-            echo '<button type="submit" class="btn-verde addB disabled" disabled><i class="fa-solid fa-plus"></i> Añadir</button>';
-          }
-          ?>
-        </form>
+        <div class="agregarForm"></div>
       </div>
 
-
-      <div class="agregarForm"></div>
-    </div>
-
-    <?php
-    try {
-      $stmt = $pdo->prepare("SELECT i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, b.banco
+      <?php
+      try {
+        $stmt = $pdo->prepare("SELECT i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, b.banco
                         FROM items i
                         INNER JOIN bancos b ON i.banco = b.siglas
                         ORDER BY i.item ASC");
-      $stmt->execute();
+        $stmt->execute();
 
-      echo '<table>';
-      echo '<thead>';
-      echo '<tr>';
-      echo '<th style="text-align: center; vertical-align: middle;">Item</th>';
-      echo '<th>Nombre</th>';
-      echo '<th>Descripción corta</th>';
-      echo '<th>Descripción larga</th>';
-      echo '<th>Estudios</th>';
-      echo '<th style="text-align: center; vertical-align: middle;">Stock</th>';
-      echo '<th style="text-align: center; vertical-align: middle;">Categoría</th>';
-      echo '<th style="text-align: center; vertical-align: middle;">Banco</th>';
-      echo '</tr>';
-      echo '</thead>';
-      echo '<tbody>';
-
-      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $item = $row['item'];
-        $nombre = $row['nombre'];
-        $d_corta = $row['d_corta'];
-        $d_larga = $row['d_larga'];
-        $estudios = $row['estudios'];
-        $stock = $row['stock'];
-        $categoria = $row['categoria'];
-        $banco = $row['banco'];
-
+        echo '<table>';
+        echo '<thead>';
         echo '<tr>';
-        echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
-        echo '<td style="vertical-align: middle;">' . $nombre . '</td>';
-        echo '<td style="vertical-align: middle;">' . $d_corta . '</td>';
-        echo '<td style="vertical-align: middle;">' . $d_larga . '</td>';
-        echo '<td style="vertical-align: middle;">' . $estudios . '</td>';
-        echo '<td style="text-align: center; vertical-align: middle;">' . $stock . '</td>';
-        echo '<td style="text-align: center; vertical-align: middle;">' . $categoria . '</td>';
-        echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
+        echo '<th style="text-align: center; vertical-align: middle;">Item</th>';
+        echo '<th>Nombre</th>';
+        echo '<th>Descripción corta</th>';
+        echo '<th>Descripción larga</th>';
+        echo '<th>Estudios</th>';
+        echo '<th style="text-align: center; vertical-align: middle;">Stock</th>';
+        echo '<th style="text-align: center; vertical-align: middle;">Categoría</th>';
+        echo '<th style="text-align: center; vertical-align: middle;">Banco</th>';
         echo '</tr>';
-      }
+        echo '</thead>';
+        echo '<tbody>';
 
-      echo '</tbody>';
-      echo '</table>';
-    } catch (PDOException $e) {
-      echo 'Error: ' . $e->getMessage();
-    }
-    ?>
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $item = $row['item'];
+          $nombre = $row['nombre'];
+          $d_corta = $row['d_corta'];
+          $d_larga = $row['d_larga'];
+          $estudios = $row['estudios'];
+          $stock = $row['stock'];
+          $categoria = $row['categoria'];
+          $banco = $row['banco'];
+
+          echo '<tr>';
+          echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
+          echo '<td style="vertical-align: middle;">' . $nombre . '</td>';
+          echo '<td style="vertical-align: middle;">' . $d_corta . '</td>';
+          echo '<td style="vertical-align: middle;">' . $d_larga . '</td>';
+          echo '<td style="vertical-align: middle;">' . $estudios . '</td>';
+          echo '<td style="text-align: center; vertical-align: middle;">' . $stock . '</td>';
+          echo '<td style="text-align: center; vertical-align: middle;">' . $categoria . '</td>';
+          echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
+          echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+      } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+      }
+      ?>
 
 
 

@@ -7,22 +7,13 @@ $pdo = $db->connect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Obtener el código de barras ingresado
-  $barcodeadd = $_POST['barcodeadd'];
+  $barcode = $_POST['barcode'];
 
   try {
     // Consultar la información del elemento basado en el código de barras
-    $stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcodead");
-    $stmt->bindParam(':barcode', $barcodeadd);
+    $stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcode");
+    $stmt->bindParam(':barcode', $barcode);
     $stmt->execute();
-
-    // Valores predeterminados para las variables
-    $item = 'Item no encontrado.';
-    $nombre = 'Item no encontrado.';
-    $categoria = 'Item no encontrado.';
-    $banco = 'Item no encontrado.';
-    $botonAnadir = false;
-    $back = true;
-    $anadirForm = true;
 
     // Verificar si se encontró un elemento con el código de barras ingresado
     if ($stmt->rowCount() > 0) {
@@ -33,6 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $categoria = $row['categoria'];
       $banco = $row['banco'];
       $botonAnadir = true;
+      $back = true;
+      $anadirForm = true;
+    } else {
+      // Si no se encontró ningún elemento, establecer los campos como vacíos
+      $item = '';
+      $nombre = '';
+      $categoria = '';
+      $banco = '';
+      $botonAnadir = false;
       $back = true;
       $anadirForm = true;
     }
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nombre = '';
   $categoria = '';
   $banco = '';
-  $boton = false;
+  $botonAnadir = false;
+  $back = false;
+  $anadirForm = false;
 }
-
-// Enviar el formulario al archivo anadirForm.php
