@@ -19,7 +19,7 @@ $anadirForm = false;
 $eliminarForm = false;
 
 require_once '../../app/modificarStock/searchBarcodeAdd.php';
-require_once '../../app/modificarStock/searchBarcodeDelete.php';
+
 
 ?>
 
