@@ -7,12 +7,12 @@ $pdo = $db->connect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Obtener el código de barras ingresado
-  $barcode = $_POST['barcode'];
+  $barcodeadd = $_POST['barcodeadd'];
 
   try {
     // Consultar la información del elemento basado en el código de barras
-    $stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcode");
-    $stmt->bindParam(':barcode', $barcode);
+    $stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcodead");
+    $stmt->bindParam(':barcode', $barcodeadd);
     $stmt->execute();
 
     // Valores predeterminados para las variables

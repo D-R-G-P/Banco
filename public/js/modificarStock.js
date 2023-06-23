@@ -7,3 +7,13 @@ function cerrarAnadirForm() {
         back.style.display = "none"
     }
 }
+
+function cerrarEliminarForm() {
+    if (eliminarForm.style.display == "none") {
+        eliminarForm.style.display = "flex";
+        back.style.display = "flex";
+    } else {
+        eliminarForm.style.display = "none"
+        back.style.display = "none"
+    }
+}

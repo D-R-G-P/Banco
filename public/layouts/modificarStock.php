@@ -3,7 +3,6 @@
 require_once '../../app/db/user_session.php';
 require_once '../../app/db/user.php';
 require_once '../../app/db/db.php';
-require_once '../../app/modificarStock/searchBarcodeAdd.php';
 
 $user = new User();
 $userSession = new UserSession();
@@ -14,6 +13,13 @@ $db = new DB();
 $pdo = $db->connect();
 
 $botonAnadir = false;
+$botonEliminar = false;
+$back = false;
+$anadirForm = false;
+$eliminarForm = false;
+
+require_once '../../app/modificarStock/searchBarcodeAdd.php';
+require_once '../../app/modificarStock/searchBarcodeDelete.php';
 
 ?>
 
@@ -87,7 +93,7 @@ $botonAnadir = false;
 
     <div class="acciones">
       <button class="anadir" onclick="cerrarAnadirForm()"><i class="fa-solid fa-plus"></i> Añadir stock</button>
-      <button class="eliminar"><i class="fa-solid fa-minus"></i> Eliminar stock</button>
+      <button class="eliminar" onclick="cerrarEliminarForm()"><i class="fa-solid fa-minus"></i> Eliminar stock</button>
       <button class="agregar"><i class="fa-solid fa-file-circle-plus"></i> Añadir item</button>
 
       <div class="back" id="back" style="<?php if ($back == true) {
@@ -108,7 +114,7 @@ $botonAnadir = false;
           <form action="" method="post">
             <label for="barcode">Código de barras</label>
             <div class="search">
-              <input type="text" name="barcode" required id="barcode" value="" autofocus>
+              <input type="text" name="barcodeadd" required id="barcode" value="" autofocus>
               <button type="submit" class="btn-verde"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
           </form>
@@ -133,7 +139,7 @@ $botonAnadir = false;
             ?>
           </form>
         </div>
-      </div>
+      
 
 
       <div class="eliminarForm" id="eliminarForm" style="<?php if ($eliminarForm == true) {
@@ -148,7 +154,7 @@ $botonAnadir = false;
         <form action="" method="post">
           <label for="barcode">Código de barras</label>
           <div class="search">
-            <input type="text" name="barcode" required id="barcode" value="" autofocus>
+            <input type="text" name="barcodedelete" required id="barcode" value="" autofocus>
             <button type="submit" class="btn-verde"><i class="fa-solid fa-magnifying-glass"></i></button>
           </div>
         </form>
@@ -158,6 +164,8 @@ $botonAnadir = false;
           <span>Categoría: <?php echo isset($categoriaEliminar) ? $categoriaEliminar : ''; ?></span>
           <span>Banco: <?php echo isset($bancoEliminar) ? $bancoEliminar : ''; ?></span>
         </div>
+
+
         <form class="add" action="/Banco/app/modificarStock/anadirForm.php" method="post">
           <input type="hidden" name="codebar" value="<?php echo isset($barcodeEliminar) ? $barcodeEliminar : ''; ?>" id="codebar" required>
           <label for="stock">Stock a añadir</label>
