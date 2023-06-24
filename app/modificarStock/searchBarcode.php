@@ -25,16 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $banco = $row['banco'];
       $botonAnadir = true;
       $back = true;
-      $anadirForm = true;
+      $formCodebar = true;
     } else {
       // Si no se encontró ningún elemento, establecer los campos como vacíos
-      $item = '';
-      $nombre = '';
-      $categoria = '';
-      $banco = '';
+      $item = 'Item no encontrado';
+      $nombre = 'Item no encontrado';
+      $categoria = 'Item no encontrado';
+      $banco = 'Item no encontrado';
       $botonAnadir = false;
       $back = true;
-      $anadirForm = true;
+      $formCodebar = true;
     }
   } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
@@ -48,5 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $banco = '';
   $botonAnadir = false;
   $back = false;
-  $anadirForm = false;
+  $formCodebar = false;
 }

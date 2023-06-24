@@ -16,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
     $barcode = $_POST['codebar'];
     $lote = $_POST['lote'];
-    $cantidad = "+" . $_POST['stock'];
+    $cantidad = "-" . $_POST['stock'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener los datos del formulario
         $barcode = $_POST['codebar'];
         $lote = $_POST['lote'];
-        $cantidad = +(int)$_POST['stock']; // Convertir a entero y negar el valor
+        $cantidad = -(int)$_POST['stock']; // Convertir a entero y negar el valor
 
         try {
             // Restar el stock en la tabla items
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redireccionar o mostrar un mensaje de éxito
             // ...
-            $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Stock añadido correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+            $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Stock removido correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
             header('Location: ../../public/layouts/modificarStock.php');
             exit();
         } catch (PDOException $e) {

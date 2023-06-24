@@ -8,17 +8,17 @@
 .notis {
   z-index: 100000;
   background-color: #198754;
-  border: .2vw #157347 solid;
+  border: 0.2vw #157347 solid;
   top: 10vw;
-  border-radius: .8vw;
+  border-radius: 0.8vw;
   padding: 1vw;
   transform: translate(0, -20vw);
-  transition: .8s ease-in-out;
+  transition: 0.8s ease-in-out;
 }
 
 .notis.active {
   transform: translate(0, 3.8vw);
-  transition: .8s ease-in-out;
+  transition: 0.8s ease-in-out;
 }
 
 article {
@@ -48,6 +48,7 @@ article .acciones .agregar {
   font-size: 1vw;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
+  margin-bottom: 1vw;
 }
 
 .btn-verde:hover,
@@ -76,15 +77,14 @@ article .acciones .eliminar:hover {
   background-color: #b02a37;
   border: #b02a37;
   transition: all 0.15s ease-in-out;
-  
 }
 
 input {
-  padding: .4vw;
+  padding: 0.4vw;
   font-size: 1vw;
   /* background-color: #212529; */
-  border: .1vw #495057 solid;
-  border-radius: .5vw;
+  border: 0.1vw #495057 solid;
+  border-radius: 0.5vw;
 }
 
 article .acciones .back {
@@ -102,13 +102,10 @@ article .acciones .back {
   height: 100%;
 }
 
-
-
-
-article .acciones .anadirForm {
+article .acciones .formCodebar {
   background-color: #dddddd;
-  border: #000 .2vw solid;
-  border-radius: .8vw;
+  border: #000 0.2vw solid;
+  border-radius: 0.8vw;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -119,26 +116,26 @@ article .acciones .anadirForm {
   font-size: 1vw;
 }
 
-article .acciones .anadirForm button.btn-rojo {
+article .acciones .formCodebar button.btn-rojo#cross {
   top: -3.8vw;
   right: -14.7vw;
   position: relative;
 }
 
-article .acciones .anadirForm form {
+article .acciones .formCodebar form {
   margin: 2vw 0 1vw 0;
 }
 
-article .acciones .anadirForm form label {
+article .acciones .formCodebar form label {
   font-size: 1.4vw;
   font-weight: 500;
 }
 
-article .acciones .anadirForm form .search input[name="barcode"] {
+article .acciones .formCodebar form .search input[name="barcode"] {
   width: 20vw;
 }
 
-article .acciones .anadirForm .datos {
+article .acciones .formCodebar .datos {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -147,18 +144,50 @@ article .acciones .anadirForm .datos {
   font-weight: 400;
 }
 
-article .acciones .anadirForm .datos span {
-  margin: .5vw 0 .5vw 0;
+article .acciones .formCodebar .datos span {
+  margin: 0.5vw 0;
 }
 
-article .acciones .anadirForm .add {
+article .acciones .formCodebar .botones {
+  margin: 1vw 0 1vw 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+article .acciones .formCodebar .botones .btn-rojo {
+  margin: 0;
+}
+
+article .acciones .formCodebar .add {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
 }
 
-article .acciones .anadirForm .addB {
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-inner-spin-button,
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+article .acciones .formCodebar form input[name="stock"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+article .acciones .formCodebar .addB {
   width: 6vw;
   margin-top: 1vw;
   margin-left: 17.5vw;
@@ -175,64 +204,41 @@ button.disabled:hover {
   border: #214032;
 }
 
-
-article .acciones .eliminarForm {
-  background-color: #dddddd;
-  border: #000 .2vw solid;
-  border-radius: .8vw;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  padding: 3vw;
-  width: 30vw;
-  top: 10vw;
-  left: 10vw;
-  font-size: 1vw;
-}
-
-article .acciones .eliminarForm button.btn-rojo {
-  top: -3.8vw;
-  right: -14.7vw;
-  position: relative;
-}
-
-article .acciones .eliminarForm form {
-  margin: 2vw 0 1vw 0;
-}
-
-article .acciones .eliminarForm form label {
-  font-size: 1.4vw;
-  font-weight: 500;
-}
-
-article .acciones .eliminarForm form .search input[name="barcode"] {
-  width: 20vw;
-}
-
-article .acciones .eliminarForm .datos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  font-size: 1.3vw;
-  font-weight: 400;
-}
-
-article .acciones .eliminarForm .datos span {
-  margin: .5vw 0 .5vw 0;
-}
-
-article .acciones .eliminarForm .add {
+/* REMOVE */
+article .acciones .formCodebar .remove {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
 }
 
-article .acciones .eliminarForm .addB {
+article .acciones .formCodebar form input[name="stock"]::-webkit-inner-spin-button,
+article .acciones .formCodebar form input[name="stock"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+article .acciones .formCodebar form input[name="stock"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+article .acciones .formCodebar .removeB {
   width: 6vw;
   margin-top: 1vw;
   margin-left: 17.5vw;
+}
+
+.remove.disabled {
+  background-color: #214032;
+  border: #214032;
+  cursor: default;
+}
+
+.remove.disabled:hover {
+  background-color: #214032;
+  border: #214032;
 }
 
 
@@ -246,6 +252,17 @@ article .acciones .eliminarForm .addB {
 
 
 
+
+
+
+
+
+
+
+
+
+
+/* TABLE */
 table {
   border: 0.2vw solid #000;
   border-collapse: separate;
