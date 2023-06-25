@@ -51,6 +51,10 @@ article .acciones .agregar {
   margin-bottom: 1vw;
 }
 
+.action {
+  margin-left: 5vw;
+}
+
 .btn-verde:hover,
 article .acciones .anadir:hover,
 article .acciones .agregar:hover {
@@ -79,7 +83,7 @@ article .acciones .eliminar:hover {
   transition: all 0.15s ease-in-out;
 }
 
-input {
+input, select {
   padding: 0.4vw;
   font-size: 1vw;
   /* background-color: #212529; */
@@ -212,8 +216,16 @@ article .acciones .formCodebar .remove {
   justify-content: flex-start;
 }
 
-article .acciones .formCodebar form input[name="stock"]::-webkit-inner-spin-button,
-article .acciones .formCodebar form input[name="stock"]::-webkit-outer-spin-button {
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-inner-spin-button,
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -241,16 +253,36 @@ article .acciones .formCodebar .removeB {
   border: #214032;
 }
 
+/* addItem */
+.agregarForm {
+  background-color: #dddddd;
+  border: #000 0.2vw solid;
+  border-radius: 0.8vw;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vw;
+  width: 30vw;
+  top: 10vw;
+  left: 10vw;
+  font-size: 1vw;
+}
 
+.agregarForm form {
+  display: flex;
+  flex-direction: column;
+}
 
-
-
-
-
-
-
-
-
+textarea {
+  padding: 0.4vw;
+  font-size: 1vw;
+  /* background-color: #212529; */
+  border: 0.1vw #495057 solid;
+  border-radius: 0.5vw;
+  width: 23vw;
+  height: 5vw;
+  resize: none;
+}
 
 
 

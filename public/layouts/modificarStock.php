@@ -91,6 +91,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
       <div class="acciones">
          <button class="anadir" onclick="toggleForm()"><i class="fa-solid fa-plus"></i> Nueva acción</button>
+         <button class="action btn-verde" onclick="toggleAdd()"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
 
 
          <div class="back" id="back" style="<?php if ($back == true) {
@@ -122,7 +123,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
                </div>
                <div class="botones">
                   <button onclick="openAdd()" class="btn-verde"><i class="fa-solid fa-plus"></i> Añadir stock</button>
-                  <button onclick="openRemove()" class="btn-rojo"><i class="fa-solid fa-minus"></i> Eliminar stock</button>
+                  <button onclick="openRemove()" class="btn-rojo" style="height: min-content;"><i class="fa-solid fa-minus"></i> Eliminar stock</button>
                </div>
 
 
@@ -161,10 +162,58 @@ require_once '../../app/modificarStock/searchBarcode.php';
             </div>
 
 
+            <div class="agregarForm" id="agregarForm" style="display: none;">
+               <h2>Añadir item</h2>
+               <form action="/Banco/app/modificarStock/addItem.php" method="post">
+                  <label for="item">Número de item</label>
+                  <input type="number" name="item" required>
 
+                  <label for="codigobarras">Código de barras</label>
+                  <input type="text" name="codigobarras" required>
 
+                  <label for="nombre">Nombre</label>
+                  <input type="text" name="nombre" required>
 
-            <div class="agregarForm"></div>
+                  <label for="dcorta">Descripcion corta</label>
+                  <textarea name="dcorta" required></textarea>
+
+                  <label for="dlarga">Descripcion larga</label>
+                  <textarea name="dlarga" required></textarea>
+
+                  <label for="estudios">Estudios</label>
+                  <textarea name="estudios" required></textarea>
+
+                  <label for="categoria">Categoría</label>
+                  <select name="categoria" required>
+                     <option value="" disabled selected>Seleccionar una categoria</option>
+                     <?php
+                     // Obtener las categorías de la base de datos
+                     $stmt = $pdo->prepare("SELECT DISTINCT categoria FROM items");
+                     $stmt->execute();
+                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $categoria = $row['categoria'];
+                        echo "<option value='$categoria'>$categoria</option>";
+                     }
+                     ?>
+                  </select>
+
+                  <label for="banco">Banco</label>
+                  <select name="banco" required>
+                     <option value="" disabled selected>Seleccionar un banco</option>
+                     <?php
+                     // Obtener los bancos de la base de datos
+                     $stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
+                     $stmt->execute();
+                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $banco = $row['banco'];
+                        $siglas = $row['siglas'];
+                        echo "<option value='$siglas'>$banco - $siglas</option>";
+                     }
+                     ?>
+                  </select>
+                  <button class="btn-verde" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
+               </form>
+            </div>
          </div>
 
 

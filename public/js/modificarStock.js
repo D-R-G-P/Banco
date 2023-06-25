@@ -27,3 +27,13 @@ function openRemove() {
         remove.style.display = "none";
     }
 }
+
+function toggleAdd() {
+    if (agregarForm.style.display == "none") {
+        agregarForm.style.display = "flex";
+        back.style.display = "flex";
+    } else {
+        agregarForm.style.display = "none";
+        back.style.display = "none";
+    }
+}
