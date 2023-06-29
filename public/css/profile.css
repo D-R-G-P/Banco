@@ -1,0 +1,55 @@
+form {
+    margin-top: 1vw;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.banco {
+    width: max-content;
+    padding: 2vw;
+    border: .3vw #000 solid;
+    border-radius: .8vw;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+}
+
+.act {
+    transform: scale(1);
+    transition: .5s ease-in-out;
+}
+
+.banco h2 {
+    font-size: 1.5vw;
+}
+
+.banco button {
+    width: max-content;
+    margin-top: 1vw;
+}
+
+
+
+header .userOptions {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+  font-size: 1.45vw;
+  border-radius: 1vw;
+  right: 1vw;
+  top: 5vw;
+  max-height: 0vh;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+  padding-left: 0.5vw;
+  border-top: 0.3vw #5c5c5c solid;
+}
+
+header .userOptions.active {
+  top: 5vw;
+  max-height: 100vh;
+  transition: all 0.3s ease-in-out;
+  visibility: visible;
+}

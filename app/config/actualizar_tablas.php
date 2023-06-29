@@ -49,9 +49,9 @@ try {
       $stock = $itemRow['stock'];
 
       $html .= '<tr>';
-      $html .= "<td>$item</td>";
+      $html .= '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
       $html .= "<td>$nombre</td>";
-      $html .= "<td>$stock</td>";
+      $html .= '<td style="text-align: center; vertical-align: middle;">' . $stock . '</td>';
       $html .= '</tr>';
     }
 

@@ -17,25 +17,25 @@ body {
   width: 100%;
   margin: 0;
   background-color: #dddddd;
-  background-image: radial-gradient(#cfcfcfd4 .1vw, transparent 0);
+  background-image: radial-gradient(#cfcfcfd4 0.1vw, transparent 0);
   background-size: 1vw 1vw;
   background-position: -19vw -19vw;
 }
 
 header {
   display: flex;
-    z-index: 100;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color2);
-    padding: 0.5vw;
-    height: 3.5vw;
-    width: 100%;
-    position: fixed;
-    top: 0;
+  z-index: 100;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color2);
+  padding: 0.5vw;
+  height: 3.5vw;
+  width: 100%;
+  position: fixed;
+  top: 0;
 }
 
 header .logo svg {
@@ -111,17 +111,22 @@ header .userOptions {
   position: absolute;
   background-color: #fff;
   font-size: 1.45vw;
-  padding: 0.5vw;
   border-radius: 1vw;
   right: 1vw;
-  top: -30vw;
+  top: 5vw;
+  max-height: 0vh;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+  padding-left: 0.5vw;
   border-top: 0.3vw #5c5c5c solid;
-  transition: all 0.5s ease-in-out;
 }
 
 header .userOptions.active {
   top: 5vw;
-  transition: all 0.5s ease-in-out;
+  max-height: 100vh;
+  transition: all 0.3s ease-in-out;
+  visibility: visible;
 }
 
 header .userOptions::before {
@@ -153,16 +158,16 @@ header .userOptions .botones a {
 
 footer {
   background-color: var(--color2);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0.5vw;
-    font-size: 1vw;
-    height: 2vw;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    color: #e6e6e6;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.5vw;
+  font-size: 1vw;
+  height: 2vw;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  color: #e6e6e6;
 }
