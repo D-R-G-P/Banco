@@ -10,13 +10,16 @@ form {
     padding: 2vw;
     border: .3vw #000 solid;
     border-radius: .8vw;
-    transform: scale(0);
     transition: .5s ease-in-out;
+    max-height: 0vh;
+    overflow: hidden;
+    visibility: hidden;
 }
 
 .act {
-    transform: scale(1);
+    max-height: 30vh;
     transition: .5s ease-in-out;
+    visibility: visible;
 }
 
 .banco h2 {
@@ -26,30 +29,4 @@ form {
 .banco button {
     width: max-content;
     margin-top: 1vw;
-}
-
-
-
-header .userOptions {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background-color: #fff;
-  font-size: 1.45vw;
-  border-radius: 1vw;
-  right: 1vw;
-  top: 5vw;
-  max-height: 0vh;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-  visibility: hidden;
-  padding-left: 0.5vw;
-  border-top: 0.3vw #5c5c5c solid;
-}
-
-header .userOptions.active {
-  top: 5vw;
-  max-height: 100vh;
-  transition: all 0.3s ease-in-out;
-  visibility: visible;
 }

@@ -42,6 +42,10 @@ article .tablas div {
   width: 30%;
 }
 
+h2 {
+  font-size: 2vw;
+}
+
 table {
   border: 0.2vw solid #000;
   border-collapse: separate;
