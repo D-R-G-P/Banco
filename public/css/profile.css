@@ -5,28 +5,28 @@ form {
     width: max-content;
 }
 
-.banco {
+form button {
     width: max-content;
-    padding: 2vw;
-    border: .3vw #000 solid;
+    margin: 1vw;
+    margin-left: 40%;
+}
+
+.accordion-heading {
+    cursor: pointer;
+    background-color: var(--color4);
+    padding: 10px;
+    margin: 0;
     border-radius: .8vw;
-    transition: .5s ease-in-out;
-    max-height: 0vh;
+  }
+  
+  .accordion-content {
+    max-height: 0;
     overflow: hidden;
-    visibility: hidden;
-}
-
-.act {
-    max-height: 30vh;
-    transition: .5s ease-in-out;
-    visibility: visible;
-}
-
-.banco h2 {
-    font-size: 1.5vw;
-}
-
-.banco button {
-    width: max-content;
-    margin-top: 1vw;
-}
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .accordion-item.active .accordion-content {
+    max-height: 500px; /* Ajusta la altura máxima según tus necesidades */
+    transition: max-height 0.3s ease-in;
+  }
+  
