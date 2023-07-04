@@ -107,7 +107,7 @@ $pdo = $db->connect();
                   $id_banco = $row['id'];
                   $banco = $row['banco'];
                   $siglas = $row['siglas'];
-                  $options .= "<option value='$id_banco'>$banco - $siglas</option>";
+                  $options .= "<option value='$siglas'>$banco - $siglas</option>";
                 }
 
                 // Escribir las opciones en el DOM
