@@ -9,13 +9,14 @@
 article {
   padding: 1vw;
   width: 100%;
-  position: absolute;
+  margin: 3vw 0;
   top: 3.5vw;
   bottom: 2vw;
   min-height: calc(100% - 5.5vw);
   display: flex;
   flex-direction: column;
   color: #2e2e2e;
+  font-size: 1vw;
 }
 
 .btn-verde {

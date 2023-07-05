@@ -1,32 +1,103 @@
 form {
-    margin-top: 1vw;
-    display: flex;
-    flex-direction: column;
-    width: max-content;
+  margin-top: 1vw;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
 }
 
 form button {
-    width: max-content;
-    margin: 1vw;
-    margin-left: 40%;
+  width: max-content;
+  margin: 1vw;
+  margin-left: 40%;
 }
 
 .accordion-heading {
-    cursor: pointer;
-    background-color: var(--color4);
-    padding: 10px;
-    margin: 1vw 0;
-    border-radius: .8vw;
-  }
-  
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-  }
-  
-  .accordion-item.active .accordion-content {
-    max-height: 500px; /* Ajusta la altura máxima según tus necesidades */
-    transition: max-height 0.3s ease-in;
-  }
-  
+  cursor: pointer;
+  background-color: var(--color1);
+  color: #fff;
+  padding: 0.8vw;
+  margin: 1vw 0 0 0;
+  border-radius: 0.8vw;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+.accordion-heading:hover {
+  background-color: var(--color3);
+  transition: all 0.3s ease-in-out;
+}
+
+.accordion-content {
+  width: 98.5%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-item {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 35vw; /* Ajusta la altura máxima según tus necesidades */
+  transition: max-height 0.3s ease-in;
+  background-color: #c1c1c1;
+  border-radius: 0 0 0.8vw 0.8vw;
+  padding: 1vw;
+
+  border-color: #000;
+  border-style: solid;
+  border-width: 0 0.2vw 0.2vw 0.2vw;
+}
+
+.accordion {
+  width: 40%;
+}
+
+article {
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.datos-cabeza {
+  background-color: var(--color1);
+  color: #fff;
+  padding: 0.8vw;
+  margin: 1vw 0 0 0;
+  border-radius: 0.8vw;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}
+
+.datos-contenido {
+  max-height: 35vw; /* Ajusta la altura máxima según tus necesidades */
+  transition: max-height 0.3s ease-in;
+  background-color: #c1c1c1;
+  border-radius: 0 0 0.8vw 0.8vw;
+  padding: 1vw;
+
+  border-color: #000;
+  border-style: solid;
+  border-width: 0 0.2vw 0.2vw 0.2vw;
+  width: 98.5%;
+}
