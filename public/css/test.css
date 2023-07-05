@@ -1,0 +1,173 @@
+article .acciones .formCodebar {
+  background-color: #dddddd;
+  font-size: 1vw;
+  border: #000 0.2vw solid;
+  border-radius: 0.8vw;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+article .acciones .formCodebar .crossButton {
+    width: 100%;
+}
+
+article .acciones .formCodebar button.btn-rojo#cross {
+    float: right;
+    margin: 1vw 1vw 0 0;
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+article .acciones .formCodebar .forms {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+
+article .acciones .formCodebar .forms .formCode {
+    padding: 1vw;
+}
+
+article .acciones .formCodebar form {
+  margin: 2vw 0 1vw 0;
+}
+
+article .acciones .formCodebar form label {
+  font-size: 1.4vw;
+  font-weight: 500;
+}
+
+article .acciones .formCodebar form .search {
+    width: 25vw;
+}
+
+article .acciones .formCodebar form .search input[name="barcode"] {
+  width: 90%;
+}
+
+article .acciones .formCodebar .datos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  font-size: 1.3vw;
+  font-weight: 400;
+}
+
+article .acciones .formCodebar .datos span {
+  margin: 0.5vw 0;
+}
+
+article .acciones .formCodebar .botones {
+  margin: 1vw 0 1vw 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+article .acciones .formCodebar .botones .btn-rojo {
+  margin: 0;
+}
+
+article .acciones .formCodebar .add {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 1vw;
+}
+
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-inner-spin-button,
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+article .acciones .formCodebar form input[name="stock"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+article .acciones .formCodebar .addB {
+  width: 6vw;
+  margin-top: 1vw;
+  margin-left: 13vw;
+}
+
+button.disabled {
+  background-color: #214032;
+  border: #214032;
+  cursor: default;
+}
+
+button.disabled:hover {
+  background-color: #214032;
+  border: #214032;
+}
+
+/* REMOVE */
+article .acciones .formCodebar .remove {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1vw;
+}
+
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-inner-spin-button,
+article
+  .acciones
+  .formCodebar
+  form
+  input[name="stock"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+article .acciones .formCodebar form input[name="stock"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+article .acciones .formCodebar .removeB {
+  width: 6vw;
+  margin-top: 1vw;
+  margin-left: 13vw;
+}
+
+.remove.disabled {
+  background-color: #214032;
+  border: #214032;
+  cursor: default;
+}
+
+.remove.disabled:hover {
+  background-color: #214032;
+  border: #214032;
+}
