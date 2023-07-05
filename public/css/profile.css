@@ -1,8 +1,10 @@
 form {
   margin-top: 1vw;
-  display: flex;
-  flex-direction: column;
-  width: max-content;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-content: center;
 }
 
 form button {
@@ -32,6 +34,8 @@ form button {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
+  justify-content: center;
+  display: flex;
 }
 
 .accordion-item {
@@ -100,4 +104,10 @@ article {
   border-style: solid;
   border-width: 0 0.2vw 0.2vw 0.2vw;
   width: 98.5%;
+  justify-content: center;
+  display: flex;
+}
+
+input, select {
+  width: 100%;
 }

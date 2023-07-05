@@ -62,3 +62,27 @@ input, select {
   border: 0.1vw #495057 solid;
   border-radius: 0.5vw;
 }
+
+.notisContent {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.notis {
+  z-index: 100000;
+  background-color: #198754;
+  border: 0.2vw #157347 solid;
+  color: #fff;
+  top: 10vw;
+  border-radius: 0.8vw;
+  padding: 1vw;
+  transform: translate(0, -20vw);
+  transition: 0.8s ease-in-out;
+}
+
+.notis.active {
+  transform: translate(0, 3.8vw);
+  transition: 0.8s ease-in-out;
+}
