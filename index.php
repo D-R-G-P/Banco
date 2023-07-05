@@ -1,4 +1,4 @@
-<?php 
+<?php f
 session_set_cookie_params(3600);
 include_once 'app/db/user.php';
 include_once 'app/db/user_session.php';
