@@ -120,26 +120,13 @@ header .userOptions {
   visibility: hidden;
   padding-left: 0.5vw;
   border-top: 0.3vw #5c5c5c solid;
+  padding: .8vw;
 }
 
 header .userOptions.active {
-  top: 5vw;
   max-height: 100vh;
   transition: all 0.3s ease-in-out;
   visibility: visible;
-}
-
-header .userOptions::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 1vw solid transparent;
-  border-right: 1vw solid transparent;
-  border-bottom: 1vw solid #5c5c5c;
-  position: absolute;
-  top: -1vw;
-  right: 0.6vw;
-  border-radius: 0.8vw;
 }
 
 header .userOptions .datos div {

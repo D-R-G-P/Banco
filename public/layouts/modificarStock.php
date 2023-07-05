@@ -32,7 +32,6 @@ require_once '../../app/modificarStock/searchBarcode.php';
 	<link rel="stylesheet" href="/Banco/public/css/base.css">
 	<link rel="stylesheet" href="/Banco/public/css/header.css">
 	<link rel="stylesheet" href="/Banco/public/css/modificarStock.css">
-	<link rel="stylesheet" href="/Banco/public/css/test.css">
 
 	<!-- FontAwesome -->
 	<script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
@@ -65,6 +64,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 		</button>
 
 		<div id="userOptions" class="userOptions">
+			
 			<div class="datos">
 				<div>
 					Bienvenido/a <br>

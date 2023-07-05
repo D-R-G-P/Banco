@@ -204,7 +204,7 @@ $pdo = $db->connect();
 			</div>
 		</div>
 
-		<div class="datos">
+		<div class="datosForm">
 			<h2 class="datos-cabeza">Modificar mis datos</h2>
 			<div class="datos-contenido">
 				<form action="/Banco/app/profile/modificar.php" method="post">
