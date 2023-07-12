@@ -50,12 +50,12 @@ $pdo = $db->connect();
 			<a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
 		</div>
 
-		<button id="user" class="user" onclick="menuUser();">
-			<i id="userI" class="fa-solid fa-user"></i>
-			<i id="flecha" class="fa-solid fa-caret-down"></i>
+		<button id="user" class="user BORON">
+			<i id="userI" class="fa-solid fa-user BORON"></i>
+			<i id="flecha" class="fa-solid fa-caret-down BORON"></i>
 		</button>
 
-		<div id="userOptions" class="userOptions">
+		<div id="userOptions" class="userOptions BORON">
 			<div class="datos">
 				<div>
 					Bienvenido/a <br>
@@ -73,8 +73,7 @@ $pdo = $db->connect();
 			</div>
 			<div class="botones">
 				<a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
-				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar
-					sesión</a>
+				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
 			</div>
 		</div>
 	</header>
@@ -196,6 +195,45 @@ $pdo = $db->connect();
 							}
 							?>
 						</select>
+
+						<button type="submit" class="btn-verde"><i class="fa-solid fa-plus"></i> Agregar
+							categoria</button>
+					</form>
+				</div>
+			</div>
+			<div class="accordion-item">
+
+
+				<h2 class="accordion-heading">Agregar formulario</h2>
+				<div class="accordion-content">
+					<form action="/Banco/app/profile/formulario.php" method="post">
+						<label for="banco">Banco al que pertenece</label>
+						<select name="banco" required>
+							<option value="" disabled selected>Seleccione una opción</option>
+
+							<?php
+							try {
+								$stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+								$stmt->execute();
+
+								$options = "";
+								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+									$id_banco = $row['id'];
+									$banco = $row['banco'];
+									$siglas = $row['siglas'];
+									$options .= "<option value='$siglas'>$banco - $siglas</option>";
+								}
+
+								// Escribir las opciones en el DOM
+								echo $options;
+							} catch (PDOException $e) {
+								echo 'Error: ' . $e->getMessage();
+							}
+							?>
+						</select>
+
+						<label for="formularioArea">Codigo HTML para formulario</label>
+						<textarea name="formularioArea"></textarea>
 
 						<button type="submit" class="btn-verde"><i class="fa-solid fa-plus"></i> Agregar
 							categoria</button>

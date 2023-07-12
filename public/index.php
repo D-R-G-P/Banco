@@ -34,12 +34,12 @@ $pdo = $db->connect();
       <a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
     </div>
 
-    <button id="user" class="user" onclick="menuUser();">
-      <i id="userI" class="fa-solid fa-user"></i>
-      <i id="flecha" class="fa-solid fa-caret-down"></i>
+    <button id="user" class="user BORON">
+      <i id="userI" class="fa-solid fa-user BORON"></i>
+      <i id="flecha" class="fa-solid fa-caret-down BORON"></i>
     </button>
 
-    <div id="userOptions" class="userOptions">
+    <div id="userOptions" class="userOptions BORON">
       <div class="datos">
         <div>
           Bienvenido/a <br>

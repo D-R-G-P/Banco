@@ -46,47 +46,45 @@ require_once '../../app/modificarStock/searchBarcode.php';
 	}
 	?>
 
-	<header>
-		<div class="logo">
-			<a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
-		</div>
+<header>
+    <div class="logo">
+      <a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
+    </div>
 
-		<div class="links">
-			<a href="/Banco/">Inicio</a>
-			<a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
-			<a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
-			<a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
-		</div>
+    <div class="links">
+      <a href="/Banco/">Inicio</a>
+      <a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
+      <a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
+      <a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
+    </div>
 
-		<button id="user" class="user" onclick="menuUser();">
-			<i id="userI" class="fa-solid fa-user"></i>
-			<i id="flecha" class="fa-solid fa-caret-down"></i>
-		</button>
+    <button id="user" class="user BORON">
+      <i id="userI" class="fa-solid fa-user BORON"></i>
+      <i id="flecha" class="fa-solid fa-caret-down BORON"></i>
+    </button>
 
-		<div id="userOptions" class="userOptions">
-			
-			<div class="datos">
-				<div>
-					Bienvenido/a <br>
-					<?php echo $user->getNombre() . " " . $user->getApellido(); ?>
-				</div>
-				<div>
-					Perfil: <br>
-					<?php echo $user->getTipo_usuario() ?>
-				</div>
-				<div>
-					Cargo: <br>
-					<?php echo $user->getCargo() ?>
-				</div>
+    <div id="userOptions" class="userOptions BORON">
+      <div class="datos">
+        <div>
+          Bienvenido/a <br>
+          <?php echo $user->getNombre() . " " . $user->getApellido(); ?>
+        </div>
+        <div>
+          Perfil: <br>
+          <?php echo $user->getTipo_usuario() ?>
+        </div>
+        <div>
+          Cargo: <br>
+          <?php echo $user->getCargo() ?>
+        </div>
 
-			</div>
-			<div class="botones">
-				<a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
-				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar
-					sesión</a>
-			</div>
-		</div>
-	</header>
+      </div>
+      <div class="botones">
+        <a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
+        <a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+      </div>
+    </div>
+  </header>
 
 	<article>
 
@@ -187,20 +185,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 						<label for="estudios">Estudios</label>
 						<textarea name="estudios" required></textarea>
 
-						<label for="categoria">Categoría</label>
-						<select name="categoria" required>
-							<option value="" disabled selected>Seleccionar una categoria</option>
-							<?php
-							// Obtener las categorías de la base de datos
-							$stmt = $pdo->prepare("SELECT DISTINCT categoria FROM items");
-							$stmt->execute();
-							while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								$categoria = $row['categoria'];
-								echo "<option value='$categoria'>$categoria</option>";
-							}
-							?>
-						</select>
-
+						
 						<label for="banco">Banco</label>
 						<select name="banco" required>
 							<option value="" disabled selected>Seleccionar un banco</option>
@@ -215,6 +200,21 @@ require_once '../../app/modificarStock/searchBarcode.php';
 							}
 							?>
 						</select>
+
+						<label for="categoria">Categoría</label>
+						<select name="categoria" required>
+							<option value="" disabled selected>Seleccionar una categoria</option>
+							<?php
+							// Obtener las categorías de la base de datos
+							$stmt = $pdo->prepare("SELECT DISTINCT categoria FROM items");
+							$stmt->execute();
+							while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+								$categoria = $row['categoria'];
+								echo "<option value='$categoria'>$categoria</option>";
+							}
+							?>
+						</select>
+						
 						<button class="btn-verde" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar
 							item</button>
 					</form>
