@@ -94,7 +94,7 @@ article {
 }
 
 .datos-contenido {
-  max-height: 35vw; /* Ajusta la altura máxima según tus necesidades */
+  max-height: 35vw;
   transition: max-height 0.3s ease-in;
   background-color: #c1c1c1;
   border-radius: 0 0 0.8vw 0.8vw;

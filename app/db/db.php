@@ -16,9 +16,7 @@ class DB
         $this->password = 'rFV7wFPrua';
         $this->charset  = 'utf8mb4';
     }
-    // bancoProgram
-    // DRGPHSM2022drgphsm2022!
-    
+
     function connect()
     {
         try {
@@ -28,11 +26,10 @@ class DB
                 PDO::ATTR_EMULATE_PREPARES => false,
             ];
             $pdo = new PDO($connection, $this->user, $this->password, $options);
-            
+
             return $pdo;
         } catch (PDOException $e) {
             print_r('Error connection: ' . $e->getMessage());
         }
     }
 }
-

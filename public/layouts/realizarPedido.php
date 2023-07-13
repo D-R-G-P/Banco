@@ -98,9 +98,92 @@ $pdo = $db->connect();
                 ?>
             </select>
         </div>
-
         <hr>
+
         <div class="formContainer" id="formContainer"></div>
+
+
+
+
+        <style>
+            .solicitud {
+                border: .2vw #6d6d6d solid;
+                padding: 1vw;
+                margin-top: 3vh;
+                width: 80%;
+            }
+
+            .cabecera {
+                height: 15vh;
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .cabecera img {
+                height: 15vh;
+                width: auto;
+            }
+
+            .cabecera h1 {
+                text-decoration: underline;
+            }
+        </style>
+
+        <div class="solicitud">
+            <form action="">
+                <div class="cabecera">
+                    <img src="/Banco/public/image/higaLogo.png" alt="H.I.G.A. General San Martín - Logo">
+                    <h1>Solicitud de autorización para la compra de prótesis</h1>
+                </div>
+                <div class="datosPaciente">
+                    <div><label for="paciente">Paciente:</label>
+                        <input type="text" name="paciente" id="paciente">
+
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" name="fecha" id="fecha">
+                    </div>
+
+                    <label for="edad">Edad:</label>
+                    <input type="number" name="edad" id="edad">
+
+                    <label for="documento">Documento:</label>
+                    <input type="text" name="documento" id="documento">
+                </div>
+                <div class="datosCirugia">
+                    <label for="diagnostico">diagnostico:</label>
+                    <input type="text" id="busqueda" placeholder="Buscar...">
+                    <select id="opciones">
+                        <option value="opcion1">Opción 1</option>
+                        <option value="opcion2">Opción 2</option>
+                        <option value="opcion3">Opcióaan 3</option>
+                        <option value="opcion4">Opción 4</option>
+                    </select>
+                    <script>
+                        document.getElementById("busqueda").addEventListener("input", function() {
+                            var input = this.value.toLowerCase();
+                            var select = document.getElementById("opciones");
+                            var options = select.getElementsByTagName("option");
+
+                            for (var i = 0; i < options.length; i++) {
+                                var optionText = options[i].text.toLowerCase();
+                                var optionValue = options[i].value.toLowerCase();
+                                var matchText = optionText.indexOf(input) > -1;
+                                var matchValue = optionValue.indexOf(input) > -1;
+
+                                if (matchText || matchValue) {
+                                    options[i].style.display = "";
+                                } else {
+                                    options[i].style.display = "none";
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </form>
+        </div>
 
     </article>
 
