@@ -9,11 +9,18 @@ class DB
     private $charset;
 
     public function __construct()
+    // {
+    //     $this->host     = 'sql10.freemysqlhosting.net';
+    //     $this->db       = 'sql10632304';
+    //     $this->user     = 'sql10632304';
+    //     $this->password = 'rFV7wFPrua';
+    //     $this->charset  = 'utf8mb4';
+    // }
     {
-        $this->host     = 'sql10.freemysqlhosting.net';
-        $this->db       = 'sql10632304';
-        $this->user     = 'sql10632304';
-        $this->password = 'rFV7wFPrua';
+        $this->host     = 'localhost';
+        $this->db       = 'banco';
+        $this->user     = 'root';
+        $this->password = 'root';
         $this->charset  = 'utf8mb4';
     }
 

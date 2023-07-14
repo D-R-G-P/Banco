@@ -46,45 +46,45 @@ require_once '../../app/modificarStock/searchBarcode.php';
 	}
 	?>
 
-<header>
-    <div class="logo">
-      <a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
-    </div>
+	<header>
+		<div class="logo">
+			<a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
+		</div>
 
-    <div class="links">
-      <a href="/Banco/">Inicio</a>
-      <a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
-      <a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
-      <a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
-    </div>
+		<div class="links">
+			<a href="/Banco/">Inicio</a>
+			<a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
+			<a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
+			<a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
+		</div>
 
-    <button id="user" class="user BORON">
-      <i id="userI" class="fa-solid fa-user BORON"></i>
-      <i id="flecha" class="fa-solid fa-caret-down BORON"></i>
-    </button>
+		<button id="user" class="user BORON">
+			<i id="userI" class="fa-solid fa-user BORON"></i>
+			<i id="flecha" class="fa-solid fa-caret-down BORON"></i>
+		</button>
 
-    <div id="userOptions" class="userOptions BORON">
-      <div class="datos">
-        <div>
-          Bienvenido/a <br>
-          <?php echo $user->getNombre() . " " . $user->getApellido(); ?>
-        </div>
-        <div>
-          Perfil: <br>
-          <?php echo $user->getTipo_usuario() ?>
-        </div>
-        <div>
-          Cargo: <br>
-          <?php echo $user->getCargo() ?>
-        </div>
+		<div id="userOptions" class="userOptions BORON">
+			<div class="datos">
+				<div>
+					Bienvenido/a <br>
+					<?php echo $user->getNombre() . " " . $user->getApellido(); ?>
+				</div>
+				<div>
+					Perfil: <br>
+					<?php echo $user->getTipo_usuario() ?>
+				</div>
+				<div>
+					Cargo: <br>
+					<?php echo $user->getCargo() ?>
+				</div>
 
-      </div>
-      <div class="botones">
-        <a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
-        <a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
-      </div>
-    </div>
-  </header>
+			</div>
+			<div class="botones">
+				<a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
+				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+			</div>
+		</div>
+	</header>
 
 	<article>
 
@@ -95,16 +95,16 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 
 			<div class="back" id="back" style="<?php if ($back == true) {
-																echo 'display: flex;';
-															} else {
-																echo 'display: none';
-															} ?>">
+													echo 'display: flex;';
+												} else {
+													echo 'display: none';
+												} ?>">
 
 				<div class="formCodebar" id="formCodebar" style="<?php if ($formCodebar == true) {
-																						echo 'display: flex;';
-																					} else {
-																						echo 'display: none;';
-																					} ?>">
+																		echo 'display: flex;';
+																	} else {
+																		echo 'display: none;';
+																	} ?>">
 					<div class="crossButton">
 						<button onclick="toggleForm()" id="cross" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
 					</div>
@@ -185,7 +185,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 						<label for="estudios">Estudios</label>
 						<textarea name="estudios" required></textarea>
 
-						
+
 						<label for="banco">Banco</label>
 						<select name="banco" required>
 							<option value="" disabled selected>Seleccionar un banco</option>
@@ -214,7 +214,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 							}
 							?>
 						</select>
-						
+
 						<button class="btn-verde" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar
 							item</button>
 					</form>
