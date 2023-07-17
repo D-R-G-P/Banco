@@ -28,6 +28,13 @@ $pdo = $db->connect();
 
    <!-- FontAwesome -->
    <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+
+   <link rel="stylesheet" type="text/css" href="/Banco/app/modules/select2/select2.min.css">
+
+   <script src="/Banco/node_modules/jquery/dist/jquery.min.js"></script>
+
+   <script src="/Banco/app/modules/select2/select2.min.js"></script>
 </head>
 
 <body>
@@ -169,53 +176,96 @@ $pdo = $db->connect();
             </div>
             <div class="datosCirugia" style="width: 100%;">
                <div style="width: 100%;">
-                  <label for="busqueda">Diagnostico:</label>
-                  <input type="text" id="busqueda" placeholder="Buscar y seleccionar...">
-                  <select id="opciones" required style="width: 75%;">
-                     <option value="" selected disabled>Seleccione una opción</option>
+                  <label for="controlBuscador">Diagnostico:</label>
+
+                  <select id="controlBuscador" style="width: 100%;">
+                     <?php
+                     try {
+                        $stmt = $pdo->prepare("SELECT clave, descripcion FROM categoriascie10");
+                        $stmt->execute();
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                           $clave = $row['clave'];
+                           $descripcion = $row['descripcion'];
+                           echo '<option value="' . $clave . ' - ' . $descripcion . '">' . $clave . ' - ' . $descripcion . '</option>';
+                        }
+                     } catch (PDOException $e) {
+                        echo 'Error: ' . $e->getMessage();
+                     }
+                     ?>
                   </select>
 
-                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                  <script>
-                     $(document).ready(function() {
-                        // Cargar opciones iniciales
-                        cargarOpciones('');
+                  <label for="controlBuscadorSecond">Nomenclador y cirugía:</label>
 
-                        // Evento de cambio en el campo de búsqueda
-                        $('#busqueda').on('input', function() {
-                           var searchTerm = $(this).val().trim();
-                           cargarOpciones(searchTerm);
-                        });
+                  <select id="controlBuscadorSecond" style="width: 100%;">
+                     <?php
+                     try {
+                        $stmt = $pdo->prepare("SELECT codigo, descripcion FROM nomencladorescx");
+                        $stmt->execute();
 
-                        // Función para cargar opciones mediante AJAX
-                        function cargarOpciones(searchTerm) {
-                           $.ajax({
-                              url: '/Banco/public/layouts/buscar_opciones.php', // Archivo PHP que maneja la búsqueda y retorna resultados
-                              method: 'POST',
-                              data: {
-                                 searchTerm: searchTerm
-                              },
-                              dataType: 'json',
-                              success: function(data) {
-                                 // Limpiar opciones existentes
-                                 $('#opciones').empty();
-                                 $('#opciones').append('<option value="" selected disabled>Seleccione una opción</option>');
-
-                                 // Agregar nuevas opciones
-                                 $.each(data, function(index, option) {
-                                    $('#opciones').append('<option value="' + option.clave + ' - ' + option.descripcion + '">' + option.clave + ' - ' + option.descripcion + '</option>');
-                                 });
-                              },
-                              error: function(xhr, status, error) {
-                                 console.log('Error en la solicitud AJAX: ' + error);
-                              }
-                           });
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                           $codigo = $row['codigo'];
+                           $descripcion = $row['descripcion'];
+                           echo '<option value="' . $codigo . ' - ' . $descripcion . '">' . $codigo . ' - ' . $descripcion . '</option>';
                         }
-                     });
-                  </script>
+                     } catch (PDOException $e) {
+                        echo 'Error: ' . $e->getMessage();
+                     }
+                     ?>
+                  </select>
                </div>
             </div>
-            <!-- <script src="/Banco/public/js/realizarPedidoForm.js"></script> -->
+            <div class="material">
+               <table>
+                  <thead>
+                     <tr>
+                        <th>Item</th>
+                        <th>Nombre</th>
+                        <th>Descripcion corta</th>
+                        <th>Descripcion adicional</th>
+                        <th>Cantidad a solicitar</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <?php
+                     try {
+                        $stmt = $pdo->prepare("SELECT item, nombre, d_corta, d_larga FROM items WHERE banco = 'CIGE' ORDER BY item ASC;
+                        ");
+                        $stmt->execute();
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                           $item = $row['item'];
+                           $nombre = $row['nombre'];
+                           $d_corta = $row['d_corta'];
+                           $d_larga = $row['d_larga'];
+
+                           echo '<tr>';
+                           echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
+                           echo '<td style="vertical-align: middle;">' . $nombre . '</td>';
+                           echo '<td style="vertical-align: middle;">' . $d_corta . '</td>';
+                           echo '<td style="vertical-align: middle;">' . $d_larga . '</td>';
+                           echo '<td style="vertical-align: middle;"><input type="number"></td>';
+                           echo '</tr>';
+                        }
+                     } catch (PDOException $e) {
+                        echo 'Error: ' . $e->getMessage();
+                     }
+                     ?>
+                  </tbody>
+               </table>
+            </div>
+
+
+
+
+
+            <script>
+               $(document).ready(function() {
+                  $('#controlBuscador').select2();
+                  $('#controlBuscadorSecond').select2();
+               });
+            </script>
          </form>
       </div>
 
