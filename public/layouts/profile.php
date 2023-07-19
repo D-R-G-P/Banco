@@ -201,45 +201,6 @@ $pdo = $db->connect();
 					</form>
 				</div>
 			</div>
-			<div class="accordion-item">
-
-
-				<h2 class="accordion-heading">Agregar formulario</h2>
-				<div class="accordion-content">
-					<form action="/Banco/app/profile/formulario.php" method="post">
-						<label for="banco">Banco al que pertenece</label>
-						<select name="banco" required>
-							<option value="" disabled selected>Seleccione una opción</option>
-
-							<?php
-							try {
-								$stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
-								$stmt->execute();
-
-								$options = "";
-								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-									$id_banco = $row['id'];
-									$banco = $row['banco'];
-									$siglas = $row['siglas'];
-									$options .= "<option value='$siglas'>$banco - $siglas</option>";
-								}
-
-								// Escribir las opciones en el DOM
-								echo $options;
-							} catch (PDOException $e) {
-								echo 'Error: ' . $e->getMessage();
-							}
-							?>
-						</select>
-
-						<label for="formularioArea">Codigo HTML para formulario</label>
-						<textarea name="formularioArea"></textarea>
-
-						<button type="submit" class="btn-verde"><i class="fa-solid fa-plus"></i> Agregar
-							categoria</button>
-					</form>
-				</div>
-			</div>
 		</div>
 
 		<div class="datosForm">
