@@ -106,11 +106,13 @@ $pdo = $db->connect();
         </div>
         <hr>
         <div id="contenidoDinamico">
-        <link rel="stylesheet" type="text/css" href="/Banco/app/modules/select2/select2.min.css">
+            <link rel="stylesheet" type="text/css" href="/Banco/app/modules/select2/select2.min.css">
 
-<script src="/Banco/node_modules/jquery/dist/jquery.min.js"></script>
+            <script src="/Banco/node_modules/jquery/dist/jquery.min.js"></script>
 
-<script src="/Banco/app/modules/select2/select2.min.js"></script>
+            <script src="/Banco/app/modules/select2/select2.min.js"></script>
+
+            <script src="/Banco/public/layouts/formsPedidos/CIGE.js"></script>
         </div>
 
         <div class="formContainer" id="formContainer">
@@ -157,6 +159,10 @@ $pdo = $db->connect();
             });
         </script>
 
+
+        <div id="resultado"></div>
+
+        
     </article>
 
 

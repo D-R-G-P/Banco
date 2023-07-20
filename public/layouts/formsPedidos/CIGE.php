@@ -76,15 +76,9 @@ $pdo = $db->connect();
         margin-right: .3vw;
     }
 </style>
-<script>
-    s = [
-            item: "1",
-            cantidad: "3",
-        ]
-</script>
 
 <div class="solicitud">
-    <form action="">
+    <form action="/Banco/app/realizarPedido/forms/cige.php" method="post" id="pedidoForm">
         <div class="datosPaciente">
             <div>
                 <label for="paciente">Nombre y apellido del/la paciente:</label>
@@ -179,7 +173,7 @@ $pdo = $db->connect();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             $codigo = $row['codigo'];
                             $descripcion = $row['descripcion'];
-                            echo '<option value="' . $codigo . ' - ' . $descripcion . '">' . $codigo . ' - ' . $descripcion . '</option>';
+                            echo '<option value="' . $codigo . '">' . $codigo . ' - ' . $descripcion . '</option>';
                         }
                     } catch (PDOException $e) {
                         echo 'Error: ' . $e->getMessage();
@@ -204,6 +198,9 @@ $pdo = $db->connect();
                     try {
                         $stmt = $pdo->prepare("SELECT item, nombre, d_corta, d_larga FROM items WHERE banco = 'CIGE' ORDER BY item ASC;");
                         $stmt->execute();
+
+                        $itemsArray = []; // Arreglo para almacenar los items con cantidad mayor o igual a 1
+
 
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             $item = $row['item'];
@@ -232,7 +229,7 @@ $pdo = $db->connect();
             <input type="hidden" value="CIGE">
 
             <div style="margin-top: 3vw; width: 100%; display: flex; justify-content: flex-end;">
-                <button type="submit" class="btn-verde"><i class="fa-solid fa-pen"></i> Solicitar y firmar</button>
+                <button type="button" onclick="enviarFormulario()" class="btn-verde"><i class="fa-solid fa-pen"></i> Solicitar y firmar</button>
             </div>
         </div>
 
