@@ -120,49 +120,7 @@ $pdo = $db->connect();
             // Contenido inicial que deseas mostrar en el div (cuando no hay opción seleccionada)
             echo "Seleccione un banco para la solicitud";
             ?>
-        </div>
-
-
-
-        <script>
-            // Obtener el elemento del select y el div del formulario
-            const selectElement = document.getElementById("bancoSelect");
-            const formContainer = document.getElementById("formContainer");
-
-            // Manejar el evento onchange del select
-            selectElement.addEventListener("change", () => {
-                // Obtener el valor seleccionado
-                const selectedValue = selectElement.value;
-
-                // Actualizar el contenido del div según el valor seleccionado
-                if (selectedValue === "CIGE") {
-                    // Realizar una solicitud al servidor para obtener el contenido de CIGE.php
-                    const xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // Insertar el contenido en el div correspondiente
-                            document.getElementById("contenidoDinamico").innerHTML = xhr.responseText;
-
-                            // Inicializar Select2 para los elementos cargados dinámicamente
-                            $('#controlBuscador').select2();
-                            $('#controlBuscadorSecond').select2();
-                        }
-                    };
-                    xhr.open("GET", "formsPedidos/CIGE.php", true);
-                    xhr.send();
-                } else if (selectedValue === "OTRA_OPCION") {
-                    formContainer.innerHTML = "Contenido específico para otra opción";
-                } else {
-                    // Contenido predeterminado si no se selecciona ninguna opción válida
-                    formContainer.innerHTML = "Contenido predeterminado";
-                }
-            });
-        </script>
-
-
-        <div id="resultado"></div>
-
-        
+        </div>      
     </article>
 
 
@@ -170,14 +128,8 @@ $pdo = $db->connect();
         &copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
     </footer>
 
-    <script>
-        $(document).ready(function() {
-            $('#controlBuscador').select2();
-            $('#controlBuscadorSecond').select2();
-        });
-    </script>
 </body>
 <script src="/Banco/public/js/header.js"></script>
-<!-- <script src="/Banco/public/js/realizarPedido.js"></script> -->
+<script src="/Banco/public/js/realizarPedido.js"></script>
 
 </html>

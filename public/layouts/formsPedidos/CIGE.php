@@ -21,11 +21,18 @@ $pdo = $db->connect();
 </head>
 
 <style>
+    
     .solicitud {
+        margin-top: 3vh;
+        width: 100%;
+        display: flex;
+    justify-content: center;
+    }
+
+    form {
+        width: 80%;
         border: .2vw #6d6d6d solid;
         padding: 1vw;
-        margin-top: 3vh;
-        width: 80%;
     }
 
     .cabecera {
@@ -186,11 +193,11 @@ $pdo = $db->connect();
             <table>
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Nombre</th>
-                        <th>Descripcion corta</th>
-                        <th>Descripcion adicional</th>
-                        <th>Cantidad a solicitar</th>
+                        <th style="vertical-align: middle;">Item</th>
+                        <th style="vertical-align: middle;">Nombre</th>
+                        <th style="vertical-align: middle;">Descripcion corta</th>
+                        <th style="vertical-align: middle;">Descripcion adicional</th>
+                        <th style="vertical-align: middle;">Cantidad a solicitar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -232,12 +239,5 @@ $pdo = $db->connect();
                 <button type="button" onclick="enviarFormulario()" class="btn-verde"><i class="fa-solid fa-pen"></i> Solicitar y firmar</button>
             </div>
         </div>
-
-        <script>
-            $(document).ready(function() {
-                $('#controlBuscador').select2();
-                $('#controlBuscadorSecond').select2();
-            });
-        </script>
     </form>
 </div>

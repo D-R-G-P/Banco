@@ -44,6 +44,11 @@ require_once '../../app/modificarStock/searchBarcode.php';
 		// Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
 		unset($_SESSION['success_message']);
 	}
+	if (isset($_SESSION['error_message'])) {
+		echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
+		// Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+		unset($_SESSION['error_message']);
+	}
 	?>
 
 	<header>
@@ -227,10 +232,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 			<?php
 			try {
-				$stmt = $pdo->prepare("SELECT i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, b.banco
-                        FROM items i
-                        INNER JOIN bancos b ON i.banco = b.siglas
-                        ORDER BY i.item ASC");
+				$stmt = $pdo->prepare("SELECT i.id, i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, i.estado, b.banco FROM items i INNER JOIN bancos b ON i.banco = b.siglas WHERE i.estado != 'del' ORDER BY i.item ASC");
 				$stmt->execute();
 
 				echo '<table>';
@@ -244,11 +246,13 @@ require_once '../../app/modificarStock/searchBarcode.php';
 				echo '<th style="text-align: center; vertical-align: middle;">Stock</th>';
 				echo '<th style="text-align: center; vertical-align: middle;">Categoría</th>';
 				echo '<th style="text-align: center; vertical-align: middle;">Banco</th>';
+				echo '<th style="text-align: center; vertical-align: middle;">Acciones</th>';
 				echo '</tr>';
 				echo '</thead>';
 				echo '<tbody>';
 
 				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					$id = $row['id'];
 					$item = $row['item'];
 					$nombre = $row['nombre'];
 					$d_corta = $row['d_corta'];
@@ -257,6 +261,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					$stock = $row['stock'];
 					$categoria = $row['categoria'];
 					$banco = $row['banco'];
+					$estado = $row['estado'];
 
 					echo '<tr>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
@@ -267,6 +272,17 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $stock . '</td>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $categoria . '</td>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
+					if ($estado == "act") {
+						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
+						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
+						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+							</td>';
+					} else if ($estado == "des") {
+						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
+						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
+						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+					</td>';
+					}
 					echo '</tr>';
 				}
 
@@ -276,6 +292,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 				echo 'Error: ' . $e->getMessage();
 			}
 			?>
+
 
 
 

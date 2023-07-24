@@ -51,3 +51,8 @@ function enviarFormulario() {
             enviarFormulario(); // Enviar el formulario con la lista de materiales como JSON
         });
     });
+
+    $(document).ready(function() {
+        $('#controlBuscador').select2();
+        $('#controlBuscadorSecond').select2();
+    });

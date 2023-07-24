@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-07-2023 a las 20:48:16
+-- Tiempo de generación: 24-07-2023 a las 19:06:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -2127,6 +2127,38 @@ INSERT INTO `categoriascie10` (`id`, `clave`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cigeforms`
+--
+
+CREATE TABLE `cigeforms` (
+  `id` int(11) NOT NULL,
+  `nombre_apellido` varchar(100) NOT NULL,
+  `edad` int(11) NOT NULL,
+  `tipo_documento` varchar(10) NOT NULL,
+  `documento` varchar(20) NOT NULL,
+  `domicilio` varchar(100) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `diagnostico` varchar(100) NOT NULL,
+  `nomenclador_cirugia` varchar(100) NOT NULL,
+  `items_json` text NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `cigeforms`
+--
+
+INSERT INTO `cigeforms` (`id`, `nombre_apellido`, `edad`, `tipo_documento`, `documento`, `domicilio`, `telefono`, `diagnostico`, `nomenclador_cirugia`, `items_json`, `fecha_registro`) VALUES
+(1, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:51:32'),
+(2, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:52:16'),
+(3, 'Lamas Cristian Jonathan', 1, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A01', '03.09.02', '[{\"item\":\"6\",\"cantidad\":\"1\"},{\"item\":\"7\",\"cantidad\":\"3\"}]', '2023-07-20 13:53:58'),
+(4, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:32:38'),
+(5, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"6\"},{\"item\":\"7\",\"cantidad\":\"15\"}]', '2023-07-20 15:33:59'),
+(6, '1', 2, 'D.N.I.', '3', '3', '3', 'A09', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:37:38');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `forms`
 --
 
@@ -2135,6 +2167,13 @@ CREATE TABLE `forms` (
   `banco` varchar(255) NOT NULL,
   `formulario` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `forms`
+--
+
+INSERT INTO `forms` (`id`, `banco`, `formulario`) VALUES
+(0, 'CIGE', '<style>\r\n         .solicitud {\r\n            border: .2vw #6d6d6d solid;\r\n            padding: 1vw;\r\n            margin-top: 3vh;\r\n            width: 80%;\r\n         }\r\n\r\n         .cabecera {\r\n            height: 15vh;\r\n            display: flex;\r\n            flex-direction: row;\r\n            align-content: center;\r\n            justify-content: space-around;\r\n            align-items: center;\r\n         }\r\n\r\n         .cabecera img {\r\n            height: 15vh;\r\n            width: auto;\r\n         }\r\n\r\n         .cabecera h1 {\r\n            text-decoration: underline;\r\n         }\r\n\r\n         .datosPaciente {\r\n            display: flex;\r\n            flex-direction: column;\r\n            flex-wrap: nowrap;\r\n         }\r\n\r\n         input,\r\n         .material,\r\n         table {\r\n            width: 100%;\r\n            margin: 1vw 0;\r\n         }\r\n\r\n         input[name=\"tipoDocumento\"] {\r\n            width: auto;\r\n         }\r\n      </style>\r\n\r\n      <div class=\"solicitud\">\r\n         <form action=\"\">\r\n            <div class=\"datosPaciente\">\r\n               <div>\r\n                  <label for=\"paciente\">Nombre y apellido del/la paciente:</label>\r\n                  <input type=\"text\" name=\"paciente\" id=\"paciente\" required>\r\n               </div>\r\n\r\n               <div>\r\n                  <label for=\"edad\">Edad:</label>\r\n                  <input type=\"number\" name=\"edad\" id=\"edad\" required>\r\n               </div>\r\n\r\n               <div>\r\n                  <p>Tipo de documento:</p>\r\n                  <div id=\"tipoDocumento\">\r\n                     <div>\r\n                        <label for=\"le\">L.E.</label>\r\n                        <input type=\"radio\" name=\"tipoDocumento\" value=\"L.E.\" id=\"le\">\r\n\r\n                        <label for=\"lc\">L.C.</label>\r\n                        <input type=\"radio\" name=\"tipoDocumento\" value=\"L.C.\" id=\"lc\">\r\n                     </div>\r\n                     <div>\r\n                        <label for=\"ci\">C.I.</label>\r\n                        <input type=\"radio\" name=\"tipoDocumento\" value=\"C.I.\" id=\"ci\">\r\n\r\n                        <label for=\"dni\">D.N.I.</label>\r\n                        <input type=\"radio\" name=\"tipoDocumento\" value=\"D.N.I.\" id=\"dni\">\r\n                     </div>\r\n                     <label for=\"otro\">Otro</label>\r\n                     <input type=\"radio\" name=\"tipoDocumento\" value=\"Otro\" id=\"otro\">\r\n                  </div>\r\n               </div>\r\n\r\n               <div>\r\n                  <label for=\"documento\">Documento:</label>\r\n                  <input type=\"text\" name=\"documento\" id=\"documento\" required>\r\n               </div>\r\n\r\n               <div>\r\n                  <label for=\"direccion\">Domicilio:</label>\r\n                  <input type=\"text\" id=\"direccion\" name=\"direccion\">\r\n               </div>\r\n\r\n               <div>\r\n                  <label for=\"telefono\">Telefono de contacto (paciente):</label>\r\n                  <input type=\"text\" id=\"telefono\" name=\"telefono\">\r\n               </div>\r\n            </div>\r\n            <div class=\"datosCirugia\" style=\"width: 100%;\">\r\n               <div style=\"width: 100%;\">\r\n                  <label for=\"controlBuscador\">Diagnostico:</label>\r\n\r\n                  <select id=\"controlBuscador\" style=\"width: 100%;\">\r\n                     <?php\r\n                     try {\r\n                        $stmt = $pdo->prepare(\"SELECT clave, descripcion FROM categoriascie10\");\r\n                        $stmt->execute();\r\n\r\n                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {\r\n                           $clave = $row[\'clave\'];\r\n                           $descripcion = $row[\'descripcion\'];\r\n                           echo \'<option value=\"\' . $clave . \'\">\' . $clave . \' - \' . $descripcion . \'</option>\';\r\n                        }\r\n                     } catch (PDOException $e) {\r\n                        echo \'Error: \' . $e->getMessage();\r\n                     }\r\n                     ?>\r\n                  </select>\r\n\r\n                  <label for=\"controlBuscadorSecond\">Nomenclador y cirugía:</label>\r\n\r\n                  <select id=\"controlBuscadorSecond\" style=\"width: 100%;\">\r\n                     <?php\r\n                     try {\r\n                        $stmt = $pdo->prepare(\"SELECT codigo, descripcion FROM nomencladorescx\");\r\n                        $stmt->execute();\r\n\r\n                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {\r\n                           $codigo = $row[\'codigo\'];\r\n                           $descripcion = $row[\'descripcion\'];\r\n                           echo \'<option value=\"\' . $codigo . \' - \' . $descripcion . \'\">\' . $codigo . \' - \' . $descripcion . \'</option>\';\r\n                        }\r\n                     } catch (PDOException $e) {\r\n                        echo \'Error: \' . $e->getMessage();\r\n                     }\r\n                     ?>\r\n                  </select>\r\n               </div>\r\n            </div>\r\n            <div class=\"material\">\r\n               <table>\r\n                  <thead>\r\n                     <tr>\r\n                        <th>Item</th>\r\n                        <th>Nombre</th>\r\n                        <th>Descripcion corta</th>\r\n                        <th>Descripcion adicional</th>\r\n                        <th>Cantidad a solicitar</th>\r\n                     </tr>\r\n                  </thead>\r\n                  <tbody>\r\n                     <?php\r\n                     try {\r\n                        $stmt = $pdo->prepare(\"SELECT item, nombre, d_corta, d_larga FROM items WHERE banco = \'CIGE\' ORDER BY item ASC;\r\n                        \");\r\n                        $stmt->execute();\r\n\r\n                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {\r\n\r\n                           $item = $row[\'item\'];\r\n                           $nombre = $row[\'nombre\'];\r\n                           $d_corta = $row[\'d_corta\'];\r\n                           $d_larga = $row[\'d_larga\'];\r\n\r\n                           echo \'<tr>\';\r\n                           echo \'<td style=\"text-align: center; vertical-align: middle;\">\' . $item . \'</td>\';\r\n                           echo \'<td style=\"vertical-align: middle;\">\' . $nombre . \'</td>\';\r\n                           echo \'<td style=\"vertical-align: middle;\">\' . $d_corta . \'</td>\';\r\n                           echo \'<td style=\"vertical-align: middle;\">\' . $d_larga . \'</td>\';\r\n                           echo \'<td style=\"vertical-align: middle;\"><input type=\"number\"></td>\';\r\n                           echo \'</tr>\';\r\n                        }\r\n                     } catch (PDOException $e) {\r\n                        echo \'Error: \' . $e->getMessage();\r\n                     }\r\n                     ?>\r\n                  </tbody>\r\n               </table>\r\n\r\n               <p style=\"margin-top: 3vw; width: 100%; display: flex; justify-content: flex-end;\"> <b>Firma: <?php echo $user->getApellido() . \" \" . $user->getNombre(); ?></b> </p>\r\n               <input type=\"hidden\" value=\"<?php echo $user->getDni(); ?>\">\r\n               <input type=\"hidden\" value=\"CIGE\">\r\n\r\n               <div style=\"margin-top: 3vw; width: 100%; display: flex; justify-content: flex-end;\">\r\n                  <button type=\"submit\" class=\"btn-verde\"><i class=\"fa-solid fa-signature\"></i> Solicitar y firmar</button>\r\n               </div>\r\n            </div>\r\n\r\n            <script>\r\n               $(document).ready(function() {\r\n                  $(\'#controlBuscador\').select2();\r\n                  $(\'#controlBuscadorSecond\').select2();\r\n               });\r\n            </script>\r\n         </form>\r\n      </div>');
 
 -- --------------------------------------------------------
 
@@ -2152,17 +2191,18 @@ CREATE TABLE `items` (
   `estudios` text NOT NULL,
   `stock` int(11) NOT NULL,
   `categoria` varchar(255) NOT NULL,
-  `banco` varchar(255) NOT NULL
+  `banco` varchar(255) NOT NULL,
+  `estado` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `items`
 --
 
-INSERT INTO `items` (`id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`) VALUES
-(0, 24, '01108845230032151726083110P1J11202001', 'Cartuchos de recarga de sutura; medida 60 mm.', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 45 mm - PRESENTACION UNIDAD', '\"RECARGA SUTURAS MECANICAS; PRESENTACION UNIDAD; MEDIDA 45 O 60 MM CON TECNOLOGIA TRISTAPLE - TIPO LINEAL CORTANTE\r\n ENDOSCOPICA - USO QUIRURGICO; EGIA 45 O EGIA 60 RELOAD\"', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE'),
-(0, 7, '01108845230072681725093010P0K0026Y', 'Suturas mecánicas 80 mm. con tecnología DST tipo lineal cortante', 'SUTURAS MECANICAS; PRESENTACION 80 mm CON TECNOLOGIA DST - TIPO LINEAL CORTANTE', 'GIA 80', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE'),
-(0, 6, '01108845230055541726053110P1F1569', 'Suturas mecánicas 31mm. con tecnología DST tipo circular', 'SUTURAS MECANICAS; PRESENTACION 31MM CON TECNOLOGIA DST - TIPO CIRCULAR', 'EEA 31', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE');
+INSERT INTO `items` (`id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`, `estado`) VALUES
+(1, 24, '01108845230032151726083110P1J11202001', 'Cartuchos de recarga de sutura; medida 60 mm.', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 45 mm - PRESENTACION UNIDAD', 'RECARGA SUTURAS MECANICAS; PRESENTACION UNIDAD; MEDIDA 45 O 60 MM CON TECNOLOGIA TRISTAPLE - TIPO LINEAL CORTANTE\n ENDOSCOPICA - USO QUIRURGICO; EGIA 45 O EGIA 60 RELOAD', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE', 'act'),
+(2, 7, '01108845230072681725093010P0K0026Y', 'Suturas mecánicas 80 mm. con tecnología DST tipo lineal cortante', 'SUTURAS MECANICAS; PRESENTACION 80 mm CON TECNOLOGIA DST - TIPO LINEAL CORTANTE', 'GIA 80', 'Historia Clínica + Endoscopia', 44, 'Suturas', 'CIGE', 'act'),
+(3, 6, '01108845230055541726053110P1F1569', 'Suturas mecánicas 31mm. con tecnología DST tipo circular', 'SUTURAS MECANICAS; PRESENTACION 31MM CON TECNOLOGIA DST - TIPO CIRCULAR', 'EEA 31', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE', 'act');
 
 -- --------------------------------------------------------
 
@@ -2657,6 +2697,18 @@ ALTER TABLE `categoriascie10`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `cigeforms`
+--
+ALTER TABLE `cigeforms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -2673,6 +2725,18 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categoriascie10`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2905;
+
+--
+-- AUTO_INCREMENT de la tabla `cigeforms`
+--
+ALTER TABLE `cigeforms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
