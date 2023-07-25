@@ -34,7 +34,7 @@ selectElement.addEventListener("change", () => {
     if (selectedValue === "CIGE") {
         // Realizar una solicitud al servidor para obtener el contenido de CIGE.php
         const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Insertar el contenido en el div correspondiente
                 document.getElementById("contenidoDinamico").innerHTML = xhr.responseText;
@@ -53,7 +53,7 @@ selectElement.addEventListener("change", () => {
         formContainer.innerHTML = "Contenido predeterminado";
     }
 });
-$(document).ready(function() {
-$('#controlBuscador').select2();
-$('#controlBuscadorSecond').select2();
+$(document).ready(function () {
+    $('#controlBuscador').select2();
+    $('#controlBuscadorSecond').select2();
 });

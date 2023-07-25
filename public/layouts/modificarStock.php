@@ -27,7 +27,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>S.C.S. - Inicio</title>
+	<title>S.C.S. - Modificar stock</title>
 	<link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/Banco/public/css/base.css">
 	<link rel="stylesheet" href="/Banco/public/css/header.css">
@@ -274,13 +274,13 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
 					if ($estado == "act") {
 						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
-						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
-						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
 							</td>';
 					} else if ($estado == "des") {
 						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
-						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
-						<a class="btn-verde" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
 					</td>';
 					}
 					echo '</tr>';

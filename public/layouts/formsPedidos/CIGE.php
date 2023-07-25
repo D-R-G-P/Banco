@@ -203,7 +203,8 @@ $pdo = $db->connect();
                 <tbody>
                     <?php
                     try {
-                        $stmt = $pdo->prepare("SELECT item, nombre, d_corta, d_larga FROM items WHERE banco = 'CIGE' ORDER BY item ASC;");
+                        $stmt = $pdo->prepare(
+                            "SELECT item, nombre, d_corta, d_larga, estado FROM items WHERE banco = 'CIGE' AND estado = 'act' ORDER BY item ASC;");
                         $stmt->execute();
 
                         $itemsArray = []; // Arreglo para almacenar los items con cantidad mayor o igual a 1

@@ -350,3 +350,7 @@ thead tr th:last-child {
 table tr:last-child td:last-child {
   border-radius: 0 0 0.7vw 0;
 }
+
+.actionButton {
+  margin: 0;
+}

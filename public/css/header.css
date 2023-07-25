@@ -34,7 +34,7 @@ header {
   padding: 0.5vw;
   height: 3.5vw;
   width: 100%;
-  position: fixed;
+  position: sticky;
   top: 0;
 }
 
@@ -154,7 +154,7 @@ footer {
   font-size: 1vw;
   height: 2vw;
   width: 100%;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   color: #e6e6e6;
 }

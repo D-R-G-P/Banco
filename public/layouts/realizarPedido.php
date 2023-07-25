@@ -20,7 +20,7 @@ $pdo = $db->connect();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.C.S. - Mi usuario</title>
+    <title>S.C.S. - Realizar pedido</title>
     <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Banco/public/css/base.css">
     <link rel="stylesheet" href="/Banco/public/css/header.css">

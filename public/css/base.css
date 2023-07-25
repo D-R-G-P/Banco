@@ -9,9 +9,6 @@
 article {
   padding: 1vw;
   width: 100%;
-  margin: 3vw 0;
-  top: 3.5vw;
-  bottom: 2vw;
   min-height: calc(100% - 5.5vw);
   display: flex;
   flex-direction: column;

@@ -1,155 +1,104 @@
-<div class="samo">
-               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ORDEN DE PRESTACIÓN</p>
-               <p>&nbsp;</p>
-               <table width="726">
-                  <tbody>
-                     <tr>
-                        <td colspan="11" width="614">
-                           <p>1. Establecimiento</p>
-                        </td>
-                        <td width="112">
-                           <p>1.1. Código</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="11" width="614">
-                           <p>2. Apellidos y Nombres</p>
-                        </td>
-                        <td width="112">
-                           <p>3. Fecha</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="11" width="614">
-                           <p>2.1. Domicilio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Localidad</p>
-                        </td>
-                        <td width="112">
-                           <p>&nbsp;</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td width="93">
-                           <p>4. Sexo</p>
-                        </td>
-                        <td colspan="2" width="58">
-                           <p>5. Edad</p>
-                        </td>
-                        <td width="116">
-                           <p>6. N. de Documento</p>
-                        </td>
-                        <td width="85">
-                           <p>7. Tipo de Doc.</p>
-                        </td>
-                        <td colspan="2" width="62">
-                           <p>8. C.E.</p>
-                        </td>
-                        <td width="66">
-                           <p>9. Sala</p>
-                        </td>
-                        <td colspan="2" width="66">
-                           <p>10. Cama</p>
-                        </td>
-                        <td width="68">
-                           <p>11. H.CL.N.</p>
-                           <p>&nbsp;</p>
-                        </td>
-                        <td width="112">
-                           <p>&nbsp;</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" width="126">
-                           <p>12. Condición</p>
-                           <p>&nbsp;</p>
-                        </td>
-                        <td colspan="7" width="387">
-                           <p>13. Obra Social o Mutual</p>
-                           <p>&nbsp;</p>
-                        </td>
-                        <td colspan="2" width="101">
-                           <p>14. Tipo Afil.</p>
-                        </td>
-                        <td width="112">
-                           <p>15. N. de Afiliado</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="11" width="614">
-                           <p>16. Diagnóstico Clínico</p>
-                        </td>
-                        <td width="112">
-                           <p>17. Código</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" width="126">
-                           <p>18. Código</p>
-                        </td>
-                        <td colspan="7" width="387">
-                           <p>19. Concepto</p>
-                           <p>&nbsp;</p>
-                        </td>
-                        <td colspan="2" width="101">
-                           <p>20. Unitario</p>
-                        </td>
-                        <td width="112">
-                           <p>21. Total</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" width="126">
-                           <p>22. Factura Interv.</p>
-                        </td>
-                        <td colspan="4" rowspan="3" width="250">
-                           <p>23. Firma Profesional&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sello y Matrícula</p>
-                        </td>
-                        <td colspan="5" rowspan="3" width="238">
-                           <p>25. Conforme Afiliado</p>
-                        </td>
-                        <td width="112">
-                           <p>24. Total</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" rowspan="2" width="126">
-                           <p>&nbsp;</p>
-                        </td>
-                        <td width="112">
-                           <p>26. Abonar por Af.</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td rowspan="2" width="112">
-                           <p>26.1. Abonar por O.S.</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td colspan="6" rowspan="2" width="376">
-                           <p>27. Autorización O.S. Internación o Práctica</p>
-                           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Firma y Sello Aclaratorio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sello Delegación</p>
-                        </td>
-                        <td colspan="5" rowspan="2" width="238">
-                           <p>28. Práct. Realizada Por</p>
-                           <p>Firma Profesional&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sello y Matrícula</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td width="112">
-                           <p>&nbsp;</p>
-                        </td>
-                        <td width="0">&nbsp;</td>
-                     </tr>
-                  </tbody>
-               </table>
+<?php
+
+require_once '../../app/db/user_session.php';
+require_once '../../app/db/user.php';
+require_once '../../app/db/db.php';
+
+$user = new User();
+$userSession = new UserSession();
+$currentUser = $userSession->getCurrentUser();
+$user->setUser($currentUser);
+
+$db = new DB();
+$pdo = $db->connect();
+
+?>
+
+<!DOCTYPE html>
+<html lang="es-AR">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>S.C.S. - Seguimiento</title>
+   <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
+   <link rel="stylesheet" href="/Banco/public/css/base.css">
+   <link rel="stylesheet" href="/Banco/public/css/header.css">
+
+   <!-- FontAwesome -->
+   <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+</head>
+
+<body>
+   <?php
+   if (isset($_SESSION['success_message'])) {
+      echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
+      // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+      unset($_SESSION['success_message']);
+   }
+   if (isset($_SESSION['error_message'])) {
+      echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
+      // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+      unset($_SESSION['error_message']);
+   }
+   ?>
+
+   <header>
+      <div class="logo">
+         <a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
+      </div>
+
+      <div class="links">
+         <a href="/Banco/">Inicio</a>
+         <a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
+         <a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
+         <a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
+      </div>
+
+      <button id="user" class="user BORON">
+         <i id="userI" class="fa-solid fa-user BORON"></i>
+         <i id="flecha" class="fa-solid fa-caret-down BORON"></i>
+      </button>
+
+      <div id="userOptions" class="userOptions BORON">
+         <div class="datos">
+            <div>
+               Bienvenido/a <br>
+               <?php echo $user->getNombre() . " " . $user->getApellido(); ?>
             </div>
+            <div>
+               Perfil: <br>
+               <?php echo $user->getTipo_usuario() ?>
+            </div>
+            <div>
+               Cargo: <br>
+               <?php echo $user->getCargo() ?>
+            </div>
+
+         </div>
+         <div class="botones">
+            <a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
+            <a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+         </div>
+      </div>
+   </header>
+
+
+
+   <article>
+
+   
+
+   </article>
+
+
+
+   <footer>
+      &copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
+   </footer>
+
+</body>
+
+<script src="/Banco/public/js/header.js"></script>
+
+</html>
