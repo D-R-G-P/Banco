@@ -24,12 +24,14 @@ $pdo = $db->connect();
    <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
    <link rel="stylesheet" href="/Banco/public/css/base.css">
    <link rel="stylesheet" href="/Banco/public/css/header.css">
+   <link rel="stylesheet" href="/Banco/public/css/seguimiento.css">
 
    <!-- FontAwesome -->
    <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
 </head>
 
 <body>
+
    <?php
    if (isset($_SESSION['success_message'])) {
       echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
@@ -87,7 +89,112 @@ $pdo = $db->connect();
 
    <article>
 
-   
+      <div class="banco">
+         Banco:
+         <select name="banco" id="bancoSelect">
+            <option value="" selected disabled>Seleccione una opción</option>
+            <?php
+            try {
+               $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+               $stmt->execute();
+
+               $options = "";
+               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  $banco = $row['banco'];
+                  $siglas = $row['siglas'];
+                  $options .= "<option value='$siglas'>$banco - $siglas</option>";
+               }
+
+               // Escribir las opciones en el DOM
+               echo $options;
+            } catch (PDOException $e) {
+               echo 'Error: ' . $e->getMessage();
+            }
+            ?>
+         </select>
+      </div>
+
+
+
+
+
+
+
+      <div class="tabla" style="width: 100%; display: flex; justify-content: center;">
+         <table style="max-width: 95%;">
+            <thead>
+               <tr>
+                  <th>Id</th>
+                  <th>Tipo de solicitud</th>
+                  <th>Fecha de solicitud</th>
+                  <th>Expediente GDEBA</th>
+                  <th>Paciente</th>
+                  <th>DNI</th>
+                  <th>Estado</th>
+                  <th>Tipo de cirugía</th>
+                  <th>Acción</th>
+               </tr>
+            </thead>
+
+            <tbody>
+               <tr id="nulo">
+                  <td colspan="9" style="text-align: center;"><b style="font-size: 2vw;">Seleccione un banco de la lista para continuar</b></td>
+               </tr>
+
+               
+               <tr class="tablaPedidos" style="display: none;">
+                  <td>a</td>
+                  <td>aa</td>
+                  <td>aaa</td>
+                  <td>aaaa</td>
+                  <td>aaaaa</td>
+                  <td>aaaaaa</td>
+                  <td>aaaaaaa</td>
+                  <td>aaaaaaaa</td>
+                  <td>aaaaaaaaa</td>
+               </tr>
+               <tr class="tablaPedidos" style="display: none;">
+                  <td>a</td>
+                  <td>aa</td>
+                  <td>aaa</td>
+                  <td>aaaa</td>
+                  <td>aaaaa</td>
+                  <td>aaaaaa</td>
+                  <td>aaaaaaa</td>
+                  <td>aaaaaaaa</td>
+                  <td>aaaaaaaaa</td>
+               </tr>
+
+               <script>
+                  var tablaPedidos = document.querySelectorAll(".tablaPedidos");
+                  
+                  bancoSelect.addEventListener('change', function() {
+                     if (bancoSelect.value !== '') {
+                        nulo.style.display = 'none';
+
+                        // Iterar a través de la lista de elementos con clase "tablaPedidos"
+                        tablaPedidos.forEach(function(tabla) {
+                           tabla.style.display = "table-row";
+                        });
+                     } else {
+                        nulo.style.display = 'block';
+
+                        // Iterar a través de la lista de elementos con clase "tablaPedidos"
+                        tablaPedidos.forEach(function(tabla) {
+                           tabla.style.display = "none";
+                        });
+                     }
+                  });
+               </script>
+            </tbody>
+         </table>
+      </div>
+
+
+
+
+
+
 
    </article>
 
@@ -100,5 +207,6 @@ $pdo = $db->connect();
 </body>
 
 <script src="/Banco/public/js/header.js"></script>
+<!-- <script src="/Banco/public/js/seguimiento.js"></script> -->
 
 </html>

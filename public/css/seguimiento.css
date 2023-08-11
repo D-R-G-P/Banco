@@ -1,0 +1,80 @@
+article {
+  padding: 2vw 0 5vw 0;
+}
+
+article .banco {
+  padding: 0 0 1vw 0;
+  font-size: 3vw;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+article .banco select {
+  background: transparent;
+  border: 0.15vw #8d8d8d solid;
+  border-radius: 1vw;
+  font-size: 2vw;
+  min-width: 60%;
+  color: #2e2e2e;
+}
+
+table {
+    border: 0.2vw solid #000;
+    border-collapse: separate;
+    border-left: 0;
+    border-radius: 0.8vw;
+    border-spacing: 0px;
+    width: 100%;
+    font-size: 1vw;
+  }
+  
+  thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+    border-collapse: separate;
+    background-color: var(--color2);
+    border-radius: 0.8vw;
+    color: #fff;
+  }
+  
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+  }
+  
+  th,
+  td {
+    padding: 0.3vw;
+    text-align: left;
+    vertical-align: top;
+    border-left: 0.2vw solid #000;
+  }
+  
+  td {
+    border-top: 0.2vw solid #000;
+    background-color: #e3e3e3;
+  }
+  
+  thead:first-child tr:first-child th:first-child,
+  tbody:first-child tr:first-child td:first-child {
+    border-radius: 0.7vw 0 0 0;
+  }
+  
+  thead:last-child tr:last-child th:first-child,
+  tbody:last-child tr:last-child td:first-child {
+    border-radius: 0 0 0 0.7vw;
+  }
+  
+  thead tr th:last-child {
+    border-radius: 0 0.6vw 0 0;
+  }
+  
+  table tr:last-child td:last-child {
+    border-radius: 0 0 0.7vw 0;
+  }

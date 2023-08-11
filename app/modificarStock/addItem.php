@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $banco = $_POST['banco'];
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO items (item, barcode, nombre, d_corta, d_larga, estudios, categoria, banco) VALUES (:item, :codigobarras, :nombre, :dcorta, :dlarga, :estudios, :categoria, :banco)");
+        $stmt = $pdo->prepare("INSERT INTO items (item, barcode, nombre, d_corta, d_larga, estudios, categoria, banco, estado) VALUES (:item, :codigobarras, :nombre, :dcorta, :dlarga, :estudios, :categoria, :banco, 'act')");
         $stmt->bindParam(':item', $item);
         $stmt->bindParam(':codigobarras', $codigoBarras);
         $stmt->bindParam(':nombre', $nombre);
