@@ -28,6 +28,9 @@ $pdo = $db->connect();
 
    <!-- FontAwesome -->
    <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+   <script src="/Banco/node_modules/jquery/dist/jquery.min.js"></script>
+
+   <script src="/Banco/app/modules/select2/select2.min.js"></script>
 </head>
 
 <body>
@@ -89,29 +92,35 @@ $pdo = $db->connect();
 
    <article>
 
-      <div class="banco">
-         Banco:
-         <select name="banco" id="bancoSelect">
-            <option value="" selected disabled>Seleccione una opción</option>
-            <?php
-            try {
-               $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
-               $stmt->execute();
+      <div class="topDiv">
+         <div class="banco">
+            Banco:
+            <select name="banco" id="bancoSelect">
+               <option value="" selected disabled>Seleccione una opción</option>
+               <?php
+               try {
+                  $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+                  $stmt->execute();
 
-               $options = "";
-               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                  $banco = $row['banco'];
-                  $siglas = $row['siglas'];
-                  $options .= "<option value='$siglas'>$banco - $siglas</option>";
+                  $options = "";
+                  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                     $banco = $row['banco'];
+                     $siglas = $row['siglas'];
+                     $options .= "<option value='$siglas'>$banco - $siglas</option>";
+                  }
+
+                  // Escribir las opciones en el DOM
+                  echo $options;
+               } catch (PDOException $e) {
+                  echo 'Error: ' . $e->getMessage();
                }
+               ?>
+            </select>
+         </div>
 
-               // Escribir las opciones en el DOM
-               echo $options;
-            } catch (PDOException $e) {
-               echo 'Error: ' . $e->getMessage();
-            }
-            ?>
-         </select>
+         <div class="news">
+            <a class="" id="newA" href="/Banco/public/layouts/getForm.php"><i class="fa-solid fa-receipt"></i></a>
+         </div>
       </div>
 
 
@@ -141,7 +150,7 @@ $pdo = $db->connect();
                   <td colspan="9" style="text-align: center;"><b style="font-size: 2vw;">Seleccione un banco de la lista para continuar</b></td>
                </tr>
 
-               
+
                <tr class="tablaPedidos" style="display: none;">
                   <td>a</td>
                   <td>aa</td>
@@ -167,7 +176,7 @@ $pdo = $db->connect();
 
                <script>
                   var tablaPedidos = document.querySelectorAll(".tablaPedidos");
-                  
+
                   bancoSelect.addEventListener('change', function() {
                      if (bancoSelect.value !== '') {
                         nulo.style.display = 'none';
@@ -207,6 +216,6 @@ $pdo = $db->connect();
 </body>
 
 <script src="/Banco/public/js/header.js"></script>
-<!-- <script src="/Banco/public/js/seguimiento.js"></script> -->
+<script src="/Banco/public/js/seguimiento.js"></script>
 
 </html>

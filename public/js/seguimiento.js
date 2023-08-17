@@ -58,5 +58,31 @@ $(document).ready(function () {
     $('#controlBuscadorSecond').select2();
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    checkForNewData(); // Llamar a la función cuando la página cargue
+});
 
+function checkForNewData() {
+    $.ajax({
+        url: '../../app/config/checkNews.php', // Asegúrate de ajustar la ruta
+        method: 'GET',
+        success: function(response) {
+            if (response === 'new') {
+                // Ejecutar la función de JavaScript
+                newAct();
+            } else {
+                newDesact();
+            }
+        }
+    });
+}
 
+function newAct() {
+    newA.classList.add('newAct');
+}
+
+function newDesact() {
+    newA.classList.remove('newAct');
+}
+
+setInterval(checkForNewData, 15000); // Ejecutar cada 15 segundos
