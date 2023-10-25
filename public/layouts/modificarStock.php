@@ -169,56 +169,75 @@ require_once '../../app/modificarStock/searchBarcode.php';
 				</div>
 
 
-				<div class="agregarForm" id="agregarForm" style="display: none;">
+				<div class="agregarForm" id="agregarForm" style="display: flex;">
+					<div class="crossButton">
+						<button onclick="toggleAdd()" id="cross" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
+					</div>
 					<h2>Añadir item</h2>
 					<form action="/Banco/app/modificarStock/addItem.php" method="post">
-						<label for="item">Número de item</label>
-						<input type="number" name="item" required>
+						<div>
+							<input type="number" name="item" required  placeholder=" ">
+							<label for="item">Número de item</label>
+						</div>
 
-						<label for="codigobarras">Código de barras</label>
-						<input type="text" name="codigobarras" required>
+						<div>
+							<label for="codigobarras">Código de barras</label>
+							<input type="text" name="codigobarras" required>
+						</div>
 
-						<label for="nombre">Nombre</label>
-						<input type="text" name="nombre" required>
+						<div>
+							<label for="nombre">Nombre</label>
+							<input type="text" name="nombre" required>
+						</div>
 
-						<label for="dcorta">Descripcion corta</label>
-						<textarea name="dcorta" required></textarea>
+						<div>
+							<label for="dcorta">Descripcion corta</label>
+							<textarea name="dcorta" required></textarea>
+						</div>
 
-						<label for="dlarga">Descripcion larga</label>
-						<textarea name="dlarga" required></textarea>
+						<div>
+							<label for="dlarga">Descripcion larga</label>
+							<textarea name="dlarga" required></textarea>
+						</div>
 
-						<label for="estudios">Estudios</label>
-						<textarea name="estudios" required></textarea>
+						<div>
+							<label for="estudios">Estudios</label>
+							<textarea name="estudios" required></textarea>
+						</div>
 
 
-						<label for="banco">Banco</label>
-						<select name="banco" required>
-							<option value="" disabled selected>Seleccionar un banco</option>
-							<?php
-							// Obtener los bancos de la base de datos
-							$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
-							$stmt->execute();
-							while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								$banco = $row['banco'];
-								$siglas = $row['siglas'];
-								echo "<option value='$siglas'>$banco - $siglas</option>";
-							}
-							?>
-						</select>
+						<div>
+							<label for="banco">Banco</label>
+							<select name="banco" required>
+								<option value="" disabled selected>Seleccionar un banco</option>
+								<?php
+								// Obtener los bancos de la base de datos
+								$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
+								$stmt->execute();
+								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+									$banco = $row['banco'];
+									$siglas = $row['siglas'];
+									echo "<option value='$siglas'>$banco - $siglas</option>";
+								}
+								?>
+							</select>
+						</div>
 
-						<label for="categoria">Categoría</label>
-						<select name="categoria" required>
-							<option value="" disabled selected>Seleccionar una categoria</option>
-							<?php
-							// Obtener las categorías de la base de datos
-							$stmt = $pdo->prepare("SELECT DISTINCT categoria FROM items");
-							$stmt->execute();
-							while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								$categoria = $row['categoria'];
-								echo "<option value='$categoria'>$categoria</option>";
-							}
-							?>
-						</select>
+						<div>
+							<label for="categoria">Categoría</label>
+							<select name="categoria" required>
+								<option value="" disabled selected>Seleccionar una categoria</option>
+								<?php
+								// Obtener las categorías de la base de datos
+								$stmt = $pdo->prepare("SELECT DISTINCT categoria FROM categorias");
+								$stmt->execute();
+								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+									$categoria = $row['categoria'];
+									echo "<option value='$categoria'>$categoria</option>";
+								}
+								?>
+							</select>
+						</div>
 
 						<button class="btn-verde" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar
 							item</button>
