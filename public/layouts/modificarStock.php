@@ -169,78 +169,74 @@ require_once '../../app/modificarStock/searchBarcode.php';
 				</div>
 
 
-				<div class="agregarForm" id="agregarForm" style="display: flex;">
-					<div class="crossButton">
+				<div class="agregarForm" id="agregarForm" style="display: none;">
+					<div class="crossButtonAdd">
 						<button onclick="toggleAdd()" id="cross" class="btn-rojo"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 					<h2>Añadir item</h2>
 					<form action="/Banco/app/modificarStock/addItem.php" method="post">
-						<div>
-							<input type="number" name="item" required  placeholder=" ">
-							<label for="item">Número de item</label>
+						<div class="izquierda">
+							<div>
+								<input type="number" name="item" required placeholder=" ">
+								<label for="item">Número de item</label>
+							</div>
+
+							<div>
+								<input type="text" name="codigobarras" id="codigobarras" placeholder=" " required>
+								<label for="codigobarras">Código de barras</label>
+							</div>
+
+							<div>
+								<input type="text" name="nombre" placeholder=" " required>
+								<label for="nombre">Nombre</label>
+							</div>
+
+							<div>
+								<select name="banco" id="banco" required placeholder=" " onchange="cargarCategorias()">
+									<option value="" disabled selected></option>
+									<?php
+									// Obtener los bancos de la base de datos
+									$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
+									$stmt->execute();
+									while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+										$banco = $row['banco'];
+										$siglas = $row['siglas'];
+										echo "<option value='$siglas'>$banco - $siglas</option>";
+									}
+									?>
+								</select>
+								<label for="banco">Banco</label>
+							</div>
+
+							<div>
+								<select name="categoria" id="categoria" required placeholder=" ">
+									<option value="" disabled selected></option>
+								</select>
+								<label for="categoria">Categoría</label>
+							</div>
 						</div>
 
-						<div>
-							<label for="codigobarras">Código de barras</label>
-							<input type="text" name="codigobarras" required>
-						</div>
 
-						<div>
-							<label for="nombre">Nombre</label>
-							<input type="text" name="nombre" required>
-						</div>
 
-						<div>
-							<label for="dcorta">Descripcion corta</label>
-							<textarea name="dcorta" required></textarea>
-						</div>
+						<div class="derecha">
+							<div>
+								<textarea name="dcorta" placeholder=" " required></textarea>
+								<label for="dcorta">Descripcion corta</label>
+							</div>
 
-						<div>
-							<label for="dlarga">Descripcion larga</label>
-							<textarea name="dlarga" required></textarea>
-						</div>
+							<div>
+								<textarea name="dlarga" placeholder=" " required></textarea>
+								<label for="dlarga">Descripcion larga</label>
+							</div>
 
-						<div>
-							<label for="estudios">Estudios</label>
-							<textarea name="estudios" required></textarea>
+							<div>
+								<textarea name="estudios" placeholder=" " required></textarea>
+								<label for="estudios">Estudios</label>
+							</div>
 						</div>
 
 
-						<div>
-							<label for="banco">Banco</label>
-							<select name="banco" required>
-								<option value="" disabled selected>Seleccionar un banco</option>
-								<?php
-								// Obtener los bancos de la base de datos
-								$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
-								$stmt->execute();
-								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-									$banco = $row['banco'];
-									$siglas = $row['siglas'];
-									echo "<option value='$siglas'>$banco - $siglas</option>";
-								}
-								?>
-							</select>
-						</div>
-
-						<div>
-							<label for="categoria">Categoría</label>
-							<select name="categoria" required>
-								<option value="" disabled selected>Seleccionar una categoria</option>
-								<?php
-								// Obtener las categorías de la base de datos
-								$stmt = $pdo->prepare("SELECT DISTINCT categoria FROM categorias");
-								$stmt->execute();
-								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-									$categoria = $row['categoria'];
-									echo "<option value='$categoria'>$categoria</option>";
-								}
-								?>
-							</select>
-						</div>
-
-						<button class="btn-verde" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar
-							item</button>
+						<button class="btn-verde addEnviar" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
 					</form>
 				</div>
 			</div>
@@ -251,7 +247,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 			<?php
 			try {
-				$stmt = $pdo->prepare("SELECT i.id, i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, i.estado, b.banco FROM items i INNER JOIN bancos b ON i.banco = b.siglas WHERE i.estado != 'del' ORDER BY i.item ASC");
+				$stmt = $pdo->prepare("SELECT i.id, i.item, i.nombre, i.d_corta, i.d_larga, i.estudios, i.stock, i.categoria, i.estado, i.barcode, b.banco FROM items i INNER JOIN bancos b ON i.banco = b.siglas WHERE i.estado != 'del' ORDER BY i.item ASC");
 				$stmt->execute();
 
 				echo '<table>';
@@ -281,6 +277,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					$categoria = $row['categoria'];
 					$banco = $row['banco'];
 					$estado = $row['estado'];
+					$codebar = $row['barcode'];
 
 					echo '<tr>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
@@ -292,14 +289,16 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $categoria . '</td>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
 					if ($estado == "act") {
-						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
+						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
 						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
 						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?codebar=' . $codebar . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 							</td>';
 					} else if ($estado == "des") {
-						echo '<td style="vertical-align: middle; width: 6vw; text-align-last: justify;">
+						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
 						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
 						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?codebar=' . $codebar . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 					</td>';
 					}
 					echo '</tr>';
