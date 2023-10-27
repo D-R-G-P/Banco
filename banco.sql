@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-07-2023 a las 19:06:33
+-- Tiempo de generación: 27-10-2023 a las 18:54:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -38,8 +38,7 @@ CREATE TABLE `bancos` (
 --
 
 INSERT INTO `bancos` (`id`, `banco`, `siglas`) VALUES
-(1, 'Cirugía General', 'CIGE'),
-(4, 'Traumatologia', 'TRAU');
+(1, 'Cirugía General', 'CIGE');
 
 -- --------------------------------------------------------
 
@@ -58,9 +57,8 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `categoria`, `banco`) VALUES
-(1, 'Suturas', 'CIGE'),
-(2, 'Mallas', 'CIGE'),
-(6, 'Suturas', 'CIGE');
+(2, 'Suturas', 'CIGE'),
+(3, 'Mallas', 'CIGE');
 
 -- --------------------------------------------------------
 
@@ -2140,21 +2138,22 @@ CREATE TABLE `cigeforms` (
   `telefono` varchar(20) NOT NULL,
   `diagnostico` varchar(100) NOT NULL,
   `nomenclador_cirugia` varchar(100) NOT NULL,
-  `items_json` text NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+  `items_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`items_json`)),
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `cigeforms`
 --
 
-INSERT INTO `cigeforms` (`id`, `nombre_apellido`, `edad`, `tipo_documento`, `documento`, `domicilio`, `telefono`, `diagnostico`, `nomenclador_cirugia`, `items_json`, `fecha_registro`) VALUES
-(1, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:51:32'),
-(2, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:52:16'),
-(3, 'Lamas Cristian Jonathan', 1, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A01', '03.09.02', '[{\"item\":\"6\",\"cantidad\":\"1\"},{\"item\":\"7\",\"cantidad\":\"3\"}]', '2023-07-20 13:53:58'),
-(4, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:32:38'),
-(5, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"6\"},{\"item\":\"7\",\"cantidad\":\"15\"}]', '2023-07-20 15:33:59'),
-(6, '1', 2, 'D.N.I.', '3', '3', '3', 'A09', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:37:38');
+INSERT INTO `cigeforms` (`id`, `nombre_apellido`, `edad`, `tipo_documento`, `documento`, `domicilio`, `telefono`, `diagnostico`, `nomenclador_cirugia`, `items_json`, `fecha_registro`, `estado`) VALUES
+(1, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:51:32', 'old'),
+(2, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A00', '03.08.02 - Parotidectomía total con vaciamiento cervical', '[{\"item\":\"6\",\"cantidad\":\"2\"},{\"item\":\"7\",\"cantidad\":\"4\"}]', '2023-07-20 13:52:16', 'old'),
+(3, 'Lamas Cristian Jonathan', 1, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A01', '03.09.02', '[{\"item\":\"6\",\"cantidad\":\"1\"},{\"item\":\"7\",\"cantidad\":\"3\"}]', '2023-07-20 13:53:58', 'old'),
+(4, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:32:38', 'old'),
+(5, 'Lamas Cristian Jonathan', 22, 'D.N.I.', '43255000', '47 N°2377', '2214380474', 'A03', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"6\"},{\"item\":\"7\",\"cantidad\":\"15\"}]', '2023-07-20 15:33:59', 'old'),
+(6, '1', 2, 'D.N.I.', '3', '3', '3', 'A09', '03.08.05', '[{\"item\":\"6\",\"cantidad\":\"1\"}]', '2023-07-20 15:37:38', 'old');
 
 -- --------------------------------------------------------
 
@@ -2200,9 +2199,10 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`, `estado`) VALUES
-(1, 24, '01108845230032151726083110P1J11202001', 'Cartuchos de recarga de sutura; medida 60 mm.', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 45 mm - PRESENTACION UNIDAD', 'RECARGA SUTURAS MECANICAS; PRESENTACION UNIDAD; MEDIDA 45 O 60 MM CON TECNOLOGIA TRISTAPLE - TIPO LINEAL CORTANTE\n ENDOSCOPICA - USO QUIRURGICO; EGIA 45 O EGIA 60 RELOAD', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE', 'act'),
-(2, 7, '01108845230072681725093010P0K0026Y', 'Suturas mecánicas 80 mm. con tecnología DST tipo lineal cortante', 'SUTURAS MECANICAS; PRESENTACION 80 mm CON TECNOLOGIA DST - TIPO LINEAL CORTANTE', 'GIA 80', 'Historia Clínica + Endoscopia', 44, 'Suturas', 'CIGE', 'act'),
-(3, 6, '01108845230055541726053110P1F1569', 'Suturas mecánicas 31mm. con tecnología DST tipo circular', 'SUTURAS MECANICAS; PRESENTACION 31MM CON TECNOLOGIA DST - TIPO CIRCULAR', 'EEA 31', 'Historia Clínica + Endoscopia', 0, 'Suturas', 'CIGE', 'act');
+(7, 3, '0110705036013211', 'Sutura mecánica tipo lineal cortante de 75 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 60 A 100 mm - TIPO\r\nLINEAL CORTANTE - USO QUIRÚRGICO', 'SUTURAS MECÁNICAS; PRESENTACIÓN 55 a 100 MM.', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 15, 'Suturas', 'CIGE', 'act'),
+(8, 4, '0110705036013136172711301021244', 'Recarga de sutura mecánica lineal cortante de 75 mm. Azules', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 60 A 100 mm - PRESENTACIÓN UNIDAD', 'CARTUCHOS RECARGA DE SUTURA LINEAL; MEDIDAS DE 55 A 100MM. CONTEMPLA TODAS LAS ALTURAS DE AGRAFE', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 15, 'Suturas', 'CIGE', 'act'),
+(9, 2, 'A000695P00', 'Sutura mecánica circular de 29 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 25 A 33 mm - TIPO CIRCULAR - USO QUIRÚRGICO', 'SUTURA MECÁNICA, PRESENTACIÓN DE 25MM A 33MM. TIPO CIRCULAR. INCLUYE CARTUCHO', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 7, 'Suturas', 'CIGE', 'act'),
+(10, 2, 'A000695P00', 'Sutura mecánica circular de 33 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 25 A 33 mm - TIPO CIRCULAR - USO QUIRÚRGICO', 'SUTURA MECÁNICA, PRESENTACIÓN DE 25MM A 33MM. TIPO CIRCULAR. INCLUYE CARTUCHO', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 8, 'Suturas', 'CIGE', 'act');
 
 -- --------------------------------------------------------
 
@@ -2664,6 +2664,53 @@ INSERT INTO `nomencladorescx` (`codigo`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `solicitudes`
+--
+
+CREATE TABLE `solicitudes` (
+  `id` int(11) NOT NULL,
+  `solicitud` int(11) NOT NULL,
+  `tipo_solicitud` varchar(255) NOT NULL,
+  `fecha_solicitud` date NOT NULL,
+  `GDEBA` varchar(255) NOT NULL,
+  `items_JSON` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`items_JSON`)),
+  `paciente` varchar(255) NOT NULL,
+  `dni` varchar(255) NOT NULL,
+  `estado` varchar(255) NOT NULL,
+  `tipo_cirugia` int(11) NOT NULL,
+  `fecha_perfeccionamiento` date NOT NULL,
+  `sol_provision` varchar(255) NOT NULL,
+  `fecha_cirugia` date NOT NULL,
+  `comentarios` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stock`
+--
+
+CREATE TABLE `stock` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `barcode` varchar(255) NOT NULL,
+  `lote` varchar(255) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id`, `fecha`, `barcode`, `lote`, `cantidad`) VALUES
+(60, '2023-10-27', '0110705036013211', '340C96', 15),
+(61, '2023-10-27', '0110705036013136172711301021244', '212C44', 15),
+(62, '2023-10-27', 'A000695P00', 'nn', 7),
+(63, '2023-10-27', 'A000695P00', 'nn', 8);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -2684,11 +2731,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nombre`, `apellido`, `dni`, `username`, `password`, `cargo`, `tipo_usuario`, `banco`) VALUES
-(1, 'Cristian Jonathan', 'Lamas', 2147483647, 'clamas', '03c2b9f64446d7c270a9ee84a52ea3d8', 'Banco de Prótesis', 'SuperAdmin', 'CIGE');
+(1, 'Cristian Jonathan', 'Lamas', 2147483647, 'clamas', '03c2b9f64446d7c270a9ee84a52ea3d8', 'Banco de Prótesis', 'SuperAdmin', 'CIGE'),
+(9, 'Sabrina Elizabeth', 'Colombo', 32999416, 'secolombo', 'ee709bf2497e27ac03cfcad8afc9514f', 'Administrativo', 'Admin', 'CIGE'),
+(10, 'Silvina Elisabet', 'Mosqueda', 23599613, 'SMOSQUEDA', '81dc9bdb52d04dc20036dbd8313ed055', 'Instrumentadora', 'Instrumentador', 'Otro');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indices de la tabla `categoriascie10`
@@ -2709,6 +2765,20 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `solicitudes`
+--
+ALTER TABLE `solicitudes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `barcode` (`barcode`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -2719,6 +2789,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriascie10`
@@ -2736,13 +2812,25 @@ ALTER TABLE `cigeforms`
 -- AUTO_INCREMENT de la tabla `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudes`
+--
+ALTER TABLE `solicitudes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
