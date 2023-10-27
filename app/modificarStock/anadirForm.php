@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cantidad = +(int)$_POST['stock']; // Convertir a entero y negar el valor
 
         try {
-            // Restar el stock en la tabla items
+            // Sumar el stock en la tabla items
             $stmt = $pdo->prepare("UPDATE items SET stock = stock + :cantidad WHERE barcode = :barcode");
             $stmt->bindParam(':cantidad', $cantidad);
             $stmt->bindParam(':barcode', $barcode);
