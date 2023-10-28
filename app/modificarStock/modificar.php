@@ -12,10 +12,10 @@ $user->setUser($currentUser);
 $db = new DB();
 $pdo = $db->connect();
 
-$barcode = $_GET['codebar'];
+$id = $_GET['id'];
 
-$stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcode");
-$stmt->bindParam(':barcode', $barcode);
+$stmt = $pdo->prepare("SELECT id, item, nombre, categoria, banco, barcode FROM items WHERE id = :id");
+$stmt->bindParam(':id', $id);
 $stmt->execute();
 
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,6 +23,7 @@ $item = $row['item'];
 $nombre = $row['nombre'];
 $categoria = $row['categoria'];
 $banco = $row['banco'];
+$barcode = $row['barcode'];
 
 ?>
 
@@ -96,7 +97,7 @@ $banco = $row['banco'];
         <div>
             <div class="add modificationDiv" id="add" style="display: none;">
                 <form action="/Banco/app/modificarStock/anadirForm.php" method="post">
-                    <input type="hidden" name="codebar" value="<?php echo isset($barcode) ? $barcode : ''; ?>">
+                    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
 
                     <label for="stock">Stock a añadir</label>
                     <input name="stock" id="stock" type="number" min="1" value="1" required>
@@ -109,7 +110,7 @@ $banco = $row['banco'];
             </div>
             <div class="delete modificationDiv" id="remove" style="display: none;">
                 <form action="/Banco/app/modificarStock/removeForm.php" method="post">
-                    <input type="hidden" name="codebar" value="<?php echo isset($barcode) ? $barcode : ''; ?>">
+                    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
 
                     <label for="stock">Stock a eliminar</label>
                     <input name="stock" id="stock" type="number" min="1" value="1" required>

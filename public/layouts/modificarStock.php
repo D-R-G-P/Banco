@@ -138,7 +138,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 
 						<form class="add" id="add" style="display: none;" action="/Banco/app/modificarStock/anadirForm.php" method="post">
-							<input type="hidden" name="codebar" value="<?php echo isset($barcode) ? $barcode : ''; ?>" id="codebar" required>
+							<input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>" id="id" required>
 							<label for="stock">Stock a añadir</label>
 							<input name="stock" type="number" min="1" value="1" required style="width: 20vw;">
 							<label for="lote">Lote</label>
@@ -152,7 +152,7 @@ require_once '../../app/modificarStock/searchBarcode.php';
 							?>
 						</form>
 						<form class="remove" id="remove" style="display: none;" action="/Banco/app/modificarStock/removeForm.php" method="post">
-							<input type="hidden" name="codebar" value="<?php echo isset($barcode) ? $barcode : ''; ?>" id="codebar" required>
+							<input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>" id="id" required>
 							<label for="stock">Stock a Eliminar</label>
 							<input name="stock" type="number" min="1" value="1" required style="width: 20vw;">
 							<label for="lote">Lote</label>
@@ -277,7 +277,6 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					$categoria = $row['categoria'];
 					$banco = $row['banco'];
 					$estado = $row['estado'];
-					$codebar = $row['barcode'];
 
 					echo '<tr>';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
@@ -292,13 +291,13 @@ require_once '../../app/modificarStock/searchBarcode.php';
 						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
 						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
 						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?codebar=' . $codebar . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 							</td>';
 					} else if ($estado == "des") {
 						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
 						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
 						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?codebar=' . $codebar . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 					</td>';
 					}
 					echo '</tr>';

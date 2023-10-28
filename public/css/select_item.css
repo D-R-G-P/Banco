@@ -1,0 +1,24 @@
+.capsula {
+    padding: 1vw;
+    border: rgb(94, 89, 89) .2vw solid;
+    border-radius: .8vw;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: fit-content;
+    background: #dbdbdb;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.05);
+    margin: .8vw 0;
+}
+
+.titulo {
+    font-weight: 800;
+}
+
+.content {
+    margin-right: 2vw;
+}
+
+.cuerpo div {
+    margin: .5vw;
+}

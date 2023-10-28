@@ -14,26 +14,26 @@ $pdo = $db->connect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
-    $barcode = $_POST['codebar'];
+    $id = $_POST['id'];
     $lote = $_POST['lote'];
     $cantidad = "-" . $_POST['stock'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener los datos del formulario
-        $barcode = $_POST['codebar'];
+        $id = $_POST['id'];
         $lote = $_POST['lote'];
         $cantidad = -(int)$_POST['stock']; // Convertir a entero y negar el valor
 
         try {
             // Restar el stock en la tabla items
-            $stmt = $pdo->prepare("UPDATE items SET stock = stock + :cantidad WHERE barcode = :barcode");
+            $stmt = $pdo->prepare("UPDATE items SET stock = stock + :cantidad WHERE id = :id");
             $stmt->bindParam(':cantidad', $cantidad);
-            $stmt->bindParam(':barcode', $barcode);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
 
             // Insertar los datos en la tabla stock
-            $stmt = $pdo->prepare("INSERT INTO stock (barcode, lote, cantidad) VALUES (:barcode, :lote, :cantidad)");
-            $stmt->bindParam(':barcode', $barcode);
+            $stmt = $pdo->prepare("INSERT INTO stock (barcode, lote, cantidad) VALUES (:id, :lote, :cantidad)");
+            $stmt->bindParam(':id', $id);
             $stmt->bindParam(':lote', $lote);
             $stmt->bindParam(':cantidad', $cantidad);
             $stmt->execute();

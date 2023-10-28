@@ -10,15 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $barcode = $_POST['barcode'];
 
   try {
-    // Consultar la información del elemento basado en el código de barras
-    $stmt = $pdo->prepare("SELECT item, nombre, categoria, banco FROM items WHERE barcode = :barcode");
+    // Consultar la información de los elementos basada en el código de barras
+    $stmt = $pdo->prepare("SELECT id, item, nombre, categoria, banco FROM items WHERE barcode = :barcode");
     $stmt->bindParam(':barcode', $barcode);
     $stmt->execute();
 
-    // Verificar si se encontró un elemento con el código de barras ingresado
-    if ($stmt->rowCount() > 0) {
+    // Verificar si se encontró algún elemento con el código de barras ingresado
+    if ($stmt->rowCount() == 1) {
       // Obtener los datos del elemento encontrado
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $id = $row['id'];
       $item = $row['item'];
       $nombre = $row['nombre'];
       $categoria = $row['categoria'];
@@ -26,6 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $botonAnadir = true;
       $back = true;
       $formCodebar = true;
+    } elseif ($stmt->rowCount() >= 2) {
+      // Redirigir a la página de selección del elemento
+      header('Location: select_item.php?barcode=' . $barcode);
+      exit;
     } else {
       // Si no se encontró ningún elemento, establecer los campos como vacíos
       $item = 'Item no encontrado';
