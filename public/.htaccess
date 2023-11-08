@@ -1,0 +1,25 @@
+# Habilitar reescritura de URL
+RewriteEngine On
+
+# Quitar la extensión de archivo de todo
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Acceso a archivos .js y .css
+<FilesMatch "\.(js|css)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Permitir acceso a logout.php
+RewriteRule ^app/(modificarStock|realizarPedido)/?$ - [L]
+RewriteRule ^logout.php$ - [L]
+
+# Restringir el acceso a otros directorios y archivos
+Options -Indexes
+
+# Ocultar la extensión de archivo en otros casos
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

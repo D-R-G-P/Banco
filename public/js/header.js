@@ -21,3 +21,29 @@ document.addEventListener('click', function (e) {
         flecha.classList.remove('active');
     }
 });
+
+
+var idleTime = 0;
+
+$(document).ready(function () {
+  // Incrementa el contador de inactividad cada segundo
+  var idleInterval = setInterval(timerIncrement, 1000); // 1 segundo
+
+  // Reinicia el contador de inactividad cuando el usuario realiza una acción
+  $(this).mousemove(function (e) {
+    idleTime = 0;
+  });
+
+  $(this).keypress(function (e) {
+    idleTime = 0;
+  });
+});
+
+function timerIncrement() {
+  idleTime++;
+  // Cambiar el tiempo de inactividad a 300 segundos (5 minutos)
+  if (idleTime >= 300) {
+    // Cierra la sesión automáticamente
+    window.location.href = "/Banco/app/db/logout.php";
+  }
+}

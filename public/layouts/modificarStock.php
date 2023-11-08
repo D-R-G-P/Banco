@@ -58,9 +58,9 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 		<div class="links">
 			<a href="/Banco/">Inicio</a>
-			<a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
-			<a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
-			<a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
+			<a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
+			<a href="/Banco/public/layouts/seguimientoSolicitudes" class="disabled">Seguimiento</a>
+			<a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
 		</div>
 
 		<button id="user" class="user BORON">
@@ -85,8 +85,8 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 			</div>
 			<div class="botones">
-				<a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
-				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+				<a class="profile" href="/Banco/public/layouts/profile">Ir a mi perfil</a>
+				<a style="color: red;" href="/Banco/app/db/logout"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
 			</div>
 		</div>
 	</header>
@@ -95,8 +95,13 @@ require_once '../../app/modificarStock/searchBarcode.php';
 
 		<div class="acciones">
 			<button class="anadir" onclick="toggleForm()"><i class="fa-solid fa-plus"></i> Nueva acción</button>
-			<button class="action btn-verde" onclick="toggleAdd()"><i class="fa-solid fa-file-circle-plus"></i> Agregar
-				item</button>
+			<button class="action btn-verde" onclick="toggleAdd()"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
+			<a class="stockPaciente btn-verde" href="/Banco/app/intervencion/intervenido.php" style="margin-left: 5vw; text-decoration: none; cursor: no-drop; background-color: gray;">
+				<svg aria-hidden="true" style="font-size: 1vw" data-prefix="fas" data-icon="scalpel" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-scalpel fa-w-16 fa-7x">
+					<path fill="currentColor" d="M482.7 11.85c-29.2-20.83-70.18-13.03-93.49 14.22l-201.5 235.46c-8.9 10.41-1.51 26.47 12.19 26.47h131.94c9.37 0 18.28-4.1 24.37-11.22l139.02-162.44c26.37-30.8 21.23-78.41-12.53-102.49zM0 512c87 .07 170.28-29.18 234.29-81.16.2-.16.39-.32.59-.48 31.37-25.71 46.72-63.93 46.72-102.32V320H176L0 512z" class=""></path>
+				</svg>
+				Informar paciente intervenido
+			</a>
 
 
 			<div class="back" id="back" style="<?php if ($back == true) {
@@ -289,15 +294,15 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
 					if ($estado == "act") {
 						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable.php?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/disable?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 							</td>';
 					} else if ($estado == "des") {
 						echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable.php?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete.php?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar.php?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/enable?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
 					</td>';
 					}
 					echo '</tr>';

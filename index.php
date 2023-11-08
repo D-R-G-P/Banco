@@ -1,5 +1,5 @@
 <?php
-session_set_cookie_params(3600);
+session_set_cookie_params(300);
 include_once 'app/db/user.php';
 include_once 'app/db/user_session.php';
 
@@ -34,5 +34,3 @@ if (isset($_SESSION['user'])) {
     // echo "Login";
     include_once 'login.php';
 }
-
-?>

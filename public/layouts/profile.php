@@ -45,9 +45,9 @@ $pdo = $db->connect();
 
 		<div class="links">
 			<a href="/Banco/">Inicio</a>
-			<a href="/Banco/public/layouts/modificarStock.php">Modificar stock</a>
-			<a href="/Banco/public/layouts/seguimientoSolicitudes.php" class="disabled">Seguimiento</a>
-			<a href="/Banco/public/layouts/realizarPedido.php" class="disabled">Realizar pedido</a>
+			<a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
+			<a href="/Banco/public/layouts/seguimientoSolicitudes" class="disabled">Seguimiento</a>
+			<a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
 		</div>
 
 		<button id="user" class="user BORON">
@@ -72,8 +72,8 @@ $pdo = $db->connect();
 
 			</div>
 			<div class="botones">
-				<a class="profile" href="/Banco/public/layouts/profile.php">Ir a mi perfil</a>
-				<a style="color: red;" href="/Banco/app/db/logout.php"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
+				<a class="profile" href="/Banco/public/layouts/profile">Ir a mi perfil</a>
+				<a style="color: red;" href="/Banco/app/db/logout"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
 			</div>
 		</div>
 	</header>

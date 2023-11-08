@@ -37,7 +37,7 @@ try {
     $html .= '<tbody>';
 
     // Consulta para obtener los datos de la tabla "items" filtrados por el id del banco y la categoría actual
-    $itemsQuery = "SELECT item, nombre, stock, estado FROM items WHERE banco = (SELECT siglas FROM bancos WHERE id = :idBanco) AND categoria = :categoria AND estado = 'act'"  ;
+    $itemsQuery = "SELECT item, nombre, stock, estado FROM items WHERE banco = (SELECT siglas FROM bancos WHERE id = :idBanco) AND categoria = :categoria AND estado = 'act' ORDER BY item ASC";
     $itemsStatement = $pdo->prepare($itemsQuery);
     $itemsStatement->bindParam(':idBanco', $idBanco);
     $itemsStatement->bindParam(':categoria', $categoria);

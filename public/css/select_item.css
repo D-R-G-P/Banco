@@ -13,6 +13,7 @@
 
 .titulo {
     font-weight: 800;
+    font-size: 1.3vw;
 }
 
 .content {
@@ -21,4 +22,8 @@
 
 .cuerpo div {
     margin: .5vw;
+}
+
+a {
+    text-decoration: none;
 }
