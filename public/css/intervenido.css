@@ -1,0 +1,21 @@
+form {
+    display: flex;
+    flex-direction: row;
+}
+
+.left, .right {
+    width: 50%;
+}
+
+form input {
+    margin-top: 1.3vw;
+}
+
+form select {
+    margin: 1.3vw 0;
+}
+
+.sendButton {
+    position:fixed;
+    top: 30vw;
+}

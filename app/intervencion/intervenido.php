@@ -32,7 +32,8 @@ $pdo = $db->connect();
 <body>
 
 	<article>
-		<form action="">
+		<!-- <form action="/Banco/app/intervencion/intervencionForm.php" method="post"> -->
+		<form action="#" method="post">
 			<div class="left">
 				<div>
 					<label for="tipo_solicitud">Tipo de solicitud:</label>
@@ -42,19 +43,19 @@ $pdo = $db->connect();
 				</div>
 				<div>
 					<label for="fecha_solicitud">Fecha de solicitud:</label>
-					<input type="date" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
+					<input name="fecha_solicitud" type="date" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>" required>
 				</div>
 				<div>
 					<label for="paciente">Nombre completo del paciente:</label>
-					<input type="text" id="paciente" name="paciente">
+					<input type="text" id="paciente" name="paciente" required>
 				</div>
 				<div>
 					<label for="dni">D.N.I:</label>
-					<input type="text" oninput="formatDNI(this)">
+					<input name="dni" type="text" oninput="formatDNI(this)" required>
 				</div>
 				<div>
 					<label for="banco">Banco:</label>
-					<select name="banco" id="banco">
+					<select name="banco" id="bancoSelect" onchange="carga()" required>
 						<option value="" selected disabled>Seleccionar banco</option>
 						<?php
 						try {
@@ -74,96 +75,100 @@ $pdo = $db->connect();
 			</div>
 
 			<div class="right">
-				<table id="tabla-resultados">
+
+
+				<table>
 					<thead>
 						<tr>
 							<th>Item</th>
 							<th>Nombre</th>
-							<th>Descripción</th>
 							<th>Cantidad</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>asd</td>
-							<td>asdasd</td>
-							<td><input type="number"></td>
+					<tbody id="tabla-resultados"></tbody>
+					<tbody id="tablaCruda">
+						<tr style="text-align: center; font-size: 1.4vw;">
+							<td colspan="3" style="text-align: center; padding: .5vw;">Seleccione un banco para continuar</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+
+
+
+			<input type="submit" class="btn-verde sendButton" value="Nominalizar uso de material">
 		</form>
 	</article>
 
+	<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+		// Recoger los datos del formulario
+		$tipo_solicitud = 'Para nominalizar stock';
+		$fecha_solicitud = $_POST['fecha_solicitud'];
+		$GDEBA = $_POST['banco'];
+		$items_JSON = $_POST['jsonItems'];
+		$paciente = $_POST['paciente'];
+		$dni = $_POST['dni'];
+		$estado = ' '; // Puedes establecer un valor por defecto para el estado
+		$tipo_cirugia = ' '; // Puedes establecer un valor por defecto para el tipo de cirugía
+		$fecha_perfeccionamiento = ' '; // Puedes establecer un valor por defecto para la fecha de perfeccionamiento
+		$sol_provision = ' '; // Puedes establecer un valor por defecto para la solución de provisión
+		$fecha_cirugia = ' '; // Puedes establecer un valor por defecto para la fecha de cirugía
+		$comentarios = ' '; // Puedes establecer un valor por defecto para los comentarios
+		// Inicializar el array para almacenar los datos
+		$arrayItems = array();
+
+		// Recorrer los datos del formulario
+		foreach ($_POST['material'] as $key => $value) {
+			// Verificar si la cantidad es mayor o igual a 1
+			if ($value >= 1) {
+				// Extraer id y item de la clave
+				$idStart = strpos($key, "id:") + 4;
+				$idEnd = strpos($key, ",");
+				$id = substr($key, $idStart, $idEnd - $idStart);
 
 
+				// Crear el array con los datos necesarios
+				$arrayItem = array('id' => $id, 'cantidad' => $value);
 
-
-	<script>
-		// Obtener la fecha actual en el formato "dd/mm/yyyy" para el input date
-		var hoy = new Date();
-		var dd = String(hoy.getDate()).padStart(2, '0');
-		var mm = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0
-		var yyyy = hoy.getFullYear();
-
-		var fechaHoy = dd + '/' + mm + '/' + yyyy;
-		document.getElementById('fecha').setAttribute('max', yyyy + '-' + mm + '-' + dd);
-		document.getElementById('fecha').setAttribute('value', yyyy + '-' + mm + '-' + dd);
-
-
-		// Obtener y formatear el campo de DNI
-		function formatDNI(input) {
-			// Obtener el valor del input y eliminar cualquier carácter no numérico
-			var num = input.value.replace(/\D/g, '');
-
-			// Si hay al menos un número
-			if (num) {
-				// Formatear el número con puntos
-				var formattedNum = '';
-				for (var i = 0; i < num.length; i++) {
-					if (i > 0 && i % 3 === 0) {
-						formattedNum = '.' + formattedNum;
-					}
-					formattedNum = num[num.length - 1 - i] + formattedNum;
-				}
-
-				// Establecer el valor formateado en el input
-				input.value = formattedNum;
-			} else {
-				input.value = '';
+				// Agregar el array al array principal
+				array_push($arrayItems, $arrayItem);
 			}
 		}
 
-		document.getElementById('banco').addEventListener('change', function() {
-			var selectedBanco = this.value;
-			if (selectedBanco) {
-				fetch('/Banco/app/intervencion/gettable.php?banco=' + selectedBanco)
-					.then(function(response) {
-						return response.json();
-					})
-					.then(function(data) {
-						// Manipular los datos y actualizar la tabla aquí
-						var tablaResultados = document.getElementById('tabla-resultados').getElementsByTagName('tbody')[0];
-						tablaResultados.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-						data.forEach(function(row) {
-							var newRow = tablaResultados.insertRow(-1);
-							newRow.insertCell(0).appendChild(document.createTextNode(row.item));
-							newRow.insertCell(1).appendChild(document.createTextNode(row.nombre));
-							newRow.insertCell(2).appendChild(document.createTextNode(row.d_corta));
-							var inputCell = newRow.insertCell(3);
-							var input = document.createElement('input');
-							input.type = 'number';
-							inputCell.appendChild(input);
-						});
-					})
-					.catch(function(error) {
-						console.log('Error: ' + error);
-					});
-			}
-		});
-	</script>
+		// Convertir el array a formato JSON
+		$items_JSON = json_encode($arrayItems);
 
+		try {
+			// Crear la consulta de inserción
+			$query = "INSERT INTO solicitudes (tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+			// Preparar la consulta
+			$stmt = $pdo->prepare($query);
+
+			// Ejecutar la consulta
+			$stmt->execute([$tipo_solicitud, $fecha_solicitud, $GDEBA, $items_JSON, $paciente, $dni, $estado, $tipo_cirugia, $fecha_perfeccionamiento, $sol_provision, $fecha_cirugia, $comentarios]);
+
+			// Mostrar un mensaje de éxito
+			$_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Paciente y material nominalizado correctamente.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+
+			// Redirigir a otra página después de la inserción
+			header("Location: ../../public/layouts/modificarStock.php");
+			exit(); // Asegurar que no se ejecute nada más después de la redirección
+
+		} catch (PDOException $e) {
+			// Mostrar un mensaje de error en caso de que ocurra un error en la consulta
+			$_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al nominalizar. Vuelva a intentarlo o póngase en contacto con la administración. ' . $e->getMessage() . '</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+			echo 'Error: ' . $e->getMessage();
+
+			header("Location: ../../public/layouts/modificarStock.php");
+			exit(); // Asegurar que no se ejecute nada más después de la redirección
+		}
+	}
+	?>
+
+	<script src="/Banco/public/js/intervenido.js"></script>
 </body>
 
 </html>

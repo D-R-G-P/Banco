@@ -1,21 +1,38 @@
-// Obtener el valor del parámetro 'banco'
-if (isset($_GET['banco'])) {
-    $banco = $_GET['banco'];
+<?php
+// Importar el archivo db.php
+require_once('../db/db.php');
 
-    try {
-        // Preparar y ejecutar la consulta para obtener los datos correspondientes al banco seleccionado
-        $query = "SELECT item, nombre, d_corta FROM items WHERE banco = :banco AND estado = 'act' AND stock >= 1";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':banco', $banco);
-        $stmt->execute();
+// Crear una instancia de la clase DB
+$db = new DB();
 
-        // Obtener los datos como un array asociativo
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Establecer conexión a la base de datos
+$pdo = $db->connect();
 
-        // Devolver los datos como JSON
-        header('Content-Type: application/json');
-        echo json_encode($results);
-    } catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
+// Obtener el id del banco enviado por la solicitud
+$idBanco = $_GET['idBanco'];
+
+try {
+    $html = '';
+
+    // Consulta para obtener los datos de la tabla "items" filtrados por el id del banco y la categoría actual
+    $itemsQuery = "SELECT id, item, nombre FROM items WHERE banco = :idBanco AND (stock = 0 OR stock > 1) AND estado = 'act' ORDER BY item ASC";
+    $itemsStatement = $pdo->prepare($itemsQuery);
+    $itemsStatement->bindParam(':idBanco', $idBanco);
+    $itemsStatement->execute();
+
+    while ($itemRow = $itemsStatement->fetch(PDO::FETCH_ASSOC)) {
+        $id = $itemRow['id'];
+        $item = $itemRow['item'];
+        $nombre = $itemRow['nombre'];
+
+        $html .= '<tr>';
+        $html .= '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
+        $html .= "<td>$nombre</td>";
+        $html .= '<td><input type="number" name="material[id: ' . $id . ',]"></td>';
+        $html .= '</tr>';
     }
+    // Devolver el HTML generado
+    echo $html;
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
 }
