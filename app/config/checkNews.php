@@ -7,7 +7,7 @@ $pdo = $db->connect();
 function checkForNewRows() {
     global $pdo;
     
-    $query = "SELECT COUNT(*) FROM cigeforms WHERE estado = 'new'";
+    $query = "SELECT COUNT(*) FROM solicitudes WHERE intervencion = 'no'";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     $rowCount = $stmt->fetchColumn();
