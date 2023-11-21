@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 18:54:56
+-- Tiempo de generación: 21-11-2023 a las 16:52:00
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -2199,10 +2199,31 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`, `estado`) VALUES
-(7, 3, '0110705036013211', 'Sutura mecánica tipo lineal cortante de 75 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 60 A 100 mm - TIPO\r\nLINEAL CORTANTE - USO QUIRÚRGICO', 'SUTURAS MECÁNICAS; PRESENTACIÓN 55 a 100 MM.', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 15, 'Suturas', 'CIGE', 'act'),
-(8, 4, '0110705036013136172711301021244', 'Recarga de sutura mecánica lineal cortante de 75 mm. Azules', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 60 A 100 mm - PRESENTACIÓN UNIDAD', 'CARTUCHOS RECARGA DE SUTURA LINEAL; MEDIDAS DE 55 A 100MM. CONTEMPLA TODAS LAS ALTURAS DE AGRAFE', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 15, 'Suturas', 'CIGE', 'act'),
+(7, 3, '01107050360132111728022910340C96', 'Sutura mecánica tipo lineal cortante de 75 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 60 A 100 mm - TIPO\r\nLINEAL CORTANTE - USO QUIRÚRGICO', 'SUTURAS MECÁNICAS; PRESENTACIÓN 55 a 100 MM.', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 14, 'Suturas', 'CIGE', 'act'),
+(8, 4, '01107050360131361727093010134C65', 'Recarga de sutura mecánica lineal cortante de 75 mm. Azules', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 60 A 100 mm - PRESENTACIÓN UNIDAD', 'CARTUCHOS RECARGA DE SUTURA LINEAL; MEDIDAS DE 55 A 100MM. CONTEMPLA TODAS LAS ALTURAS DE AGRAFE', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 14, 'Suturas', 'CIGE', 'act'),
 (9, 2, 'A000695P00', 'Sutura mecánica circular de 29 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 25 A 33 mm - TIPO CIRCULAR - USO QUIRÚRGICO', 'SUTURA MECÁNICA, PRESENTACIÓN DE 25MM A 33MM. TIPO CIRCULAR. INCLUYE CARTUCHO', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 7, 'Suturas', 'CIGE', 'act'),
-(10, 2, 'A000695P00', 'Sutura mecánica circular de 33 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 25 A 33 mm - TIPO CIRCULAR - USO QUIRÚRGICO', 'SUTURA MECÁNICA, PRESENTACIÓN DE 25MM A 33MM. TIPO CIRCULAR. INCLUYE CARTUCHO', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 8, 'Suturas', 'CIGE', 'act');
+(10, 2, '01107050360229091728033110385C99', 'Sutura mecánica circular de 33 mm.', 'SUTURAS MECÁNICAS; PRESENTACIÓN 25 A 33 mm - TIPO CIRCULAR - USO QUIRÚRGICO', 'SUTURA MECÁNICA, PRESENTACIÓN DE 25MM A 33MM. TIPO CIRCULAR. INCLUYE CARTUCHO', 'Endoscopia o Tomografí­a Axial Computada o Resonancia Magnética', 7, 'Suturas', 'CIGE', 'act'),
+(11, 17, '120884521043241', 'Recarga de sutura mecánica lineal cortante de 90mm. Azules', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 90 mm -\r\nPRESENTACIÓN UNIDAD', 'CARTUCHOS RECARGA DE SUTURA MECÁNICA;\r\nMEDIDA 90 mm CON TECNOLOGÍA DST -\r\nPRESENTACIÓN UNIDAD; TA 90 RELOAD', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 18, 'Suturas', 'CIGE', 'act'),
+(12, 13, '110884521043213', 'Sutura mecánica tipo lineal de 45mm.', 'SUTURAS MECANICAS; PRESENTACION 45 mm - TIPO LINEAL - USO HERIDAS CORTANTES', ' SUTURAS MECANICAS; PRESENTACION 45 O 60 mm CON TECNOLOGIA DST- TIPO LINEAL - USO HERIDAS CORTANTES; TA 45 O TA 60', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética\r\n', 5, 'Suturas', 'CIGE', 'act'),
+(13, 14, '110884521043251', 'Sutura mecánica tipo lineal de 90mm', 'SUTURAS MECANICAS; PRESENTACION 90 mm - TIPO LINEAL - USO QUIRURGICO', 'SUTURAS MECANICAS; PRESENTACION 90 mm CON TECNOLOGIA DST- TIPO LINEAL - USO QUIRURGICO; TA 90', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 3, 'Suturas', 'CIGE', 'act'),
+(14, 29, '110884521070400', 'Sutura mecánica tipo curva cortante endoscópica (Fijador de malla)', 'SUTURAS MECÁNICAS; PRESENTACIÓN UNIDAD - TIPO\r\nCURVA CORTANTE ENDOSCOPICA - USO QUIRÚRGICO', 'SUTURAS MECÁNICAS PARA HERNIAS INGUINALES Y/O\r\nCRURALES O EVENTRACIONES BILATERALES;\r\nPRESENTACIÓN UNIDAD - USO PARA\r\nLAPAROSCOPIA; FIJADOR DE MALLAS HELICOIDAL 5\r\nMM TIPO PROTACK ENDOSCÓPICAS ARTICULABLE;\r\nPRESENTACIÓN UNIDAD - TIPO\r\nCORTANTE CURVA - USO QUIRÚRGICO; EGIA RADIAL.', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 6, 'Suturas', 'CIGE', 'act'),
+(15, 4, '110884523005561', 'Sutura mecánica tipo circular de 33 mm. con tecnología DST', 'SUTURAS MECANICAS; PRESENTACION 33MM CON TECNOLOGIA DST - TIPO CIRCULAR - USO QUIRURGICO', 'EEA33', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 4, 'Suturas', 'CIGE', 'act'),
+(16, 6, '110884523005554', 'Sutura mecánica tipo circular de 31mm. con tecnología DST', 'SUTURAS MECANICAS; PRESENTACION 31MM CON TECNOLOGIA DST - TIPO CIRCULAR - USO QUIRURGICO', 'EEA31', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 6, 'Suturas', 'CIGE', 'act'),
+(17, 5, '110884523005530', 'Sutura mecánica tipo circular de 28mm. con tecnología DST', 'SUTURAS MECANICAS; PRESENTACION 28MM CON TECNOLOGIA DST - TIPO CIRCULAR - USO QUIRURGICO', 'EEA28', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 10, 'Suturas', 'CIGE', 'act'),
+(18, 42, 'A01108845211904811726063010PVF1562X2002', 'Malla para eventración de poliester y colágeno, medida 20 x 25 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIESTER Y COLAGENO - MEDIDA 20 X 25 Cm - USO CIRUGIA', 'MALLAS DUAL P/EVENTRACCION EN CONTACTO CON VISERAS; FORMA OVALADA MATERIAL POLIESTER Y COLAGENO - MEDIDA 20 X 25\r\nCm - USO CIRUGIA; SYMBOTEX COMPOSITE', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 7, 'Mallas', 'CIGE', 'act'),
+(19, 41, '01108845211904501726063010PVF1572X2002', 'Malla para eventración de poliester y colágeno, medida 15 x 20 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIESTER Y COLAGENO - MEDIDA 15 X 20 Cm - USO CIRUGIA', 'MALLAS DUAL P/EVENTRACCION EN CONTACTO CON VISERAS; MATERIAL POLIESTER Y C0LAGENO - FORMA RECTANGULAR MEDIDA 15 X 10 CM O 15 X 20 Cm - USO CIRUGIA; PARIETEX OPTIMIZED COMPOSITE', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 9, 'Mallas', 'CIGE', 'act'),
+(20, 43, '01108845211903751726033110PVD0879X2002', 'Malla para eventración de poliester y colágeno, medida 15 x 10 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIESTER Y COLAGENO - MEDIDA 15 X 10 Cm - USO CIRUGIA', 'MALLAS DUAL P/EVENTRACCION EN CONTACTO CON VISERAS; MATERIAL POLIESTER Y COLAGENO - FORMA RECTANGULAR MEDIDA 15 X 10 Cm - USO CIRUGIA; PARIETEX OPTIMIZED COMPOSITE', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 2, 'Mallas', 'CIGE', 'act'),
+(21, 63, '01108845211777271726063010SVF1533X2002', 'Malla para eventración autofijable de 15 x 15 cm.', 'MALLAS P/ EVENTRACION; MATERIAL AUTOFIJABLE - MEDIDA 15 X 15 Cm - USO HERNIA INGUINAL', 'MALLAS P/EVENTRACCION; TRATAMIENTO DE HERNIA INGUINAL T/LINCHESTEIN MATERIAL AUTOFIJABLE - MEDIDA 15 X 15 CM- USO QUIRUGICO; PARIETEX PROGRIP CUADRADA', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 4, 'Mallas', 'CIGE', 'act'),
+(22, 61, '01108845215132111724053110PVF1167X2002', 'Malla para eventración autofijable de 15 x 10 cm.', 'MALLAS P/ EVENTRACION; MATERIAL AUTOFIJABLE - MEDIDA 15 X 10 Cm - USO HERNIA INGUINAL', 'MALLAS P/EVENTRACCION;TRATAMIENTO DE HERNIA INGUINAL T/LAPAROSCOPICO MATERIAL AUTOFIJABLE - MEDIDA 15X10 CM Y 16X12 CM - USO QUIRURGICO; PROGRIP LAPAROSCOPICA', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 10, 'Mallas', 'CIGE', 'act'),
+(23, 62, '01108845211777031726053110SVF0490X2002', 'Malla para eventración autofijable de 9 x 14 cm.', 'MALLAS P/ EVENTRACION; MATERIAL AUTOFIJABLE - MEDIDA 9 X 14 Cm - USO HERNIA INGUINAL', 'MALLAS P/EVENTRACCION; TRATAMIENTO DE HERNIA INGUINAL MATERIAL AUTOFIJABLE DERECHA O IZQUIERDA - MEDIDA 9 X 14 CMUSO QUIRUGICO; PARIETEX PROGRIP', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 5, 'Mallas', 'CIGE', 'act'),
+(24, 39, '01108845212137601727022810SWC1389X2002', 'Malla para eventración, polipropileno macroporosa de 15 x 15 cm.', 'MALLAS P/ EVENTRACIÓN; MATERIAL POLIPROPILENO MICROPOROSO - MEDIDA 10 X 15 Cm - USO CIRUGÍA', 'MALLAS P/EVENTRACIÓN; MATERIAL POLIPROPILENO MICROPOROSO - MEDIDA 08 X 15 O 15 X 15 Cm - USO CIRUGÍA; PARIETENE\nMACROPOROSA MESH', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 10, 'Mallas', 'CIGE', 'act'),
+(25, 40, '01108845212137841726053110SVF0827X2002', 'Malla para eventración de polipropileno macroporoso de 30 x 30 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIPROPILENO MACROPOROSO - MEDIDA 30 X 30 Cm - USO CIRUGIA', 'PARIETENE MACROPOROSA MESH', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 5, 'Mallas', 'CIGE', 'act'),
+(26, 60, '01108845211791031726022810SVC0753X2002', 'Malla para eventración autofijable de 30 x 30 cm.', 'MALLAS P/ EVENTRACION; MATERIAL AUTOFIJABLE - MEDIDA VARIABLE - USO HERNIA INGUINAL ', 'MALLAS P/EVENTRACCION; TRATAMIENTO DE HERNIA INGUINAL T/ LINCHESTEIN MATERIAL AUTOFIJABLE - MEDIDA - USO QUIRURGICO; PROGRIP', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 12, 'Mallas', 'CIGE', 'act'),
+(27, 47, '01108845211796841726073110PVH0614M2002', 'Malla para eventración de poliester y colágeno, medida 15 x 10 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIESTER Y COLAGENO - MEDIDA 15 X 10 Cm - USO CIRUGIA', 'MALLAS DUAL P/EVENTRACCION EN CONTACTO CON VISERAS; MATERIAL POLIESTER Y COLAGENO - FORMA RECTANGULAR MEDIDA 10 X 15 Cm - USO CIRUGIA; PARIETEX OPTIMIZED COMPOSITE', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 10, 'Mallas', 'CIGE', 'act'),
+(28, 44, '01108845211797521726063010PVG0539M2002', 'Malla para eventración de poliester y colágeno, medida 15 x 20 cm.', 'MALLAS P/ EVENTRACION; MATERIAL POLIESTER Y COLAGENO - MEDIDA 15 X 20 Cm - USO CIRUGIA', 'MALLAS DUAL P/EVENTRACCION EN CONTACTO CON VISERAS; MATERIAL POLIESTER Y COLAGENO - FORMA RECTANGULAR MEDIDA 15 X 20 Cm - USO CIRUGIA; PARIETEX OPTIMIZED COMPOSITE', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 6, 'Mallas', 'CIGE', 'act'),
+(29, 21, '01108845230031541726022810N1C0331Y', 'Recarga de sutura mecánica lineal cortante endoscopica de 45 mm. con tecnología Tristaple', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 45 mm - PRESENTACION UNIDAD', 'RECARGA SUTURAS MECANICAS; PRESENTACION UNIDAD; MEDIDA 45 O 60 MM CON TECNOLOGIA TRISTAPLE - TIPO LINEAL CORTANTE ENDOSCOPICA - USO QUIRURGICO; EGIA 45 O EGIA 60 RELOAD', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 27, 'Suturas', 'CIGE', 'act'),
+(30, 24, '01108845230032151726083110P1J11202001', 'Recarga de sutura mecánica lineal cortante endoscopica de 60 ', 'CARTUCHOS RECARGA DE SUTURA; MEDIDA 60 mm - PRESENTACION UNIDAD', 'RECARGA SUTURAS MECANICAS; PRESENTACION UNIDAD; MEDIDA 45 O 60 MM CON TECNOLOGIA TRISTAPLE - TIPO LINEAL CORTANTE ENDOSCOPICA - USO QUIRURGICO; EGIA 45 O EGIA 60 RELOAD', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 1, 'Suturas', 'CIGE', 'act'),
+(31, 22, '01108845230035431726083110P1J0936', 'Sutura mecánica tipo lineal cortante endoscópica universal', 'SUTURAS MECANICAS; PRESENTACION UNIDAD - TIPO LINEAL CORTANTE ENDOSCOPICA - USO QUIRURGICO', 'SUTURAS MECANICAS; PRESENTACION UNIDAD - TIPO LINEAL CORTANTE ARTICULABLE; ENDOSCOPICA - USO QUIRURGICO; ENDOGIA UNIVERSAL', 'Endoscopia o Tomografía Axial Computada o Resonancia Magnética', 35, 'Suturas', 'CIGE', 'act');
 
 -- --------------------------------------------------------
 
@@ -2681,8 +2702,17 @@ CREATE TABLE `solicitudes` (
   `fecha_perfeccionamiento` date NOT NULL,
   `sol_provision` varchar(255) NOT NULL,
   `fecha_cirugia` date NOT NULL,
-  `comentarios` longtext NOT NULL
+  `comentarios` longtext NOT NULL,
+  `banco` varchar(255) NOT NULL,
+  `intervencion` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`id`, `solicitud`, `tipo_solicitud`, `fecha_solicitud`, `GDEBA`, `items_JSON`, `paciente`, `dni`, `estado`, `tipo_cirugia`, `fecha_perfeccionamiento`, `sol_provision`, `fecha_cirugia`, `comentarios`, `banco`, `intervencion`) VALUES
+(32, 0, 'Para nominalizar stock', '2023-11-16', ' ', '[{\"id\":\"7\",\"cantidad\":\"1\"},{\"id\":\"8\",\"cantidad\":\"5\"}]', 'Lamas Cristian Jonathan', '43.255.000', ' ', 0, '0000-00-00', ' ', '0000-00-00', ' ', 'CIGE', 'no');
 
 -- --------------------------------------------------------
 
@@ -2706,7 +2736,32 @@ INSERT INTO `stock` (`id`, `fecha`, `barcode`, `lote`, `cantidad`) VALUES
 (60, '2023-10-27', '0110705036013211', '340C96', 15),
 (61, '2023-10-27', '0110705036013136172711301021244', '212C44', 15),
 (62, '2023-10-27', 'A000695P00', 'nn', 7),
-(63, '2023-10-27', 'A000695P00', 'nn', 8);
+(63, '2023-10-27', 'A000695P00', 'nn', 8),
+(64, '2023-10-30', '11', 'P1H1363', 18),
+(65, '2023-10-30', '12', 'P1B1455', 5),
+(66, '2023-10-30', '13', 'P1E1404', 3),
+(67, '2023-10-30', '14', 'PGF1309PY', 6),
+(68, '2023-10-30', '15', 'P1D0358', 4),
+(69, '2023-10-30', '16', 'P1F1569', 6),
+(70, '2023-10-30', '17', 'P1B1322', 10),
+(71, '2023-10-30', '18', 'PVF1562X', 7),
+(72, '2023-10-30', '19', 'PVF1572X', 9),
+(73, '2023-10-30', '20', 'PVD0879X', 2),
+(74, '2023-10-30', '21', 'SVF1533X', 4),
+(75, '2023-10-30', '22', 'PVF1167X', 10),
+(76, '2023-10-30', '23', 'SVF0490X\n', 5),
+(77, '2023-10-30', '24', 'SWC1389X', 10),
+(78, '2023-10-30', '25', 'SVF0827X', 5),
+(79, '2023-10-30', '26', 'SVC0753X', 12),
+(80, '2023-10-30', '27', 'PVH0614M', 10),
+(81, '2023-10-30', '28', 'PVG0539M', 6),
+(82, '2023-10-30', '29', 'N1C0331Y', 27),
+(83, '2023-10-30', '30', 'P1J1120', 6),
+(84, '2023-10-30', '31', 'P1J0936', 35),
+(85, '2023-11-02', '30', 'P1J1120', -5),
+(86, '2023-11-02', '10', '385C99', -1),
+(87, '2023-11-02', '7', '340C96', -1),
+(88, '2023-11-02', '8', '134C65', -1);
 
 -- --------------------------------------------------------
 
@@ -2733,7 +2788,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nombre`, `apellido`, `dni`, `username`, `password`, `cargo`, `tipo_usuario`, `banco`) VALUES
 (1, 'Cristian Jonathan', 'Lamas', 2147483647, 'clamas', '03c2b9f64446d7c270a9ee84a52ea3d8', 'Banco de Prótesis', 'SuperAdmin', 'CIGE'),
 (9, 'Sabrina Elizabeth', 'Colombo', 32999416, 'secolombo', 'ee709bf2497e27ac03cfcad8afc9514f', 'Administrativo', 'Admin', 'CIGE'),
-(10, 'Silvina Elisabet', 'Mosqueda', 23599613, 'SMOSQUEDA', '81dc9bdb52d04dc20036dbd8313ed055', 'Instrumentadora', 'Instrumentador', 'Otro');
+(10, 'Silvina Elisabet', 'Mosqueda', 23599613, 'SMOSQUEDA', '81dc9bdb52d04dc20036dbd8313ed055', 'Instrumentadora', 'Instrumentador', 'Otro'),
+(11, 'Martin', 'Recalde', 18276523, 'mrecaldf', '81dc9bdb52d04dc20036dbd8313ed055', 'Director asociado', 'Admin', 'CIGE');
 
 --
 -- Índices para tablas volcadas
@@ -2768,7 +2824,7 @@ ALTER TABLE `items`
 -- Indices de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indices de la tabla `stock`
@@ -2812,25 +2868,25 @@ ALTER TABLE `cigeforms`
 -- AUTO_INCREMENT de la tabla `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
