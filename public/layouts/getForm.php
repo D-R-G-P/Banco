@@ -151,7 +151,7 @@ $pdo = $db->connect();
                     </td>
                     <td><?= $solicitud['banco'] ?></td>
                     <td style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-evenly; align-items: center;">
-                        <button class="btn-verde"><i class="fa-solid fa-hand-pointer"></i></button>
+                        <a class="btn-verde" href="/Banco/app/seguimiento/tramitar.php?solicitudId=<?= $solicitud['id'] ?>"><i class="fa-solid fa-hand-pointer"></i></a>
                         <a class="btn-verde" href="/Banco/app/seguimiento/eliminar_solicitud.php?solicitudId=<?= $solicitud['id'] ?>"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>

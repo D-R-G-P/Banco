@@ -1,0 +1,12 @@
+.modulo {
+    background-color: #bdbdbdb9;
+    background-image: radial-gradient(#585858e7 0.1vw, transparent 0);
+    padding: 1.3vw;
+    margin: 1vw 0;
+    border-radius: .8vw;
+    border: .2vw black solid;
+}
+
+.paciente {
+    margin-top: 0;
+}
