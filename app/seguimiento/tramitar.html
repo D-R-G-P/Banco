@@ -18,63 +18,97 @@
     <article>
         <form action="#" method="post">
             <div class="paciente modulo">
-                <div>
-                    <label for="fecha_solicitud">Fecha de solicitud</label>
-                    <input type="text" id="fecha_solicitud" name="fecha_solicitud">
-                </div>
-                <div>
-                    <label for="paciente">Nombre del paciente</label>
-                    <input type="text" id="paciente" name="paciente">
-                </div>
-                <div>
-                    <label for="dni">D.N.I.</label>
-                    <input type="text" id="dni" name="dni">
+                <h3><u>Datos del paciente</u></h3>
+
+                <div class="datos">
+                    <div>
+                        <label for="fecha_solicitud">Fecha de solicitud</label>
+                        <input type="date" id="fecha_solicitud" name="fecha_solicitud" readonly>
+                    </div>
+                    <div>
+                        <label for="paciente">Nombre del paciente</label>
+                        <input type="text" id="paciente" name="paciente">
+                    </div>
+                    <div>
+                        <label for="dni">D.N.I.</label>
+                        <input type="text" id="dni" name="dni" oninput="formatDNI(this)">
+                    </div>
                 </div>
             </div>
             <div class="intranet modulo">
-                <div>
-                    <label for="solicitud">Solicitud de intranet N°</label>
-                    <input type="text" id="solicitud" name="solicitud">
-                </div>
-                <div>
-                    <label for="tipo_solicitud">Tipo de solicitud</label>
-                    <input type="text" id="tipo_solicitud" name="tipo_solicitud">
-                </div>
-                <div>
-                    <label for="items_JSON">Items y cantidad</label>
-                    <input type="text" id="items_JSON" name="items_JSON">
-                </div>
-                <div>
-                    <label for="tipo_cirugia">Tipo de cirugía</label>
-                    <input type="text" id="tipo_cirugia" name="tipo_cirugia">
-                </div>
-                <div>
-                    <label for="fecha_perfeccionamiento">Fecha de perfeccionamiento</label>
-                    <input type="text" id="fecha_perfeccionamiento" name="fecha_perfeccionamiento">
-                </div>
-                <div>
-                    <label for="sol_provision">Provisión de solicitud</label>
-                    <input type="text" id="sol_provision" name="sol_provision">
-                </div>
-                <div>
-                    <label for="fecha_cirugia">Fecha de cirugía</label>
-                    <input type="text" id="fecha_cirugia" name="fecha_cirugia">
+                <h3><u>Datos de intranet</u></h3>
+
+                <div class="datos">
+                    <div>
+                        <label for="solicitud">Solicitud de intranet N°</label>
+                        <input type="number" id="solicitud" name="solicitud">
+                    </div>
+                    <div>
+                        <label for="tipo_solicitud">Tipo de solicitud</label>
+                        <select name="tipo_solicitud" id="tipo_solicitud">
+                            <option value="" disabled selected>Seleccionar tipo de solicitud</option>
+                            <option value="Para cirugía">Para cirugía</option>
+                            <option value="Para stock" disabled>Para stock</option>
+                            <option value="Para nominalizar stock">Para nominalizar stock</option>
+                            <option value="Para nominalizar stock hospitalario" disabled>Para nominalizar stock hospitalario</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="tipo_cirugia">Tipo de cirugía</label>
+                        <select name="tipo_cirugia" id="tipo_cirugia">
+                            <option value="" disabled selected>Seleccionar tipo de cirugía</option>
+                            <option value="Urgencia">Urgencia</option>
+                            <option value="Programada">Programada</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="fecha_perfeccionamiento">Fecha de perfeccionamiento</label>
+                        <input type="date" id="fecha_perfeccionamiento" name="fecha_perfeccionamiento">
+                    </div>
+                    <div>
+                        <label for="sol_provision">Provisión de solicitud</label>
+                        <input type="text" id="sol_provision" name="sol_provision">
+                    </div>
+                    <div>
+                        <label for="fecha_cirugia">Fecha de cirugía</label>
+                        <input type="date" id="fecha_cirugia" name="fecha_cirugia">
+                    </div>
+                    <div>
+                        <label for="items_JSON">Items y cantidad</label>
+                        <input type="text" id="items_JSON" name="items_JSON">
+                    </div>
                 </div>
             </div>
             <div class="gdeba modulo">
-                <div>
+                <h3><u>Datos de GDEBA</u></h3>
+
+                <div class="divModulo">
                     <label for="GDEBA">N° de GDEBA</label>
-                    <input type="text" id="GDEBA" name="GDEBA">
+                    <input type="text" id="GDEBA" name="GDEBA" placeholder="EX-2023-61786524- -GDEBA-HIGAGSMMSALGP" maxlength="28" minlength="28">
+                    <p class="error-message" id="error-message"></p>
                 </div>
             </div>
             <div class="otros modulo">
-                <div>
-                    <label for="estado">Estado</label>
-                    <input type="text" id="estado" name="estado">
-                </div>
-                <div>
-                    <label for="comentarios">Comentarios</label>
-                    <input type="text" id="comentarios" name="comentarios">
+                <h3><u>Otros datos</u></h3>
+
+                <div class="datos" style="grid-template-columns: repeat(2, 1fr);">
+                    <div>
+                        <label for="estado">Estado</label>
+                        <select name="estado" id="estado">
+                            <option value="" disabled selected>Seleccionar estado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Anulada">Anulada</option>
+                            <option value="Con GDEBA">Con GDEBA</option>
+                            <option value="Perfeccionada">Perfeccionada</option>
+                            <option value="Nominalizada">Nominalizada</option>
+                            <option value="Rescindida">Rescindida</option>
+                            <option value="Facturada">Facturada</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="comentarios">Comentarios</label>
+                        <textarea name="comentarios" id="comentarios" cols="30" rows="10"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -89,6 +123,8 @@
             <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>
         </form>
     </article>
+
+    <script src="/public/js/tramitar.js"></script>
 </body>
 
 </html>

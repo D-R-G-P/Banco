@@ -5,8 +5,39 @@
     margin: 1vw 0;
     border-radius: .8vw;
     border: .2vw black solid;
+    font-weight: 600;
 }
 
 .paciente {
     margin-top: 0;
+}
+
+.datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5vw;
+    grid-row-gap: 1.5vw;
+}
+
+.datos div, .divModulo {
+    display: flex;
+    flex-direction: column;
+}
+
+.datos div label {
+    margin-bottom: .3vw;
+    font-size: 1.2vw;
+}
+
+h3 {
+    font-size: 1.5vw;
+    margin-bottom: 1.8vw;
+}
+
+input {
+    height: 2.3vw;
+}
+
+textarea {
+    resize: none;
 }
