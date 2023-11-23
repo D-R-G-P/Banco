@@ -106,16 +106,16 @@ $pdo = $db->connect();
 		// Recoger los datos del formulario
 		$tipo_solicitud = 'Para nominalizar stock';
 		$fecha_solicitud = $_POST['fecha_solicitud'];
-		$GDEBA = ' ';
+		$GDEBA = '';
 		$items_JSON = $_POST['jsonItems'];
 		$paciente = $_POST['paciente'];
 		$dni = $_POST['dni'];
-		$estado = ' '; // Puedes establecer un valor por defecto para el estado
-		$tipo_cirugia = ' '; // Puedes establecer un valor por defecto para el tipo de cirugía
-		$fecha_perfeccionamiento = ' '; // Puedes establecer un valor por defecto para la fecha de perfeccionamiento
-		$sol_provision = ' '; // Puedes establecer un valor por defecto para la solución de provisión
-		$fecha_cirugia = ' '; // Puedes establecer un valor por defecto para la fecha de cirugía
-		$comentarios = ' '; // Puedes establecer un valor por defecto para los comentarios
+		$estado = ''; // Puedes establecer un valor por defecto para el estado
+		$tipo_cirugia = ''; // Puedes establecer un valor por defecto para el tipo de cirugía
+		$fecha_perfeccionamiento = ''; // Puedes establecer un valor por defecto para la fecha de perfeccionamiento
+		$sol_provision = ''; // Puedes establecer un valor por defecto para la solución de provisión
+		$fecha_cirugia = ''; // Puedes establecer un valor por defecto para la fecha de cirugía
+		$comentarios = ''; // Puedes establecer un valor por defecto para los comentarios
 		// Inicializar el array para almacenar los datos
 		$banco = $_POST['banco'];
 		$intervencion = 'no';
@@ -144,13 +144,13 @@ $pdo = $db->connect();
 
 		try {
 			// Crear la consulta de inserción
-			$query = "INSERT INTO solicitudes (tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, banco, intervencion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$query = "INSERT INTO solicitudes (tipo_solicitud, fecha_solicitud, items_JSON, paciente, dni, banco, intervencion) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 			// Preparar la consulta
 			$stmt = $pdo->prepare($query);
 
 			// Ejecutar la consulta
-			$stmt->execute([$tipo_solicitud, $fecha_solicitud, $GDEBA, $items_JSON, $paciente, $dni, $estado, $tipo_cirugia, $fecha_perfeccionamiento, $sol_provision, $fecha_cirugia, $comentarios, $banco, $intervencion]);
+			$stmt->execute([$tipo_solicitud, $fecha_solicitud, $items_JSON, $paciente, $dni, $banco, $intervencion]);
 
 			// Mostrar un mensaje de éxito
 			$_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Paciente y material nominalizado correctamente.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';

@@ -24,7 +24,7 @@
     flex-direction: column;
 }
 
-.datos div label {
+.datos div label, .labelJSON {
     margin-bottom: .3vw;
     font-size: 1.2vw;
 }
