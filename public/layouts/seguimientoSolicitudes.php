@@ -56,7 +56,7 @@ $pdo = $db->connect();
       <div class="links">
          <a href="/Banco/">Inicio</a>
          <a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
-         <a href="/Banco/public/layouts/seguimientoSolicitudes" class="disabled">Seguimiento</a>
+         <a href="/Banco/public/layouts/seguimientoSolicitudes">Seguimiento</a>
          <a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
       </div>
 
@@ -133,7 +133,7 @@ $pdo = $db->connect();
          <table style="max-width: 95%;">
             <thead>
                <tr>
-                  <th>Id</th>
+                  <th>N° de solicitud</th>
                   <th>Tipo de solicitud</th>
                   <th>Fecha de solicitud</th>
                   <th>Expediente GDEBA</th>
@@ -146,57 +146,44 @@ $pdo = $db->connect();
             </thead>
 
             <tbody>
+               <!-- Fila de mensaje si no se ha seleccionado un banco -->
                <tr id="nulo">
                   <td colspan="9" style="text-align: center;"><b style="font-size: 2vw;">Seleccione un banco de la lista para continuar</b></td>
                </tr>
 
+               <?php
+               // Solo realizar la consulta y mostrar las solicitudes si se ha seleccionado un banco
+               if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['banco'])) {
+                  // Obtener el valor del banco seleccionado
+                  $bancoSeleccionado = $_POST['banco'];
 
-               <tr class="tablaPedidos" style="display: none;">
-                  <td>a</td>
-                  <td>aa</td>
-                  <td>aaa</td>
-                  <td>aaaa</td>
-                  <td>aaaaa</td>
-                  <td>aaaaaa</td>
-                  <td>aaaaaaa</td>
-                  <td>aaaaaaaa</td>
-                  <td>aaaaaaaaa</td>
-               </tr>
-               <tr class="tablaPedidos" style="display: none;">
-                  <td>a</td>
-                  <td>aa</td>
-                  <td>aaa</td>
-                  <td>aaaa</td>
-                  <td>aaaaa</td>
-                  <td>aaaaaa</td>
-                  <td>aaaaaaa</td>
-                  <td>aaaaaaaa</td>
-                  <td>aaaaaaaaa</td>
-               </tr>
+                  // Definir la consulta SQL para obtener las solicitudes filtradas por banco
+                  $solicitudesQuery = "SELECT id, solicitud, tipo_solicitud, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, GDEBA, paciente, dni, estado, tipo_cirugia, intervencion, banco FROM solicitudes WHERE intervencion = 'si' AND banco = :bancoSeleccionado ORDER BY id ASC";
 
-               <script>
-                  var tablaPedidos = document.querySelectorAll(".tablaPedidos");
+                  // Preparar y ejecutar la consulta para obtener las solicitudes filtradas por banco
+                  $solicitudesStatement = $pdo->prepare($solicitudesQuery);
+                  $solicitudesStatement->bindParam(':bancoSeleccionado', $bancoSeleccionado, PDO::PARAM_STR);
+                  $solicitudesStatement->execute();
+                  $solicitudes = $solicitudesStatement->fetchAll(PDO::FETCH_ASSOC);
 
-                  bancoSelect.addEventListener('change', function() {
-                     if (bancoSelect.value !== '') {
-                        nulo.style.display = 'none';
+                  // Mostrar las solicitudes filtradas
+                  foreach ($solicitudes as $solicitud) :
+               ?>
+                     <tr class="tablaPedidos">
+                        <!-- ... (celdas de la fila) ... -->
+                     </tr>
+               <?php
+                  endforeach;
 
-                        // Iterar a través de la lista de elementos con clase "tablaPedidos"
-                        tablaPedidos.forEach(function(tabla) {
-                           tabla.style.display = "table-row";
-                        });
-                     } else {
-                        nulo.style.display = 'block';
-
-                        // Iterar a través de la lista de elementos con clase "tablaPedidos"
-                        tablaPedidos.forEach(function(tabla) {
-                           tabla.style.display = "none";
-                        });
-                     }
-                  });
-               </script>
+                  // Ocultar el mensaje de "Seleccione un banco" y las filas iniciales
+                  echo "<script>nulo.style.display = 'none';</script>";
+               }
+               ?>
             </tbody>
          </table>
+         <div class="finish">
+            
+         </div>
       </div>
 
 

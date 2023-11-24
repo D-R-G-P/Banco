@@ -45,11 +45,13 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $comentarios = $result['comentarios'];
 
     if ($result) {
-
       $intervencion = $result['intervencion'];
 
       // Verificar si el estado actual es diferente a "act"
-      if ($intervencion !== 'si') {
+      if ($intervencion == 'no') {
+        // Obtener el ID para la actualización
+        $id = $result['id'];
+
         // Consulta SQL para actualizar el estado a "act"
         $updateQuery = "UPDATE solicitudes SET intervencion = 'si' WHERE id = :id";
 
@@ -58,6 +60,9 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
         // Bind del valor del ID para la actualización
         $updateStatement->bindParam(':id', $id, PDO::PARAM_INT);
+
+        // Ejecutar la consulta de actualización
+        $updateStatement->execute();
       }
     }
   }
@@ -86,7 +91,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 <body>
   <article>
     <form action="/Banco/app/seguimiento/tramitarForm.php" method="post">
-      <input type="hidden" name="id" value="<?php echo $id ?>">
+      <input type="hidden" name="id" value="<?php echo $idSol ?>">
       <div class="paciente modulo">
         <h3><u>Datos del paciente</u></h3>
 

@@ -1,6 +1,11 @@
 // Obtener referencia al elemento select y al contenedor de las tablas
 const bancoSelect = document.getElementById('bancoSelect');
 const formContainerr = document.getElementById('formContainer');
+const nulo = document.getElementById("nulo");
+
+document.addEventListener("DOMContentLoaded", function () {
+    checkForNewData(); // Llamar a la función cuando la página cargue
+});
 
 // Función para actualizar las tablas según el banco seleccionado
 function actualizarFormulario() {
@@ -18,70 +23,90 @@ function actualizarFormulario() {
         });
 }
 
-// Escuchar el evento de cambio en el elemento select
-bancoSelect.addEventListener('change', actualizarFormulario);
-
-// Obtener el elemento del select y el div del formulario
-const selectElement = document.getElementById("bancoSelect");
-const formContainer = document.getElementById("formContainer");
-
 // Manejar el evento onchange del select
-selectElement.addEventListener("change", () => {
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
+bancoSelect.addEventListener('change', function () {
+    const selectedValue = bancoSelect.value;
 
     // Actualizar el contenido del div según el valor seleccionado
     if (selectedValue === "CIGE") {
         // Realizar una solicitud al servidor para obtener el contenido de CIGE.php
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Insertar el contenido en el div correspondiente
-                document.getElementById("contenidoDinamico").innerHTML = xhr.responseText;
-
+        fetch("formsPedidos/CIGE.php")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("contenidoDinamico").innerHTML = content;
                 // Inicializar Select2 para los elementos cargados dinámicamente
                 $('#controlBuscador').select2();
                 $('#controlBuscadorSecond').select2();
-            }
-        };
-        xhr.open("GET", "formsPedidos/CIGE.php", true);
-        xhr.send();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     } else if (selectedValue === "OTRA_OPCION") {
         formContainer.innerHTML = "Contenido específico para otra opción";
     } else {
         // Contenido predeterminado si no se selecciona ninguna opción válida
         formContainer.innerHTML = "Contenido predeterminado";
     }
-});
-$(document).ready(function () {
-    $('#controlBuscador').select2();
-    $('#controlBuscadorSecond').select2();
+
+    // Mostrar u ocultar el mensaje "Seleccione un banco"
+    nulo.style.display = selectedValue !== '' ? 'none' : 'block';
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    checkForNewData(); // Llamar a la función cuando la página cargue
+// Manejar el evento change del select para filtrar las solicitudes
+bancoSelect.addEventListener('change', function () {
+    const selectedBanco = bancoSelect.value;
+
+    if (selectedBanco !== '') {
+        // Realizar una solicitud AJAX al servidor para obtener las solicitudes filtradas
+        $.ajax({
+            type: "POST",
+            url: "../../app/seguimiento/getList.php",
+            data: {
+                banco: selectedBanco
+            },
+            success: function (data) {
+                // Actualizar el contenido de tbody con las nuevas solicitudes
+                $("tbody").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    } else {
+        // Limpiar el contenido de tbody y mostrar el mensaje "Seleccione un banco"
+        $("tbody").html('');
+        nulo.style.display = 'block';
+    }
 });
 
+// Función para verificar nuevas solicitudes cada 15 segundos
 function checkForNewData() {
     $.ajax({
-        url: '../../app/config/checkNews.php', // Asegúrate de ajustar la ruta
+        url: '../../app/config/checkNews.php',
         method: 'GET',
-        success: function(response) {
+        success: function (response) {
             if (response === 'new') {
                 // Ejecutar la función de JavaScript
                 newAct();
             } else {
                 newDesact();
             }
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
         }
     });
 }
 
 function newAct() {
+    var newA = document.getElementById('newA');
+    
     newA.classList.add('newAct');
 }
 
 function newDesact() {
+    var newA = document.getElementById('newA');
+    
     newA.classList.remove('newAct');
 }
 

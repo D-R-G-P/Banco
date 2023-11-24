@@ -53,7 +53,7 @@ $pdo = $db->connect();
         <div class="links">
             <a href="/Banco/">Inicio</a>
             <a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
-            <a href="/Banco/public/layouts/seguimientoSolicitudes" class="disabled">Seguimiento</a>
+            <a href="/Banco/public/layouts/seguimientoSolicitudes">Seguimiento</a>
             <a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
         </div>
 
