@@ -32,7 +32,6 @@ $pdo = $db->connect();
 <body>
 
 	<article>
-		<!-- <form action="/Banco/app/intervencion/intervencionForm.php" method="post"> -->
 		<form action="#" method="post">
 			<div class="left">
 				<div>
@@ -151,6 +150,28 @@ $pdo = $db->connect();
 
 			// Ejecutar la consulta
 			$stmt->execute([$tipo_solicitud, $fecha_solicitud, $items_JSON, $paciente, $dni, $banco, $intervencion]);
+
+			// Obtener el último ID insertado
+			$lastInsertId = $pdo->lastInsertId();
+
+			// Actualizar el stock en la tabla items
+			foreach ($arrayItems as $item) {
+				$itemId = $item['id'];
+				$cantidad = $item['cantidad'];
+
+				// Consulta para restar la cantidad al stock actual
+				$updateStockQuery = "UPDATE items SET stock = stock - :cantidad WHERE id = :itemId";
+
+				// Preparar la consulta de actualización
+				$updateStockStmt = $pdo->prepare($updateStockQuery);
+
+				// Bind de los parámetros
+				$updateStockStmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+				$updateStockStmt->bindParam(':itemId', $itemId, PDO::PARAM_INT);
+
+				// Ejecutar la consulta de actualización
+				$updateStockStmt->execute();
+			}
 
 			// Mostrar un mensaje de éxito
 			$_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Paciente y material nominalizado correctamente.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';

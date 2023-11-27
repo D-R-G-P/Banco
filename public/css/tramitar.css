@@ -1,3 +1,13 @@
+.print {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.print .botones a {
+    text-decoration: none;
+}
+
 .modulo {
     background-color: #bdbdbdb9;
     background-image: radial-gradient(#585858e7 0.1vw, transparent 0);

@@ -90,6 +90,13 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
 <body>
   <article>
+    <div class="print modulo">
+      <h3 style="margin-bottom: 0;">Planillas descargables:</h3>
+      <div class="botones">
+        <a href="/Banco/app/seguimiento/planillas/prescripcion.html" target="_blank" class="btn-verde"><i class="fa-solid fa-file"></i> Prescripción</a>
+        <a href="" target="_blank" class="btn-verde"><i class="fa-solid fa-pager"></i> SAMO</a>
+      </div>
+    </div>
     <form action="/Banco/app/seguimiento/tramitarForm.php" method="post">
       <input type="hidden" name="id" value="<?php echo $idSol ?>">
       <div class="paciente modulo">
