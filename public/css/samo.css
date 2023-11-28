@@ -1,0 +1,16 @@
+body {
+    padding: 2vw;
+}
+
+article {
+    background-color: #fff;
+    border-radius: .8vw;
+    border: 2px #969696d4 solid;
+}
+
+.one {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}

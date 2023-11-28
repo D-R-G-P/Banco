@@ -12,7 +12,6 @@ $user->setUser($currentUser);
 $db = new DB();
 $pdo = $db->connect();
 
-
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
@@ -28,14 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $GDEBA = $_POST['GDEBA'];
     $estado = $_POST['estado'];
     $comentarios = $_POST['comentarios'];
+    $nomencladores = $_POST['nomencladores'];
+    $categoriascie = $_POST['categoriascie'];
     $id = $_POST['id'];
-
 
     // Realizar la actualización en la base de datos
     try {
-
         // Construir la consulta SQL de actualización
-        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios WHERE id = :id";
+        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios, nomencladores = :nomencladores, categoriascie = :categoriascie WHERE id = :id";
 
         // Preparar la sentencia
         $stmt = $pdo->prepare($query);
@@ -53,6 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':GDEBA', $GDEBA);
         $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':comentarios', $comentarios);
+        $stmt->bindParam(':nomencladores', $nomencladores); // Corregido el nombre de la variable
+        $stmt->bindParam(':categoriascie', $categoriascie); // Corregido el nombre de la variable
         $stmt->bindParam(':id', $id); // Asegúrate de tener el ID correcto
 
         // Ejecutar la actualización
@@ -64,8 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header('Location: ../../public/layouts/seguimientoSolicitudes.php');
         exit();
     } catch (PDOException $e) {
-        $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al procesar los datos. Vuelva a intentarlo o pongase en contacto con la administración.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+        $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al procesar los datos. Vuelva a intentarlo o póngase en contacto con la administración.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
         // Manejar errores de la base de datos
         echo 'Error al actualizar la base de datos: ' . $e->getMessage();
     }
 }
+?>

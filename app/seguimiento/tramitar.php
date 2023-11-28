@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   $idSol = $_GET['idSol'];
 
   // Consulta SQL para obtener el ID y el estado actual del item
-  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, intervencion FROM solicitudes WHERE id = :idSol";
+  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion FROM solicitudes WHERE id = :idSol";
 
   // Preparar la sentencia
   $statement = $pdo->prepare($query);
@@ -43,6 +43,8 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $sol_provision = $result['sol_provision'];
     $fecha_cirugia = $result['fecha_cirugia'];
     $comentarios = $result['comentarios'];
+    $nomencladores = $result['nomencladores'];
+    $categoriascie = $result['categoriascie'];
 
     if ($result) {
       $intervencion = $result['intervencion'];
@@ -93,8 +95,8 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     <div class="print modulo">
       <h3 style="margin-bottom: 0;">Planillas descargables:</h3>
       <div class="botones">
-        <a href="/Banco/app/seguimiento/planillas/prescripcion.html" target="_blank" class="btn-verde"><i class="fa-solid fa-file"></i> Prescripción</a>
-        <a href="" target="_blank" class="btn-verde"><i class="fa-solid fa-pager"></i> SAMO</a>
+        <a href="/Banco/app/seguimiento/planillas/prescripcion.php?idSol=<?php echo $idSol ?>" target="_blank" class="btn-verde"><i class="fa-solid fa-file"></i> Prescripción</a>
+        <a href="/Banco/app/seguimiento/planillas/samo.php?idSol=<?php echo $idSol ?>" target="_blank" class="btn-verde"><i class="fa-solid fa-pager"></i> SAMO</a>
       </div>
     </div>
     <form action="/Banco/app/seguimiento/tramitarForm.php" method="post">
@@ -269,8 +271,9 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
           <p class="error-message" id="error-message"></p>
         </div>
       </div>
+
       <div class="otros modulo">
-        <h3><u>Otros datos</u></h3>
+        <h3><u>Otros datos del expediente</u></h3>
 
         <div class="datos" style="grid-template-columns: repeat(2, 1fr);">
           <div>
@@ -306,6 +309,65 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
           <div>
             <label for="comentarios">Comentarios</label>
             <textarea name="comentarios" id="comentarios" cols="30" rows="10" value="<?php echo $comentarios ?>"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modulo medico">
+        <h3><u>Datos médicos</u></h3>
+
+        <div class="datos" style="grid-template-columns: repeat(2, 1fr);">
+
+          <div>
+            <label for="nomencladores">Nomenclador de cirugía</label>
+            <input type="text" list="nomencladores" name="nomencladores" placeholder="Escribe para buscar..." value="<?php echo $nomencladores ?>">
+            <datalist id="nomencladores">
+              <option value="" selected disabled>Seleccionar una opción</option>
+              <?php
+              try {
+                $stmt = $pdo->prepare("SELECT codigo, descripcion FROM nomencladorescx");
+                $stmt->execute();
+
+                $options = "";
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  $codigo = $row['codigo'];
+                  $descripcion = $row['descripcion'];
+                  $options .= "<option value='$codigo - $descripcion'>$codigo - $descripcion</option>";
+                }
+
+                // Escribir las opciones en el DOM
+                echo $options;
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+              ?>
+            </datalist>
+          </div>
+
+          <div>
+            <label for="categoriascie">Diagnostico CIE-10</label>
+            <input type="text" list="categoriascie" name="categoriascie" placeholder="Escribe para buscar..." value="<?php echo $categoriascie ?>">
+            <datalist id="categoriascie">
+              <option value="" selected disabled>Seleccionar una opción</option>
+              <?php
+              try {
+                $stmt = $pdo->prepare("SELECT clave, descripcion FROM categoriascie10");
+                $stmt->execute();
+
+                $options = "";
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  $clave = $row['clave'];
+                  $descripcion = $row['descripcion'];
+                  $options .= "<option value='$clave - $descripcion'>$clave - $descripcion</option>";
+                }
+
+                // Escribir las opciones en el DOM
+                echo $options;
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+              ?>
+            </datalist>
           </div>
         </div>
       </div>
