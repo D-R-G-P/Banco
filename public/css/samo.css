@@ -1,3 +1,7 @@
+* {
+    font-size: 1.5vw;
+}
+
 body {
     padding: 2vw;
 }
@@ -13,4 +17,47 @@ article {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    margin-bottom: 1vw;
+}
+
+img {
+    width: auto;
+    height: 7vw;
+}
+
+h1 {
+    font-size: 2vw;
+}
+
+table {
+    border-collapse: collapse;
+    border-width: .2vw;
+    padding: 1vw;
+    border: .15vw #000 solid;
+    border-radius: .2vw;
+}
+
+td {
+    padding: .6vw;
+    border: .1vw #000 solid;
+    vertical-align: top;
+    height: 6vw;
+}
+
+p {
+    font-size: 1vw;
+    margin-bottom: .5vw;
+    
+}
+
+@media print {
+
+    body {
+        background-color: #fff;
+        background-image: none;
+    }
+
+    article {
+        border: none;
+    }
 }
