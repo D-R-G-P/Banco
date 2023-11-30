@@ -243,7 +243,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
               // Recorrer las opciones y generar el HTML del <select>
               foreach ($opciones as $opcion) {
                 // Verificar si la opción coincide con el valor de la base de datos
-                $selected = ($tipo_solicitud == $opcion) ? 'selected' : '';
+                $selected = ($tipo_cirugia == $opcion) ? 'selected' : '';
 
                 // Imprimir la opción con la marca "selected" si es necesario
                 echo "<option value=\"$opcion\" $selected>$opcion</option>";
