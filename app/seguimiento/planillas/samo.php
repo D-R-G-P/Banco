@@ -1,3 +1,52 @@
+<?php
+
+require_once '../../../app/db/user_session.php';
+require_once '../../../app/db/user.php';
+require_once '../../../app/db/db.php';
+
+$user = new User();
+$userSession = new UserSession();
+$currentUser = $userSession->getCurrentUser();
+$user->setUser($currentUser);
+
+$db = new DB();
+$pdo = $db->connect();
+
+// Verificar si se ha enviado un ID válido a través de la URL
+if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
+    $idSol = $_GET['idSol'];
+
+    // Consulta SQL para obtener el ID y el estado actual del item
+    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, categoriascie, domicilio, localidad, sexo, edad, tipoDoc FROM solicitudes WHERE id = :idSol";
+
+    // Preparar la sentencia
+    $statement = $pdo->prepare($query);
+
+    // Bind del valor del ID
+    $statement->bindParam(':idSol', $idSol, PDO::PARAM_INT);
+
+    // Ejecutar la consulta
+    if ($statement->execute()) {
+        // Obtener el resultado de la consulta
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $fecha_solicitud = $result['fecha_solicitud'];
+        $items_JSON = $result['items_JSON'];
+        $paciente = $result['paciente'];
+        $dni = $result['dni'];
+        $categoriascie = $result['categoriascie'];
+
+        $domicilio = $result['domicilio'];
+        $localidad = $result['localidad'];
+        $sexo = $result['sexo'];
+        $edad = $result['edad'];
+        $tipoDoc = $result['tipoDoc'];
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -18,7 +67,7 @@
 <body>
     <article>
         <div class="one">
-            <img style="margin-left: 5vw;" src="/Banco/public/image/hsmlogo.png">
+            <img style="margin-left: 5vw; height: 12vw;" src="/Banco/public/image/hsmlogobn.png">
             <h1>Orden de prestación</h1>
             <img style="margin-right: 5vw;" src="/Banco/public/image/SAMO.jpg">
         </div>
@@ -29,68 +78,50 @@
                     <p>1. Establecimiento</p>
                     <b>H.I.G.A. GRAL SAN MARTÍN - LA PLATA</b>
                 </td>
-                <!-- <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td> -->
                 <td>
                     <p>1.1 Código</p>
                     <b>44101304</b>
                 </td>
-                <!-- <td></td> -->
             </tr>
 
             <tr>
                 <td colspan="7">
                     <p>2. Apellido y nombre</p>
-                    <b>BALASINI LILIA ANDREA</b>
+                    <b><?php echo $paciente ?></b>
                 </td>
-                <!-- <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td> -->
                 <td>
                     <p>3. Fecha</p>
-                    <b>15/07/2022</b>
+                    <b><?php echo $fecha_solicitud ?></b>
                 </td>
-                <!-- <td></td> -->
             </tr>
 
             <tr>
                 <td colspan="5" style="border-right: none;">
                     <p>2.1 Domicilio</p>
-                    <b>47 2377</b>
+                    <b><?php echo $domicilio ?></b>
                 </td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
                 <td colspan="3" style="border-left: none;">
                     <p>Localidad</p>
-                    <b>LA PLATA</b>
+                    <b><?php echo $localidad ?></b>
                 </td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
             </tr>
 
             <tr>
                 <td>
                     <p>4. Sexo</p>
-                    <b>Femenino</b>
+                    <b><?php echo $sexo ?></b>
                 </td>
                 <td>
                     <p>5. Edad</p>
-                    <b>55</b>
+                    <b><?php echo $edad ?></b>
                 </td>
                 <td>
                     <p>6. N° documento</p>
-                    <b>20518964</b>
+                    <b><?php echo $dni ?></b>
                 </td>
                 <td>
                     <p>7. Tipo doc.</p>
-                    <b>D.N.I.</b>
+                    <b><?php echo $tipoDoc ?></b>
                 </td>
                 <td>
                     <p>8. C.E.</p>
@@ -106,33 +137,33 @@
                 </td>
                 <td>
                     <p>11. H. clínica</p>
-                    <b>A371307</b>
+                    <b></b>
                 </td>
             </tr>
 
             <tr>
                 <td>
                     <p>12. Condición</p>
-                    <b></b>
+                    <b>B</b>
                 </td>
                 <td colspan="4">
                     <p>13. Obra social</p>
-                    <b>IOMA INSTITUTO OBRA MEDICO ASISTENCIAL</b>
+                    <b>-</b>
                 </td>
                 <td colspan="2">
                     <p>14. Tipo afil.</p>
-                    <b>Titular</b>
+                    <b></b>
                 </td>
                 <td>
                     <p>15. N° afiliado</p>
-                    <b>220518964100</b>
+                    <b></b>
                 </td>
             </tr>
 
             <tr>
                 <td colspan="7">
                     <p>16. Diagnóstico clínico</p>
-                    <b></b>
+                    <b><?php echo $categoriascie ?></b>
                 </td>
                 <td>
                     <p>17. Código</p>
@@ -147,7 +178,48 @@
                 </td>
                 <td colspan="5">
                     <p>19. Concepto</p>
-                    <b></b>
+                    <b style="font-size: 1vw;">
+                        <?php
+
+                        // Decodificar el JSON
+                        $items_array = json_decode($items_JSON, true);
+
+                        $html = '';
+
+                        // Recorrer cada elemento del array
+                        foreach ($items_array as $item) {
+                            // Obtener el ID y la cantidad del array
+                            $id = $item['id'];
+                            $cantidad = $item['cantidad'];
+
+                            // Realizar la consulta para obtener la información del item
+                            $query = "SELECT item, nombre FROM items WHERE id = :id";
+
+                            $stmt = $pdo->prepare($query);
+                            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                            $stmt->execute();
+
+                            // Obtener el resultado de la consulta
+                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                            // Verificar si se encontró la información
+                            if ($result) {
+                                // Extraer la información
+                                $item = $result['item'];
+                                $nombre = $result['nombre'];
+
+                                // Agregar la fila a la tabla HTML
+                                $html .= "Item $item - $nombre - Cantidad: $cantidad";
+                            } else {
+                                // Manejar el caso donde no se encontró información para el ID
+                                $html .= 'No se encontró información para el ID ' . $id . '';
+                            }
+                        }
+
+                        // Mostrar la tabla HTML
+                        echo $html;
+                        ?>
+                    </b>
                 </td>
                 <td>
                     <p>20. Unitario</p>
@@ -193,7 +265,7 @@
             <tr style="height: 17vw;">
                 <td colspan="4">
                     <p>27. Autorización OS - Internación o práctica</p>
-                    <b></b>
+                    <img style="width: auto; height: 15vw; margin-left: 14vw;" src="/Banco/public/image/sellohsm.png">
                 </td>
                 <td colspan="4">
                     <p>28. Práctica realizada por</p>
@@ -202,6 +274,23 @@
             </tr>
         </table>
     </article>
+
+    <script>
+        // Función para imprimir y cerrar después de la impresión
+        function imprimirYCerrar() {
+            // Abrir la ventana de impresión
+            window.print();
+
+            // Detectar cuándo se completa la impresión
+            window.addEventListener('afterprint', function() {
+                // Cerrar la ventana después de imprimir
+                window.close();
+            });
+        }
+
+        // Llamar a la función cuando se cargue la página
+        window.addEventListener('load', imprimirYCerrar);
+    </script>
 </body>
 
 </html>

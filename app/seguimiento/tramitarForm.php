@@ -29,12 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comentarios = $_POST['comentarios'];
     $nomencladores = $_POST['nomencladores'];
     $categoriascie = $_POST['categoriascie'];
+    $domicilio = $_POST['domicilio'];
+    $localidad = $_POST['localidad'];
+    $sexo = $_POST['sexo'];
+    $edad = $_POST['edad'];
+    $tipoDoc = $_POST['tipoDoc'];
     $id = $_POST['id'];
 
     // Realizar la actualización en la base de datos
     try {
         // Construir la consulta SQL de actualización
-        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios, nomencladores = :nomencladores, categoriascie = :categoriascie WHERE id = :id";
+        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios, nomencladores = :nomencladores, categoriascie = :categoriascie, domicilio = :domicilio, localidad = :localidad, sexo = :sexo, edad = :edad, tipoDoc = :tipoDoc WHERE id = :id";
 
         // Preparar la sentencia
         $stmt = $pdo->prepare($query);
@@ -52,9 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':GDEBA', $GDEBA);
         $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':comentarios', $comentarios);
-        $stmt->bindParam(':nomencladores', $nomencladores); // Corregido el nombre de la variable
-        $stmt->bindParam(':categoriascie', $categoriascie); // Corregido el nombre de la variable
-        $stmt->bindParam(':id', $id); // Asegúrate de tener el ID correcto
+        $stmt->bindParam(':nomencladores', $nomencladores);
+        $stmt->bindParam(':categoriascie', $categoriascie);
+        $stmt->bindParam(':domicilio', $domicilio);
+        $stmt->bindParam(':localidad', $localidad);
+        $stmt->bindParam(':sexo', $sexo);
+        $stmt->bindParam(':edad', $edad);
+        $stmt->bindParam(':tipoDoc', $tipoDoc);
+        $stmt->bindParam(':id', $id);
 
         // Ejecutar la actualización
         $stmt->execute();

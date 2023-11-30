@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   $idSol = $_GET['idSol'];
 
   // Consulta SQL para obtener el ID y el estado actual del item
-  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion FROM solicitudes WHERE id = :idSol";
+  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc FROM solicitudes WHERE id = :idSol";
 
   // Preparar la sentencia
   $statement = $pdo->prepare($query);
@@ -45,6 +45,11 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $comentarios = $result['comentarios'];
     $nomencladores = $result['nomencladores'];
     $categoriascie = $result['categoriascie'];
+    $domicilio = $result['domicilio'];
+    $localidad = $result['localidad'];
+    $sexo = $result['sexo'];
+    $edad = $result['edad'];
+    $tipoDoc = $result['tipoDoc'];
 
     if ($result) {
       $intervencion = $result['intervencion'];
@@ -117,6 +122,72 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
             <label for="dni">D.N.I.</label>
             <input type="text" id="dni" name="dni" oninput="formatDNI(this)" placeholder="DNI del paciente" value="<?php echo $dni ?>">
           </div>
+          <div>
+            <label for="domicilio">Domicilio</label>
+            <input type="text" id="domicilio" name="domicilio" placeholder="1 y 70" value="<?php echo $domicilio ?>">
+          </div>
+          <div>
+            <label for="localidad">Localidad</label>
+            <input type="text" id="localidad" name="localidad" placeholder="La Plata" value="<?php echo $localidad ?>">
+          </div>
+          <div>
+            <label for="sexo">Sexo</label>
+            <select name="sexo" id="sexo">
+              <?php
+              // Valores disponibles para el tipo de solicitud
+              $opciones = [
+                'Masculino',
+                'Femenino',
+                'X'
+              ];
+
+              // Verificar si el valor está en blanco y generar el option correspondiente
+              $selected = ($sexo === '') ? 'selected' : '';
+              echo '<option value="" disabled ' . $selected . '>Seleccionar estado</option>';
+
+              // Recorrer las opciones y generar el HTML del <select>
+              foreach ($opciones as $opcion) {
+                // Verificar si la opción coincide con el valor de la base de datos
+                $selected = ($sexo == $opcion) ? 'selected' : '';
+
+                // Imprimir la opción con la marca "selected" si es necesario
+                echo "<option value=\"$opcion\" $selected>$opcion</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <div>
+            <label for="edad">Edad</label>
+            <input type="number" name="edad" id="edad" placeholder="43" value="<?php echo $edad ?>">
+          </div>
+          <div>
+            <label for="tipoDoc">Tipo de documento</label>
+            <select name="tipoDoc" id="tipoDoc">
+              <?php
+              // Valores disponibles para el tipo de solicitud
+              $opciones = [
+                'L.E.',
+                'L.C.',
+                'C.I.',
+                'D.N.I.',
+                'Otro'
+              ];
+
+              // Verificar si el valor está en blanco y generar el option correspondiente
+              $selected = ($tipoDoc === '') ? 'selected' : '';
+              echo '<option value="" disabled ' . $selected . '>Seleccionar estado</option>';
+
+              // Recorrer las opciones y generar el HTML del <select>
+              foreach ($opciones as $opcion) {
+                // Verificar si la opción coincide con el valor de la base de datos
+                $selected = ($tipoDoc == $opcion) ? 'selected' : '';
+
+                // Imprimir la opción con la marca "selected" si es necesario
+                echo "<option value=\"$opcion\" $selected>$opcion</option>";
+              }
+              ?>
+            </select>
+          </div>
         </div>
       </div>
       <div class="intranet modulo">
@@ -153,6 +224,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
               }
               ?>
             </select>
+
           </div>
           <div>
             <label for="tipo_cirugia">Tipo de cirugía</label>
