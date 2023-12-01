@@ -29,12 +29,14 @@
     grid-row-gap: 1.5vw;
 }
 
-.datos div, .divModulo {
+.datos div,
+.divModulo {
     display: flex;
     flex-direction: column;
 }
 
-.datos div label, .labelJSON {
+.datos div label,
+.labelJSON {
     margin-bottom: .3vw;
     font-size: 1.2vw;
 }
@@ -50,4 +52,60 @@ input {
 
 textarea {
     resize: none;
+}
+
+.panel {
+    position: fixed;
+    right: -16.9%;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: all 1s ease-in-out;
+    margin: 0;
+}
+
+.copy {
+    background-color: var(--color1);
+    color: #fff;
+    padding: .8vw 0 .8vw .8vw;
+    border-radius: .8vw 0 0 .8vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.copys {
+    display: flex;
+    flex-direction: column;
+    background-color: #dddddd;
+    padding: .5vw .5vw .5vw .5vw;
+    border-radius: .8vw 0 0 .8vw;
+    border: .2vw #000 solid;
+}
+
+.copyButton {
+    margin: .15vw 0;
+    text-align: left;
+}
+
+.panel-abierto {
+    right: 0;
+    transition: all 1s ease-in-out;
+}
+
+.fa-texto {
+    transform: rotate(270deg);
+    translate: 31% 0;
+    background: var(--color1);
+    padding: .8vw .5vw .8vw .5vw;
+    border-radius: .8vw .8vw 0vw 0vw;
+    cursor: pointer;
+    margin: 0;
+    transition: background .17s ease-in-out;
+}
+
+.fa-texto:hover {
+    background: var(--color3);
+    margin: 0;
 }

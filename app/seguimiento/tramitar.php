@@ -93,6 +93,24 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
   <!-- FontAwesome -->
   <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+  <script>
+    function copyTextAndAnimate(button, textToCopy) {
+      // Copiar el texto al portapapeles
+      navigator.clipboard.writeText(textToCopy);
+
+      // Obtener el texto completo del botón
+      const buttonText = button.textContent;
+
+      // Cambiar el contenido del botón a un ícono por 3 segundos
+      button.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+      setTimeout(() => {
+        // Volver al contenido original del botón después de 3 segundos
+        button.innerHTML = buttonText;
+      }, 3000);
+    }
+  </script>
 </head>
 
 <body>
@@ -447,9 +465,39 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
       <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>
     </form>
+    
+    <div class="panel" id="panel">
+      <h3 class="fa-texto" style="color: #fff;" onclick="panel()">Referencias</h3>
+      <div class="copy">
+        <h4 style="padding: 0 .5vw .5vw .5vw; font-size: 1.5vw;">Referencias</h4>
+        <div class="copys">
+          <button onclick="copyTextAndAnimate(this, 'Prescripción <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">1. Prescripción</button>
+          <button onclick="copyTextAndAnimate(this, 'Solicitud intranet <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">2. Solicitud intranet</button>
+          <button onclick="copyTextAndAnimate(this, 'SAMO <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">3. S.A.M.O.</button>
+          <button onclick="copyTextAndAnimate(this, 'DNI <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">4. D.N.I.</button>
+          <button onclick="copyTextAndAnimate(this, 'Constancia de CUIL <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">5. Constancia de cuil</button>
+          <button onclick="copyTextAndAnimate(this, 'Negativa de ANSES <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">6. Negativa de ANSES</button>
+          <button onclick="copyTextAndAnimate(this, 'Negativa de PUCO <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">7. Negativa de PUCO</button>
+          <button onclick="copyTextAndAnimate(this, 'Negativa de S.S.Salud <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">8. Negativa de S.S.Salud</button>
+          <button onclick="copyTextAndAnimate(this, 'Negativa PAMI <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">9. Negativa de PAMI</button>
+          <button onclick="copyTextAndAnimate(this, 'Negativa IOMA <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">10. Negativa de IOMA</button>
+          <button onclick="copyTextAndAnimate(this, 'História clínica <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">11. História clínica</button>
+          <button onclick="copyTextAndAnimate(this, 'Foja quirurgica <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">12. Foja quirúrgica</button>
+          <button onclick="copyTextAndAnimate(this, 'Estudios complementarios <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">13. Estudios complementarios</button>
+          <button onclick="copyTextAndAnimate(this, 'Certificado de implante <?php echo $paciente ?>, <?php echo $dni ?>')" class="btn-verde copyButton">14. Certificado de implante</button>
+        </div>
+      </div>
+    </div>
   </article>
 
   <script src="/Banco/public/js/tramitar.js"></script>
+
+  <script>
+    function panel() {
+      var panel = document.getElementById('panel');
+      panel.classList.toggle('panel-abierto');
+    }
+  </script>
 </body>
 
 </html>
