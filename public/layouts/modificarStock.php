@@ -180,68 +180,72 @@ require_once '../../app/modificarStock/searchBarcode.php';
 					</div>
 					<h2>Añadir item</h2>
 					<form action="/Banco/app/modificarStock/addItem.php" method="post">
-						<div class="izquierda">
-							<div>
-								<input type="number" name="item" required placeholder=" ">
-								<label for="item">Número de item</label>
+						<div class="divFormAdd">
+							<div class="izquierda">
+								<div>
+									<label for="item">Número de item</label>
+									<input type="number" name="item" required placeholder=" ">
+								</div>
+
+								<div>
+									<label for="codigobarras">Código de barras</label>
+									<input type="text" name="codigobarras" id="codigobarras" placeholder=" " required>
+								</div>
+
+								<div>
+									<label for="nombre">Nombre</label>
+									<input type="text" name="nombre" placeholder=" " required>
+								</div>
+
+								<div>
+									<label for="banco">Banco</label>
+									<select name="banco" id="banco" required placeholder=" " onchange="cargarCategorias()">
+										<option value="" disabled selected></option>
+										<?php
+										// Obtener los bancos de la base de datos
+										$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
+										$stmt->execute();
+										while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+											$banco = $row['banco'];
+											$siglas = $row['siglas'];
+											echo "<option value='$siglas'>$banco - $siglas</option>";
+										}
+										?>
+									</select>
+								</div>
+
+								<div>
+									<label for="categoria">Categoría</label>
+									<select name="categoria" id="categoria" required placeholder=" ">
+										<option value="" disabled selected></option>
+									</select>
+								</div>
 							</div>
 
-							<div>
-								<input type="text" name="codigobarras" id="codigobarras" placeholder=" " required>
-								<label for="codigobarras">Código de barras</label>
-							</div>
 
-							<div>
-								<input type="text" name="nombre" placeholder=" " required>
-								<label for="nombre">Nombre</label>
-							</div>
 
-							<div>
-								<select name="banco" id="banco" required placeholder=" " onchange="cargarCategorias()">
-									<option value="" disabled selected></option>
-									<?php
-									// Obtener los bancos de la base de datos
-									$stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
-									$stmt->execute();
-									while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-										$banco = $row['banco'];
-										$siglas = $row['siglas'];
-										echo "<option value='$siglas'>$banco - $siglas</option>";
-									}
-									?>
-								</select>
-								<label for="banco">Banco</label>
-							</div>
+							<div class="derecha">
+								<div>
+									<label for="dcorta">Descripcion corta</label>
+									<textarea name="dcorta" placeholder=" " required></textarea>
+								</div>
 
-							<div>
-								<select name="categoria" id="categoria" required placeholder=" ">
-									<option value="" disabled selected></option>
-								</select>
-								<label for="categoria">Categoría</label>
+								<div>
+									<label for="dlarga">Descripcion larga</label>
+									<textarea name="dlarga" placeholder=" " required></textarea>
+								</div>
+
+								<div>
+									<label for="estudios">Estudios</label>
+									<textarea name="estudios" placeholder=" " required></textarea>
+								</div>
 							</div>
 						</div>
 
 
-
-						<div class="derecha">
-							<div>
-								<textarea name="dcorta" placeholder=" " required></textarea>
-								<label for="dcorta">Descripcion corta</label>
-							</div>
-
-							<div>
-								<textarea name="dlarga" placeholder=" " required></textarea>
-								<label for="dlarga">Descripcion larga</label>
-							</div>
-
-							<div>
-								<textarea name="estudios" placeholder=" " required></textarea>
-								<label for="estudios">Estudios</label>
-							</div>
+						<div>
+							<button class="btn-verde addEnviar" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
 						</div>
-
-
-						<button class="btn-verde addEnviar" type="submit"><i class="fa-solid fa-file-circle-plus"></i> Agregar item</button>
 					</form>
 				</div>
 			</div>

@@ -181,10 +181,81 @@ $pdo = $db->connect();
                ?>
             </tbody>
          </table>
-         <div class="finish">
-            
+      </div>
+
+      <style>
+         .fondo {
+            background-color: #0000007a;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            z-index: 10000;
+         }
+
+         .archive {
+            display: flex;
+            flex-direction: column;
+            background-color: #dddddd;
+            padding: 1vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: .8vw;
+            border: .2vw #000 solid;
+         }
+
+         .botonesArchi {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 1vw;
+         }
+
+         .botonesArchi .btn-rojo,
+         .botonesArchi .btn-verde {
+            margin: 0;
+            width: 10vw
+         }
+      </style>
+
+      <div class="fondo" id="fondoArchive" style="display: none;">
+         <div class="archive">
+            <h3 style="font-size: 1.5vw; margin-top: 1.5vw;">¿Está seguro que desea archivar este expediente?</h3>
+
+            <div class="datosExpediente" style="margin: 1.5vw 0;">
+               <p style="font-size: 1.2vw;"><b>Expediente:</b> <span id="expedienteTexto"></span></p>
+               <p style="font-size: 1.2vw;"><b>Nombre del paciente:</b> <span id="nombrePacienteTexto"></span></p>
+               <p style="font-size: 1.2vw;"><b>D.N.I:</b> <span id="dniTexto"></span></p>
+            </div>
+
+            <div class="botonesArchi">
+               <button class="btn-verde" onclick="cerrarDialogoArchivo()"><i class="fa-solid fa-x"></i> Cancelar</button>
+               <a style="text-decoration: none; text-align: center;" class="btn-rojo" href="#" id="archivarBTN"><i class="fa-solid fa-box-archive"></i> Archivar</a>
+            </div>
          </div>
       </div>
+
+      <script>
+         function dialogoArchivo(id, GDEBA, paciente, dni) {
+            // Actualizar los datos del expediente en el diálogo
+            document.getElementById('expedienteTexto').innerText = GDEBA;
+            document.getElementById('nombrePacienteTexto').innerText = paciente;
+            document.getElementById('dniTexto').innerText = dni;
+            document.getElementById('archivarBTN').href = '/Banco/app/seguimiento/archivar_solicitud.php?solicitudId=' + id;
+
+            // Mostrar el fondo del diálogo
+            fondoArchive.style.display = 'flex';
+         }
+
+         function cerrarDialogoArchivo() {
+            // Ocultar el fondo del diálogo
+            fondoArchive.style.display = 'none';
+         }
+      </script>
+
 
 
 

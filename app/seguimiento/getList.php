@@ -34,7 +34,7 @@ if (isset($_POST['banco'])) {
         $output .= "<td>{$solicitud['tipo_cirugia']}</td>";
         $output .= "<td style='display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-evenly; align-items: center;'>";
         $output .= "<a class='btn-verde' href='/Banco/app/seguimiento/tramitar.php?idSol={$solicitud['id']}'><i class='fa-solid fa-hand-pointer'></i></a>";
-        $output .= "<a class='btn-verde' href='/Banco/app/seguimiento/eliminar_solicitud.php?solicitudId={$solicitud['id']}'><i class='fa-solid fa-trash-can'></i></a>";
+        $output .= '<button class="btn-verde" onclick="dialogoArchivo(\'' . $solicitud["id"] . '\', \'' . $solicitud["GDEBA"] . '\', \'' . $solicitud["paciente"] . '\', \'' . $solicitud["dni"] . '\')"><i class="fa-solid fa-box-archive"></i></button>';
         $output .= "</td>";
         $output .= "</tr>";
     }

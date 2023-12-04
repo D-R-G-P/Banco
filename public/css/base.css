@@ -25,7 +25,6 @@ article {
   font-size: 1vw;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
-  margin-bottom: 1vw;
 }
 
 .btn-verde:hover {
@@ -42,7 +41,6 @@ article {
   border-radius: 0.5vw;
   font-size: 1vw;
   cursor: pointer;
-  margin: 0 2vw;
   transition: all 0.15s ease-in-out;
 }
 

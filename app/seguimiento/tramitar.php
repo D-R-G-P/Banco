@@ -398,7 +398,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
           </div>
           <div>
             <label for="comentarios">Comentarios</label>
-            <textarea name="comentarios" id="comentarios" cols="30" rows="10" value="<?php echo $comentarios ?>"></textarea>
+            <textarea name="comentarios" id="comentarios" cols="30" rows="10"><?php echo $comentarios ?></textarea>
           </div>
         </div>
       </div>

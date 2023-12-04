@@ -34,9 +34,9 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
             $currentState = $result['intervencion'];
 
             // Verificar si el estado actual es diferente a "act"
-            if ($currentState == 'no') {
+            if ($currentState == 'si') {
                 // Consulta SQL para actualizar el estado a "act"
-                $updateQuery = "UPDATE solicitudes SET intervencion = 'deleted' WHERE id = :solicitudId";
+                $updateQuery = "UPDATE solicitudes SET intervencion = 'archivo' WHERE id = :solicitudId";
 
                 // Preparar la sentencia de actualización
                 $updateStatement = $pdo->prepare($updateQuery);
@@ -46,26 +46,26 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
 
                 // Ejecutar la actualización
                 if ($updateStatement->execute()) {
-                    $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Solicitud anulada correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+                    $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Solicitud archivada correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
                     // Redireccionar a una página de éxito o mostrar un mensaje de éxito
-                    header('Location: /Banco/public/layouts/getForm.php');
+                    header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
                     exit();
                 } else {
-                    $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al actualizar el estado: ' . implode(" ", $updateStatement->errorInfo()) . '</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+                    $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al archivar el estado: ' . implode(" ", $updateStatement->errorInfo()) . '</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
                     // Redireccionar a una página de error o mostrar un mensaje de error
-                    header('Location: /Banco/public/layouts/getForm.php');
+                    header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
                     exit();
                 }
             } else {
-                $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">La solicitud ya está anulada</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+                $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">La solicitud ya está archivada</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
                 // Redireccionar a una página de error o mostrar un mensaje de error
-                header('Location: /Banco/public/layouts/getForm.php');
+                header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
                 exit();
             }
         } else {
             $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">No se encontró el ID en la base de datos</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
             // Redireccionar a una página de error o mostrar un mensaje de error
-            header('Location: /Banco/public/layouts/getForm.php');
+            header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
             exit();
         }
     } else {
@@ -73,12 +73,12 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
 
         $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al ejecutar la consulta: ' . implode(" ", $statement->errorInfo()) . '</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
         // Redireccionar a una página de error o mostrar un mensaje de error
-        header('Location: /Banco/public/layouts/getForm.php');
+        header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
         exit();
     }
 } else {
     $_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">El ID es invalido o no se proporcionó</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
     // Redireccionar a una página de error o mostrar un mensaje de error
-    header('Location: /Banco/public/layouts/getForm.php');
+    header('Location: /Banco/public/layouts/seguimientoSolicitudes.php');
     exit();
 }

@@ -74,7 +74,7 @@ article .acciones .eliminar:hover {
 article .acciones .back {
   background-color: #0000007a;
   margin: auto;
-  position: absolute;
+  position:fixed;
   display: none;
   align-items: center;
   justify-content: center;
@@ -287,144 +287,34 @@ article .acciones .formCodebar .removeB {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  max-height: 100%;
+  /* max-height: 100%; */
 }
 
-.agregarForm form .izquierda, .agregarForm form .derecha {
+.divFormAdd {
+  display: flex;
+  flex-direction: row;
+}
+
+.divFormAdd input, .divFormAdd select, .divFormAdd textarea {
+  width: 100%;
+}
+
+.agregarForm form div .izquierda, .agregarForm form div .derecha {
   width: 20vw;
 }
 
-.agregarForm form .izquierda {
+.agregarForm form div .izquierda {
   margin-right: 2vw;
 }
 
 .agregarForm form div {
-  display: flex;
-  flex-direction: column;
   position: relative;
 }
 
-.agregarForm form div input {
-  color: #706c6c;
-  background: none;
-  border: solid 1px rgba(0, 0, 0, .1);
-  border-radius: 4px;
-  padding: 14px;
-  font-size: 16px;
-  z-index: 1;
-}
-
-.agregarForm form div input:focus {
-  border: solid 2px rgb(26, 115, 232);
-  outline: none;
-}
-
-.agregarForm form div label {
-  font-size: 18px;
-  position: absolute;
-  bottom: 25px;
-  left: 10px;
-  cursor: pointer;
-  color: rgba(0, 0, 0, .4);
-  transition: transform .2s;
-  z-index: 0;
-}
-
-.agregarForm form div input:focus + label,
-.agregarForm form div input:not(:placeholder-shown) + label {
-  transform: translateY(-32px);
-  background: #dddddd;
-  color: rgb(26, 115, 232);
-  font-size: 14px;
-  padding: 5px;
-  z-index: 1;
-}
-
-.agregarForm form div input:not(:focus) +  label {
-  color: rgba(0, 0, 0, .4);
-}
-
-.agregarForm form div textarea {
-  color: #706c6c;
-  background: none;
-  border: solid 1px rgba(0, 0, 0, .1);
-  border-radius: 4px;
-  padding: 14px;
-  font-size: 16px;
-  z-index: 1;
-}
-
-.agregarForm form div textarea:focus {
-  border: solid 2px rgb(26, 115, 232);
-  outline: none;
-}
-
-.agregarForm form div label {
-  font-size: 16px;
-  position: absolute;
-  left: 10px;
-  cursor: pointer;
-  color: rgba(0, 0, 0, .4);
-  transition: transform .2s;
-  z-index: 0;
-}
-
-.agregarForm form div textarea:focus + label,
-.agregarForm form div textarea:not(:placeholder-shown) + label {
-  transform: translateY(-75px);
-  background: #dddddd;
-  color: rgb(26, 115, 232);
-  font-size: 14px;
-  padding: 5px;
-  z-index: 1;
-}
-
-.agregarForm form div textarea:not(:focus) +  label {
-  color: rgba(0, 0, 0, .4);
-}
 
 
-
-.agregarForm form div select {
-  color: #706c6c;
-  background: none;
-  border: solid 1px rgba(0, 0, 0, .1);
-  border-radius: 4px;
-  padding: 14px;
-  font-size: 16px;
-}
-
-.agregarForm form div select:focus {
-  border: solid 2px rgb(26, 115, 232);
-  outline: none;
-}
-
-.agregarForm form div label {
-  font-size: 16px;
-  position: absolute;
-  bottom: 15px;
-  left: 10px;
-  cursor: pointer;
-  color: rgba(0, 0, 0, .4);
-  transition: transform .2s;
-}
-
-.agregarForm form div select:focus + label,
-.agregarForm form div select:not(:placeholder-shown) + label {
-  transform: translateY(-36px);
-  background: #dddddd;
-  color: rgb(26, 115, 232);
-  font-size: 14px;
-  padding: 5px;
-}
-
-.agregarForm form div select:not(:focus) +  label {
-  color: rgba(0, 0, 0, .4);
-}
-
-div input, div textarea, div select {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.agregarForm input, .agregarForm select, .agregarForm textarea {
+  margin-bottom: .5vw;
 }
 
 
@@ -441,9 +331,9 @@ textarea {
   resize: none;
 }
 
-.addEnviar {
+/* .addEnviar {
   transform: translate(-50%, 50%);
-}
+} */
 
 /* TABLE */
 table {
