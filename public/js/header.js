@@ -1,28 +1,53 @@
-document.addEventListener('click', function (e) {
-    var items = document.getElementsByClassName("BORON");
-    var userOptions = document.getElementById("userOptions");
-    var flecha = document.getElementById("flecha");
+// Obtener referencias a los elementos del DOM
+var perfilButton = document.getElementById('perfilButton');
+var perfilMenu = document.getElementById('perfilMenu');
+var iconoFlecha = document.getElementById('arrow');
 
-    // Verificar si el elemento clicado tiene la clase "BORON"
-    var hasBoronClass = false;
-    for (var i = 0; i < items.length; i++) {
-        if (e.target == items[i]) {
-            hasBoronClass = true;
-            break;
-        }
-    }
+// Agregar evento de clic al botón
+perfilButton.addEventListener('click', function() {
+    // Verificar si el menú tiene la clase "mostrar"
+    var menuEstaVisible = perfilMenu.classList.contains('mostrar');
 
-    // Agregar o eliminar los atributos según corresponda
-    if (hasBoronClass) {
-        userOptions.classList.toggle("active");
-        flecha.classList.toggle("active");
+    if (menuEstaVisible) {
+        // Si el menú está visible, ciérralo
+        cerrarMenu();
     } else {
-        userOptions.classList.remove('active');
-        flecha.classList.remove('active');
+        // Si el menú no está visible, ábrelo
+        abrirMenu();
     }
 });
 
+// Agregar evento de clic al documento para cerrar el menú si se hace clic fuera de él
+document.addEventListener('click', function(event) {
+    var isClickInside = perfilButton.contains(event.target) || perfilMenu.contains(event.target);
+    if (!isClickInside) {
+        // Si el clic no fue dentro del botón o del menú, cierra el menú
+        cerrarMenu();
+    }
+});
 
+// Función para abrir el menú
+function abrirMenu() {
+    perfilMenu.classList.add('mostrar')
+    iconoFlecha.classList.add('rotar');
+}
+
+// Función para cerrar el menú
+function cerrarMenu() {
+    if (perfilMenu.classList.contains('mostrar')) {
+        perfilMenu.classList.add('cerrar');
+        setTimeout(cerrarTodo, 500);
+    }
+    perfilMenu.classList.remove('mostrar');
+    iconoFlecha.classList.remove('rotar');
+}
+
+function cerrarTodo() {
+    perfilMenu.classList.remove('cerrar');
+}
+
+
+//Funciones de inactividad
 var idleTime = 0;
 
 $(document).ready(function () {
