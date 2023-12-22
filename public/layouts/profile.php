@@ -12,25 +12,13 @@ $user->setUser($currentUser);
 $db = new DB();
 $pdo = $db->connect();
 
+$titulo_pestaña = "Perfil";
+
 ?>
+<?php include_once 'bases/header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="es-AR">
+<link rel="stylesheet" href="/Banco/public/css/profile.css">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>S.C.S. - Mi usuario</title>
-	<link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
-	<link rel="stylesheet" href="/Banco/public/css/base.css">
-	<link rel="stylesheet" href="/Banco/public/css/header.css">
-	<link rel="stylesheet" href="/Banco/public/css/profile.css">
-
-	<!-- FontAwesome -->
-	<script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
-</head>
-
-<body>
 	<?php
 	if (isset($_SESSION['success_message'])) {
 		echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
@@ -38,45 +26,6 @@ $pdo = $db->connect();
 		unset($_SESSION['success_message']);
 	}
 	?>
-	<header>
-		<div class="logo">
-			<a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
-		</div>
-
-		<div class="links">
-			<a href="/Banco/">Inicio</a>
-			<a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
-			<a href="/Banco/public/layouts/seguimientoSolicitudes">Seguimiento</a>
-			<a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
-		</div>
-
-		<button id="user" class="user BORON">
-			<i id="userI" class="fa-solid fa-user BORON"></i>
-			<i id="flecha" class="fa-solid fa-caret-down BORON"></i>
-		</button>
-
-		<div id="userOptions" class="userOptions BORON">
-			<div class="datos">
-				<div>
-					Bienvenido/a <br>
-					<?php echo $user->getNombre() . " " . $user->getApellido(); ?>
-				</div>
-				<div>
-					Perfil: <br>
-					<?php echo $user->getTipo_usuario() ?>
-				</div>
-				<div>
-					Cargo: <br>
-					<?php echo $user->getCargo() ?>
-				</div>
-
-			</div>
-			<div class="botones">
-				<a class="profile" href="/Banco/public/layouts/profile">Ir a mi perfil</a>
-				<a style="color: red;" href="/Banco/app/db/logout"><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
-			</div>
-		</div>
-	</header>
 
 	<article>
 		<div class="accordion">
@@ -269,11 +218,9 @@ $pdo = $db->connect();
 	</article>
 
 
-	<footer>
-		&copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
-	</footer>
+	<?php include_once 'bases/footer.php'; ?>
+	
 </body>
-<script src="/Banco/public/js/header.js"></script>
 <script src="/Banco/public/js/profile.js"></script>
 
 </html>

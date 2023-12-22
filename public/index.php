@@ -2,106 +2,50 @@
 
 $db = new DB();
 $pdo = $db->connect();
+$titulo_pestaña = "Inicio";
+
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es-AR">
+<?php include_once 'layouts/bases/header.php'; ?>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>S.C.S. - Inicio</title>
-  <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/Banco/public/css/base.css">
-  <link rel="stylesheet" href="/Banco/public/css/header.css">
-  <link rel="stylesheet" href="/Banco/public/css/index.css">
+<link rel="stylesheet" href="/Banco/public/css/index.css">
+<article>
+  <div class="banco">
+    Banco:
+    <select name="banco" id="bancoSelect">
+      <?php
+      try {
+        $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+        $stmt->execute();
 
-  <!-- FontAwesome -->
-  <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
-</head>
-
-<body>
-  <header>
-    <div class="logo">
-      <a href="/Banco/"><i class="fa-solid fa-dolly"></i></a>
-    </div>
-
-    <div class="links">
-      <a href="/Banco/">Inicio</a>
-      <a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
-      <a href="/Banco/public/layouts/seguimientoSolicitudes">Seguimiento</a>
-      <a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
-    </div>
-
-    <button id="user" class="user BORON">
-      <i id="userI" class="fa-solid fa-user BORON"></i>
-      <i id="flecha" class="fa-solid fa-caret-down BORON"></i>
-    </button>
-
-    <div id="userOptions" class="userOptions BORON">
-      <div class="datos">
-        <div>
-          Bienvenido/a <br>
-          <?php echo $user->getNombre() . " " . $user->getApellido(); ?>
-        </div>
-        <div>
-          Perfil: <br>
-          <?php echo $user->getTipo_usuario() ?>
-        </div>
-        <div>
-          Cargo: <br>
-          <?php echo $user->getCargo() ?>
-        </div>
-
-      </div>
-      <div class="botones">
-        <a class="profile" href="/Banco/public/layouts/profile">Ir a mi perfil</a>
-        <a style="color: red;" href="/Banco/app/db/logout "><i class="fa-solid fa-power-off"></i> Cerrar sesión</a>
-      </div>
-    </div>
-  </header>
-
-  <article>
-    <div class="banco">
-      Banco:
-      <select name="banco" id="bancoSelect">
-        <?php
-        try {
-          $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
-          $stmt->execute();
-
-          $options = "";
-          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $id_banco = $row['id'];
-            $banco = $row['banco'];
-            $siglas = $row['siglas'];
-            $options .= "<option value='$id_banco'>$banco - $siglas</option>";
-          }
-
-          // Escribir las opciones en el DOM
-          echo $options;
-        } catch (PDOException $e) {
-          echo 'Error: ' . $e->getMessage();
+        $options = "";
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $id_banco = $row['id'];
+          $banco = $row['banco'];
+          $siglas = $row['siglas'];
+          $options .= "<option value='$id_banco'>$banco - $siglas</option>";
         }
-        ?>
-      </select>
-    </div>
 
-    <hr>
+        // Escribir las opciones en el DOM
+        echo $options;
+      } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+      }
+      ?>
+    </select>
+  </div>
 
-    <div class="tablas" id="tablasContainer">
-      <!-- Las tablas se generarán dinámicamente aquí -->
-    </div>
-  </article>
+  <hr>
 
-  <footer>
-    &copy; Dirección de Redes y Gestión de Personas. Todos los derechos reservados
-  </footer>
+  <div class="tablas" id="tablasContainer">
+    <!-- Las tablas se generarán dinámicamente aquí -->
+  </div>
+</article>
+
+<?php include_once 'layouts/bases/footer.php'; ?>
 
 </body>
-
-<script src="/Banco/public/js/header.js"></script>
 <script src="/Banco/public/js/index.js"></script>
 
 </html>

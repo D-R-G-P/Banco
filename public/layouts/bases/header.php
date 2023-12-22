@@ -1,33 +1,20 @@
-<?php
-
-require_once '../../../app/db/user_session.php';
-require_once '../../../app/db/user.php';
-require_once '../../../app/db/db.php';
-
-$user = new User();
-$userSession = new UserSession();
-$currentUser = $userSession->getCurrentUser();
-$user->setUser($currentUser);
-
-$db = new DB();
-$pdo = $db->connect();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es-AR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.C.S. - Modificar stock</title>
+    <meta name="copyright" content="Dirección de Redes y Gestión de Personas - H.I.G.A. General San Martín" />
+    <meta name="author" content="Lamas Cristian Jonathan" />
+    <title>S.C.S. - <?php echo $titulo_pestaña ?></title>
     <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Banco/public/css/header.css">
     <link rel="stylesheet" href="/Banco/public/css/base.css">
-    <link rel="stylesheet" href="/Banco/public/css/modificarStock.css">
 
     <!-- FontAwesome -->
     <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+    <script src="/Banco/node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>

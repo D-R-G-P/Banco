@@ -465,7 +465,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
       <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>
     </form>
-    
+
     <div class="panel" id="panel">
       <h3 class="fa-texto" style="color: #fff;" onclick="panel()">Referencias</h3>
       <div class="copy">
@@ -488,6 +488,13 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         </div>
       </div>
     </div>
+
+    <div class="modJSON">
+      <div class="base">
+        <div class="x"><button><i class="fa-solid fa-xmark btn-rojo"></i></button></div>
+      </div>
+    </div>
+
   </article>
 
   <script src="/Banco/public/js/tramitar.js"></script>

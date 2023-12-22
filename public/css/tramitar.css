@@ -111,3 +111,56 @@ textarea {
     background: var(--color3);
     margin: 0;
 }
+
+@media (max-width: 600px) {
+
+    .panel {
+        right: -30%;
+    }
+
+    .panel-abierto {
+        right: 0;
+        transition: all 1s ease-in-out;
+    }
+
+    .copyButton {
+        font-size: 10px;
+    }
+}
+
+.modJSON {
+    display: flex;
+    flex-direction: column;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background-color: #0000007a;
+    z-index: 100;
+    padding: 3vw;
+}
+
+.modJSON .base {
+    background-color: #dddddd;
+    border: 0.2vw #000 solid;
+    border-radius: .8vw;
+    padding: 1vw;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modJSON .base .x {
+    height: auto;
+    display: flex;
+    justify-content: right;
+}
+
+.modJSON .base .x button {
+    background: none;
+    border: none;
+}
