@@ -7,7 +7,6 @@
 .print .botones a {
     text-decoration: none;
     position: relative;
-    z-index: 1;
 }
 
 .modulo {
@@ -56,6 +55,35 @@ textarea {
     resize: none;
 }
 
+.fa-texto {
+    position: fixed;
+    right: 0;
+    /* top: 50%; */
+    transform: rotate(270deg);
+    /* translate: 31% 0; */
+    translate: 24.5vw 0;
+    background: var(--color1);
+    padding: .8vw .5vw .8vw .5vw;
+    border-radius: .8vw .8vw 0vw 0vw;
+    cursor: pointer;
+    margin: 0;
+    transition: background .17s ease-in-out;
+    width: min-content;
+    transition: all 1s ease-in-out;
+
+    height: 100%;
+}
+
+.fa-texto:hover {
+    background: var(--color3);
+    margin: 0;
+}
+
+.fa-textopen {
+    translate: 8vw 0;
+    transition: all 1s ease-in-out;
+}
+
 .panel {
     position: fixed;
     right: -16.9%;
@@ -96,22 +124,6 @@ textarea {
     transition: all 1s ease-in-out;
 }
 
-.fa-texto {
-    transform: rotate(270deg);
-    translate: 31% 0;
-    background: var(--color1);
-    padding: .8vw .5vw .8vw .5vw;
-    border-radius: .8vw .8vw 0vw 0vw;
-    cursor: pointer;
-    margin: 0;
-    transition: background .17s ease-in-out;
-}
-
-.fa-texto:hover {
-    background: var(--color3);
-    margin: 0;
-}
-
 @media (max-width: 600px) {
 
     .panel {
@@ -126,41 +138,4 @@ textarea {
     .copyButton {
         font-size: 10px;
     }
-}
-
-.modJSON {
-    display: flex;
-    flex-direction: column;
-    
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-    background-color: #0000007a;
-    z-index: 100;
-    padding: 3vw;
-}
-
-.modJSON .base {
-    background-color: #dddddd;
-    border: 0.2vw #000 solid;
-    border-radius: .8vw;
-    padding: 1vw;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.modJSON .base .x {
-    height: auto;
-    display: flex;
-    justify-content: right;
-}
-
-.modJSON .base .x button {
-    background: none;
-    border: none;
 }

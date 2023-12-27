@@ -64,6 +64,21 @@ form button {
   width: 40%;
 }
 
+.botones {
+  margin: 1vw 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1vw;
+}
+
+.botones a {
+  font-size: 1.5vw;
+  font-weight: 600;
+  padding: .7vw .8vw;
+  border-radius: 0.8vw;
+  text-decoration: none;
+}
+
 article {
   display: flex;
   flex-direction: row;

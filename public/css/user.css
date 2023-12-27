@@ -1,0 +1,28 @@
+.busqueda {
+    position: sticky;
+    top: 3.5vw;
+    background-color: #dddddd;
+    background-image: radial-gradient(#cfcfcfd4 0.1vw, transparent 0);
+    padding: 0 .8vw;
+    width: 100%;
+}
+
+article {
+    min-height: calc(100% - 10.35vw);
+}
+
+#campoBusqueda, label {
+    font-size: 1.5vw;
+}
+
+#campoBusqueda {
+    margin: 1vw 1vw;
+}
+
+.btn-verde {
+    font-size: 1.4vw;
+}
+
+td {
+    height: 3.5vw;
+}

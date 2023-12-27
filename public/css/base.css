@@ -50,6 +50,23 @@ article {
   transition: all 0.15s ease-in-out;
 }
 
+.btn-tematico {
+  color: #fff;
+  background-color: var(--color1);
+  border: var(--color3);
+  padding: 0.5vw;
+  border-radius: 0.5vw;
+  font-size: 1vw;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-tematico:hover {
+  background-color: var(--color3);
+  border: var(--color1);
+  transition: all 0.15s ease-in-out;
+}
+
 input, select, textarea {
   padding: 0.4vw;
   font-size: 1vw;

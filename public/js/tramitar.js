@@ -21,3 +21,9 @@ function formatDNI(input) {
     }
 }
 
+function panel() {
+    var panel = document.getElementById('panel');
+    var fatexto = document.getElementById('fa-texto');
+    panel.classList.toggle('panel-abierto');
+    fatexto.classList.toggle('fa-textopen');
+}

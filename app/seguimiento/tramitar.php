@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   $idSol = $_GET['idSol'];
 
   // Consulta SQL para obtener el ID y el estado actual del item
-  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc FROM solicitudes WHERE id = :idSol";
+  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc, telefono FROM solicitudes WHERE id = :idSol";
 
   // Preparar la sentencia
   $statement = $pdo->prepare($query);
@@ -50,6 +50,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $sexo = $result['sexo'];
     $edad = $result['edad'];
     $tipoDoc = $result['tipoDoc'];
+    $telefono = $result['telefono'];
 
     if ($result) {
       $intervencion = $result['intervencion'];
@@ -205,6 +206,12 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
               }
               ?>
             </select>
+          </div>
+          <div>
+            <label for="telefono">Telefono</label>
+            <input type="number" name="telefono" id="telefono" maxlength="14" value="<?php echo $telefono ?>">
+
+
           </div>
         </div>
       </div>
@@ -466,8 +473,8 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
       <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>
     </form>
 
+    <h3 class="fa-texto" id="fa-texto" style="color: #fff;" onclick="panel()">Referencias</h3>
     <div class="panel" id="panel">
-      <h3 class="fa-texto" style="color: #fff;" onclick="panel()">Referencias</h3>
       <div class="copy">
         <h4 style="padding: 0 .5vw .5vw .5vw; font-size: 1.5vw;">Referencias</h4>
         <div class="copys">
@@ -489,22 +496,9 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
       </div>
     </div>
 
-    <div class="modJSON">
-      <div class="base">
-        <div class="x"><button><i class="fa-solid fa-xmark btn-rojo"></i></button></div>
-      </div>
-    </div>
-
   </article>
 
   <script src="/Banco/public/js/tramitar.js"></script>
-
-  <script>
-    function panel() {
-      var panel = document.getElementById('panel');
-      panel.classList.toggle('panel-abierto');
-    }
-  </script>
 </body>
 
 </html>

@@ -150,6 +150,11 @@ $titulo_pestaña = "Perfil";
 					</form>
 				</div>
 			</div>
+
+			<div class="botones">
+				<a class="btn-tematico" href="/Banco/app/search/user.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar usuarios</a>
+				<a class="btn-tematico" href="/Banco/app/search/expediente.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar expedientes</a>
+			</div>
 		</div>
 
 		<div class="datosForm">
