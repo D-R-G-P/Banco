@@ -100,14 +100,30 @@ function checkForNewData() {
 
 function newAct() {
     var newA = document.getElementById('newA');
-    
+
     newA.classList.add('newAct');
 }
 
 function newDesact() {
     var newA = document.getElementById('newA');
-    
+
     newA.classList.remove('newAct');
 }
 
 setInterval(checkForNewData, 15000); // Ejecutar cada 15 segundos
+
+function dialogoArchivo(id, GDEBA, paciente, dni) {
+    // Actualizar los datos del expediente en el diálogo
+    document.getElementById('expedienteTexto').innerText = GDEBA;
+    document.getElementById('nombrePacienteTexto').innerText = paciente;
+    document.getElementById('dniTexto').innerText = dni;
+    document.getElementById('archivarBTN').href = '/Banco/app/seguimiento/archivar_solicitud.php?solicitudId=' + id;
+
+    // Mostrar el fondo del diálogo
+    fondoArchive.style.display = 'flex';
+}
+
+function cerrarDialogoArchivo() {
+    // Ocultar el fondo del diálogo
+    fondoArchive.style.display = 'none';
+}

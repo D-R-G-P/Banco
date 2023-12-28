@@ -29,3 +29,27 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+function dialogoArchivo(id, nombre, apellido, dni, username) {
+    // Actualizar los datos del expediente en el diálogo
+    document.getElementById('borrarNombre').innerText = apellido + " " + nombre;
+    document.getElementById('borrarDni').innerText = dni;
+    document.getElementById('borrarUsername').innerText = username;
+    document.getElementById('borrarBTN').href = '/Banco/app/search/user_delete.php?userId=' + id;
+
+    // Mostrar el fondo del diálogo
+    fondoArchive.style.display = 'flex';
+}
+
+function cerrarDialogoArchivo() {
+    // Ocultar el fondo del diálogo
+    fondoArchive.style.display = 'none';
+}

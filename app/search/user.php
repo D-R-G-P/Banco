@@ -70,8 +70,8 @@ $titulo_pestaña = "Buscar usuario";
             echo '<td style="text-align: center; vertical-align: middle;">' . $tipo_usuario . '</td>';
             echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
             echo '<td style="vertical-align: middle; width: 5.5vw; text-align-last: justify;">
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/search/modificarUser?id=' . $id . '" title="Modificar usuario"><i class="fa-solid fa-pencil"></i></a>
+                        <button class="btn-verde actionButton" style="font-size: 1.3vw;" onclick="dialogoArchivo(\'' . $id . '\', \'' . $nombre . '\', \'' . $apellido . '\', \'' . $dni . '\', \'' . $username . '\')" title="Eliminar usuario"><i class="fa-solid fa-trash"></i></button>
 							</td>';
             echo '</tr>';
         }
@@ -83,8 +83,25 @@ $titulo_pestaña = "Buscar usuario";
     }
     ?>
     <div id="resultadoTabla">
-    <!-- Tabla de resultados se mostrará aquí -->
-</div>
+        <!-- Tabla de resultados se mostrará aquí -->
+    </div>
+
+    <div class="fondo" id="fondoArchive" style="display: none;">
+        <div class="archive">
+            <h3 style="font-size: 1.5vw; margin-top: 1.5vw;">¿Está seguro que desea borrar este usuario?</h3>
+
+            <div class="datosExpediente" style="margin: 1.5vw 0;">
+                <p style="font-size: 1.2vw;"><b>Nombre de usuario:</b> <span id="borrarUsername"></span></p>
+                <p style="font-size: 1.2vw;"><b>Nombre:</b> <span id="borrarNombre"></span></p>
+                <p style="font-size: 1.2vw;"><b>D.N.I:</b> <span id="borrarDni"></span></p>
+            </div>
+
+            <div class="botonesArchi">
+                <button class="btn-verde" onclick="cerrarDialogoArchivo()"><i class="fa-solid fa-x"></i> Cancelar</button>
+                <a style="text-decoration: none; text-align: center;" class="btn-rojo" href="#" id="borrarBTN"><i class="fa-solid fa-trash"></i> Borrar usuario</a>
+            </div>
+        </div>
+    </div>
 </article>
 
 

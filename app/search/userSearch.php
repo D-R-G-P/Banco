@@ -58,8 +58,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo '<td style="text-align: center; vertical-align: middle;">' . $tipo_usuario . '</td>';
     echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
     echo '<td style="vertical-align: middle; width: 5.5vw; text-align-last: justify;">
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/modificar?id=' . $id . '" title="Modificar stock de este item"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/modificarStock/delete?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
+    <a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/search/modificarUser?id=' . $id . '" title="Modificar usuario"><i class="fa-solid fa-pencil"></i></a>
+    <button class="btn-verde actionButton" style="font-size: 1.3vw;" onclick="dialogoArchivo(\'' . $id . '\', \'' . $nombre . '\', \'' . $apellido . '\', \'' . $dni . '\', \'' . $username . '\')" title="Eliminar usuario"><i class="fa-solid fa-trash"></i></button>
 							</td>';
     echo '</tr>';
 }

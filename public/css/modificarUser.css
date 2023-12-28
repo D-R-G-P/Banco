@@ -1,0 +1,68 @@
+form {
+    margin-top: 1vw;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-content: center;
+}
+
+form button {
+    width: max-content;
+    margin: 1vw;
+    margin-left: 40%;
+}
+
+article {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.datosForm {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
+.datos-cabeza {
+    background-color: var(--color1);
+    color: #fff;
+    padding: 0.8vw;
+    margin: 1vw 0 0 0;
+    border-radius: 0.8vw;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.datos-contenido {
+    max-height: 35vw;
+    transition: max-height 0.3s ease-in;
+    background-color: #c1c1c1;
+    border-radius: 0 0 0.8vw 0.8vw;
+    padding: 1vw;
+
+    border-color: #000;
+    border-style: solid;
+    border-width: 0 0.2vw 0.2vw 0.2vw;
+    width: 98.5%;
+    justify-content: center;
+    display: flex;
+}
+
+input,
+select {
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+    height: 25vh;
+}
