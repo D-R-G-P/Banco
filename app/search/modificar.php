@@ -15,6 +15,7 @@ $db = new DB();
 $pdo = $db->connect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idUser = $_POST["idUser"];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $dni = $_POST['dni'];
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $stmt = $pdo->prepare("UPDATE users SET nombre = :nombre, apellido = :apellido, dni = :dni, username = :username, password = :password, cargo = :cargo, banco = :banco, tipo_usuario = :tipo_usuario WHERE username = :username");
+        $stmt = $pdo->prepare("UPDATE users SET nombre = :nombre, apellido = :apellido, dni = :dni, username = :username, password = :password, cargo = :cargo, banco = :banco, tipo_usuario = :tipo_usuario WHERE id = :idUser");
+        $stmt->bindParam(':idUser', $idUser); // Agrega esta línea para vincular el valor de :idUser
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':dni', $dni);
@@ -43,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':tipo_usuario', $tipo_usuario);
         $stmt->execute();
 
+
         // Redireccionar o mostrar un mensaje de éxito
         // ...
         $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Datos modificados correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
@@ -52,4 +55,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'Error: ' . $e->getMessage();
     }
 }
-?>

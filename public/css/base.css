@@ -106,6 +106,19 @@ input, select, textarea {
   transition: 0.8s ease-in-out;
 }
 
+.notiswarning {
+  z-index: 100000;
+  background-color: rgb(253, 233, 185);
+  border: 0.2vw #ffe69c solid;
+  color: #664d03;
+  top: 10vw;
+  border-radius: 0.8vw;
+  padding: 1vw;
+  /* transform: translate(0, -20vw); */
+  transition: 0.8s ease-in-out;
+  font-size: 1.4vw;
+}
+
 .notis.active, .notiserror.active {
   transform: translate(0, 3.8vw);
   transition: 0.8s ease-in-out;

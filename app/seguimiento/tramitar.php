@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   $idSol = $_GET['idSol'];
 
   // Consulta SQL para obtener el ID y el estado actual del item
-  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc, telefono FROM solicitudes WHERE id = :idSol";
+  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc, telefono, intervencion FROM solicitudes WHERE id = :idSol";
 
   // Preparar la sentencia
   $statement = $pdo->prepare($query);
@@ -51,6 +51,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $edad = $result['edad'];
     $tipoDoc = $result['tipoDoc'];
     $telefono = $result['telefono'];
+    $intervencion = $result['intervencion'];
 
     if ($result) {
       $intervencion = $result['intervencion'];
@@ -116,6 +117,15 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
 <body>
   <article>
+    <?php 
+    
+    if ($intervencion == "archivo") {
+      echo '<div class="notiswarning">
+      ¡ATENCIÓN! El expediente al que accedió se encuentra archivado.
+    </div>';
+    }
+
+    ?>
     <div class="print modulo">
       <h3 style="margin-bottom: 0;">Planillas descargables:</h3>
       <div class="botones">
