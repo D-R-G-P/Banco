@@ -23,7 +23,7 @@ $titulo_pestaña = "Buscar expediente";
 
 <div class="busqueda">
     <label for="campoBusqueda">Buscar persona:</label>
-    <input id="campoBusqueda" name="campoBusqueda" type="number" placeholder="Buscar por DNI">
+    <input id="campoBusqueda" name="campoBusqueda" type="text" placeholder="Buscar por DNI" oninput="formatDNI(this)">
     <button class="btn-verde" id="btnBuscar"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
     <hr>
 </div>
@@ -91,6 +91,6 @@ $titulo_pestaña = "Buscar expediente";
 
 
 
-<script src="/Banco/public/js/user.js"></script>
+<script src="/Banco/public/js/archivo.js"></script>
 
 <?php include_once "../../public/layouts/bases/footer.php"; ?>

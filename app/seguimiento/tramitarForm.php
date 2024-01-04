@@ -35,12 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $edad = $_POST['edad'];
     $tipoDoc = $_POST['tipoDoc'];
     $telefono = $_POST['telefono'];
+    $firmante = $_POST['firmante'];
     $id = $_POST['id'];
 
     // Realizar la actualización en la base de datos
     try {
         // Construir la consulta SQL de actualización
-        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios, nomencladores = :nomencladores, categoriascie = :categoriascie, domicilio = :domicilio, localidad = :localidad, sexo = :sexo, edad = :edad, tipoDoc = :tipoDoc, telefono = :telefono WHERE id = :id";
+        $query = "UPDATE solicitudes SET fecha_solicitud = :fecha_solicitud, paciente = :paciente, dni = :dni, solicitud = :solicitud, tipo_solicitud = :tipo_solicitud, tipo_cirugia = :tipo_cirugia, fecha_perfeccionamiento = :fecha_perfeccionamiento, sol_provision = :sol_provision, fecha_cirugia = :fecha_cirugia, GDEBA = :GDEBA, estado = :estado, comentarios = :comentarios, nomencladores = :nomencladores, categoriascie = :categoriascie, domicilio = :domicilio, localidad = :localidad, sexo = :sexo, edad = :edad, tipoDoc = :tipoDoc, telefono = :telefono, firmante = :firmante WHERE id = :id";
 
         // Preparar la sentencia
         $stmt = $pdo->prepare($query);
@@ -66,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':edad', $edad);
         $stmt->bindParam(':tipoDoc', $tipoDoc);
         $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':firmante', $firmante);
         $stmt->bindParam(':id', $id);
 
         // Ejecutar la actualización

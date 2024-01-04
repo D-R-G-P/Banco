@@ -15,7 +15,7 @@ try {
     $html = '';
 
     // Consulta para obtener los datos de la tabla "items" filtrados por el id del banco y la categoría actual
-    $itemsQuery = "SELECT id, item, nombre FROM items WHERE banco = :idBanco AND (stock = 0 OR stock > 1) AND estado = 'act' ORDER BY item ASC";
+    $itemsQuery = "SELECT id, item, nombre FROM items WHERE banco = :idBanco AND (stock = 1 OR stock > 1) AND estado != 'del' ORDER BY item ASC";
     $itemsStatement = $pdo->prepare($itemsQuery);
     $itemsStatement->bindParam(':idBanco', $idBanco);
     $itemsStatement->execute();

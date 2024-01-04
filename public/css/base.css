@@ -75,6 +75,10 @@ input, select, textarea {
   border-radius: 0.5vw;
 }
 
+input[type=file] {
+  background-color: #fff;
+}
+
 .notisContent {
   position: absolute;
   width: 100%;

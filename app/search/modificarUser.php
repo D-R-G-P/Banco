@@ -34,7 +34,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $cargo = $userData['cargo'];
         $bancos = $userData['banco'];
         $tipoUsuario = $userData['tipo_usuario'];
-
     } else {
         // Redirigir o mostrar un mensaje de error si no se encontraron datos
         echo "No se encontraron datos para el ID proporcionado";
@@ -67,11 +66,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <article>
         <div class="datosForm">
+            <div class="firma" id="firma" style="margin: 1vw 1vw">
+                <a href="/Banco/app/search/addSign.php?id=<?php echo $id ?>" class="btn-tematico" style="padding: 1vw; text-decoration: none; font-weight: 600; font-size: 1.3vw">Añadir firma</a>
+            </div>
             <h2 class="datos-cabeza">Modificar datos del usuario</h2>
+
             <div class="datos-contenido">
                 <form action="/Banco/app/search/modificar.php" method="post">
 
-                <input type="hidden" name="idUser" value="<?php echo $idUsuario; ?>">
+                    <input type="hidden" name="idUser" value="<?php echo $idUsuario; ?>">
 
                     <label for="nombre">Nombres</label>
                     <input type="text" name="nombre" value="<?php echo $nombre; ?>" required>
@@ -117,7 +120,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     </select>
 
                     <label for="tipo_usuario">Tipo de usuario</label>
-                    <select name="tipo_usuario" required>
+                    <select name="tipo_usuario" id="tipo_usuario" required>
                         <option value="" disabled selected>Seleccionar una opción</option>
                         <option value="SuperAdmin" <?php if ($tipoUsuario == "SuperAdmin") echo "selected"; ?>>SuperAdmin</option>
                         <option value="Admin" <?php if ($tipoUsuario == "Admin") echo "selected"; ?>>Admin</option>
@@ -125,11 +128,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <option value="Instrumentador" <?php if ($tipoUsuario == "Instrumentador") echo "selected"; ?>>Instrumentador</option>
                         <option value="Cirujano" <?php if ($tipoUsuario == "Cirujano") echo "selected"; ?>>Cirujano</option>
                     </select>
-
                     <button type="submit" class="btn-verde"><i class="fa-solid fa-pencil"></i> Modificar datos</button>
                 </form>
             </div>
         </div>
+
+        <script>
+            function ajustarVisibilidadFirma(tipoUsuario) {
+                var firma = document.getElementById("firma");
+
+                if (tipoUsuario === "Cirujano") {
+                    firma.style.display = "block";
+                } else {
+                    firma.style.display = "none";
+                }
+            }
+
+            // Llamada a la función cuando hay un cambio en el tipo de usuario
+            var tipoUsuarioSelect = document.getElementById("tipo_usuario"); // Reemplaza con el ID correcto de tu elemento select
+
+            tipoUsuarioSelect.addEventListener("change", function() {
+                var selectedTipoUsuario = tipoUsuarioSelect.value;
+                ajustarVisibilidadFirma(selectedTipoUsuario);
+            });
+
+            // Llamada inicial para configurar la visibilidad al cargar la página
+            var tipoUsuarioInicial = tipoUsuarioSelect.value;
+            ajustarVisibilidadFirma(tipoUsuarioInicial);
+        </script>
     </article>
 </body>
 

@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $idSol = $_GET['idSol'];
 
     // Consulta SQL para obtener el ID y el estado actual del item
-    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, categoriascie, domicilio, localidad, sexo, edad, tipoDoc FROM solicitudes WHERE id = :idSol";
+    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, categoriascie, domicilio, localidad, sexo, edad, tipoDoc, firmante FROM solicitudes WHERE id = :idSol";
 
     // Preparar la sentencia
     $statement = $pdo->prepare($query);
@@ -41,7 +41,38 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         $sexo = $result['sexo'];
         $edad = $result['edad'];
         $tipoDoc = $result['tipoDoc'];
+
+        $firmante = $result['firmante'];
     }
+
+    $firmQuery = "SELECT matricula, ref, firma FROM users WHERE matricula = :matricula";
+
+try {
+    $firmStatement = $pdo->prepare($firmQuery);
+
+    if (!$firmStatement) {
+        throw new PDOException("Error al preparar la consulta.");
+    }
+
+    $firmStatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
+
+    if (!$firmStatement->execute()) {
+        throw new PDOException("Error al ejecutar la consulta.");
+    }
+
+    $firmResult = $firmStatement->fetch(PDO::FETCH_ASSOC);
+
+    if ($firmResult === false) {
+        // La consulta no devolvió resultados
+        throw new PDOException("No se encontraron resultados para la matrícula proporcionada.");
+    }
+
+    $ref = $firmResult['ref'];
+    $firma = $firmResult['firma'];
+} catch (PDOException $e) {
+    // Manejar el error (puedes imprimir el mensaje de error o realizar alguna otra acción)
+    echo "Error: " . $e->getMessage();
+}
 }
 
 
@@ -238,7 +269,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
                 </td>
                 <td rowspan="3" colspan="5">
                     <p>23. Firma, sello y matrícula profesional</p>
-                    <b></b>
+                    <img src="data:image/png;base64,<?php echo $firma; ?>" alt="Firma" style="height: 20vw; width: auto;">
                 </td>
                 <td rowspan="3">
                     <p>25. Conforme afiliado</p>

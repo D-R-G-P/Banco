@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   $idSol = $_GET['idSol'];
 
   // Consulta SQL para obtener el ID y el estado actual del item
-  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc, telefono, intervencion FROM solicitudes WHERE id = :idSol";
+  $query = "SELECT id, solicitud, tipo_solicitud, fecha_solicitud, GDEBA, items_JSON, paciente, dni, estado, tipo_cirugia, fecha_perfeccionamiento, sol_provision, fecha_cirugia, comentarios, nomencladores, categoriascie, intervencion, domicilio, localidad, sexo, edad, tipoDoc, telefono, intervencion, firmante FROM solicitudes WHERE id = :idSol";
 
   // Preparar la sentencia
   $statement = $pdo->prepare($query);
@@ -39,8 +39,8 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $dni = $result['dni'];
     $estado = $result['estado'];
     $tipo_cirugia = $result['tipo_cirugia'];
-    $fecha_perfeccionamiento = $result['fecha_perfeccionamiento'];
     $sol_provision = $result['sol_provision'];
+    $fecha_perfeccionamiento = $result['fecha_perfeccionamiento'];
     $fecha_cirugia = $result['fecha_cirugia'];
     $comentarios = $result['comentarios'];
     $nomencladores = $result['nomencladores'];
@@ -52,6 +52,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $tipoDoc = $result['tipoDoc'];
     $telefono = $result['telefono'];
     $intervencion = $result['intervencion'];
+    $firmante = $result['firmante'];
 
     if ($result) {
       $intervencion = $result['intervencion'];
@@ -476,8 +477,98 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
               ?>
             </datalist>
           </div>
+
+          <div>
+            <label for="firmante">Firmante</label>
+            <input type="text" list="firmantes" name="firmante" placeholder="Escribe para buscar..." value="<?php echo $firmante ?>">
+            <datalist id="firmantes">
+              <?php
+              
+              try {
+                $stmt = $pdo->prepare("SELECT nombre, apellido, dni, matricula FROM users WHERE firma != ''");
+                $stmt->execute();
+
+                $options = "";
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  $nombrePrescriptores = $row['nombre'];
+                  $apellidoPrescriptores = $row['apellido'];
+                  $dniPrescriptores = $row['dni'];
+                  $matriculaPrescriptores = $row['matricula'];
+
+                  $options .= '<option value="' . $matriculaPrescriptores . '">' . $nombrePrescriptores . ' ' . $apellidoPrescriptores . ' - ' . $dniPrescriptores . '</option>';
+                }
+
+                echo $options;
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+              
+              ?>
+            </datalist>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <div style="background-color: #fff; padding: .5vw; border-radius: .8vw; border: .1vw #000 solid" id="datos-prescriptor">
+            <?php
+            
+            if ($firmante != '') {
+              $presquery = ("SELECT nombre, apellido, matricula FROM users WHERE matricula = :matricula");
+
+              $presstatement = $pdo->prepare($presquery);
+              $presstatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
+
+              if ($presstatement->execute()) {
+                $sig = $presstatement->fetch(PDO::FETCH_ASSOC);
+
+                $apellidoPrescriptor = $sig['apellido'];
+                $nombrePrescriptor = $sig['nombre'];
+                $matriculaPrescriptor = $sig['matricula'];
+              }
+            } else {
+              
+              $apellidoPrescriptor = "";
+              $nombrePrescriptor = "";
+              $matriculaPrescriptor = "";
+            }
+
+            ?>
+            Nombre completo: <?php echo $apellidoPrescriptor . " " . $nombrePrescriptor ?> <br>
+            Matricula: <?php echo $matriculaPrescriptor ?>
+            </div>
+          </div>
         </div>
       </div>
+
+      <script>
+    // Función para manejar el cambio en el campo de entrada
+    function actualizarDatosPrescriptor() {
+        var firmanteInput = document.getElementsByName("firmante")[0];
+        var datosPrescriptorDiv = document.getElementById("datos-prescriptor");
+
+        // Verificar si se seleccionó un firmante
+        if (firmanteInput.value) {
+            // Realizar una solicitud asíncrona al servidor para obtener los detalles del prescriptor
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Actualizar el contenido del segundo div con los datos del prescriptor
+                    datosPrescriptorDiv.innerHTML = xhr.responseText;
+                }
+            };
+
+            // Enviar la solicitud al servidor
+            xhr.open("GET", "obtenerDatosPrescriptor.php?firmante=" + firmanteInput.value, true);
+            xhr.send();
+        } else {
+            // Si no se selecciona un firmante, restablecer los datos del prescriptor
+            datosPrescriptorDiv.innerHTML = "Nombre completo: <br> Matricula: ";
+        }
+    }
+
+    // Agregar un evento de cambio al campo de entrada
+    var firmanteInput = document.getElementsByName("firmante")[0];
+    firmanteInput.addEventListener("input", actualizarDatosPrescriptor);
+</script>
+
 
 
       <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>

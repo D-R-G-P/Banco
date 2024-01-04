@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $idSol = $_GET['idSol'];
 
     // Consulta SQL para obtener el ID y el estado actual del item
-    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, GDEBA, items_JSON, paciente, dni, nomencladores, categoriascie FROM solicitudes WHERE id = :idSol";
+    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, GDEBA, items_JSON, paciente, dni, nomencladores, categoriascie, firmante FROM solicitudes WHERE id = :idSol";
 
     // Preparar la sentencia
     $statement = $pdo->prepare($query);
@@ -37,9 +37,38 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         $GDEBA = $result['GDEBA'];
         $nomencladores = $result['nomencladores'];
         $categoriascie = $result['categoriascie'];
+        $firmante = $result['firmante'];
     }
 }
 
+$firmQuery = "SELECT matricula, ref, firma FROM users WHERE matricula = :matricula";
+
+try {
+    $firmStatement = $pdo->prepare($firmQuery);
+
+    if (!$firmStatement) {
+        throw new PDOException("Error al preparar la consulta.");
+    }
+
+    $firmStatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
+
+    if (!$firmStatement->execute()) {
+        throw new PDOException("Error al ejecutar la consulta.");
+    }
+
+    $firmResult = $firmStatement->fetch(PDO::FETCH_ASSOC);
+
+    if ($firmResult === false) {
+        // La consulta no devolvió resultados
+        throw new PDOException("No se encontraron resultados para la matrícula proporcionada.");
+    }
+
+    $ref = $firmResult['ref'];
+    $firma = $firmResult['firma'];
+} catch (PDOException $e) {
+    // Manejar el error (puedes imprimir el mensaje de error o realizar alguna otra acción)
+    echo "Error: " . $e->getMessage();
+}
 
 ?>
 
@@ -148,7 +177,9 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
                 </tbody>
             </table>
-            <div class="sign" style="margin-top: 10vw; border-top: .2vw; border-left: 0; border-right: 0; border-bottom: 0; border-color: black; border-style: solid; width: 25vw; text-align: center;">
+
+            <img src="data:image/png;base64,<?php echo $firma; ?>" alt="Firma" style="height: 23vw; width: auto; margin-top: 10vw;">
+            <div class="sign" style="border-top: .2vw; border-left: 0; border-right: 0; border-bottom: 0; border-color: black; border-style: solid; width: 25vw; text-align: center;">
                 <p>Medico tratante</p>
             </div>
         </div>
