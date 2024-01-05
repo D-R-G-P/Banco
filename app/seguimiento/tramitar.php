@@ -118,8 +118,8 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
 <body>
   <article>
-    <?php 
-    
+    <?php
+
     if ($intervencion == "archivo") {
       echo '<div class="notiswarning">
       ¡ATENCIÓN! El expediente al que accedió se encuentra archivado.
@@ -134,6 +134,14 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         <a href="/Banco/app/seguimiento/planillas/samo.php?idSol=<?php echo $idSol ?>" target="_blank" class="btn-verde"><i class="fa-solid fa-pager"></i> SAMO</a>
       </div>
     </div>
+
+
+    <div class="backContainer">
+      <a class="btn-tematico backButton"><i class="fa-solid fa-arrow-left"></i></a>
+      <p class="pBack">Volver atrás</p>
+    </div>
+
+
     <form action="/Banco/app/seguimiento/tramitarForm.php" method="post">
       <input type="hidden" name="id" value="<?php echo $idSol ?>">
       <div class="paciente modulo">
@@ -483,7 +491,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
             <input type="text" list="firmantes" name="firmante" placeholder="Escribe para buscar..." value="<?php echo $firmante ?>">
             <datalist id="firmantes">
               <?php
-              
+
               try {
                 $stmt = $pdo->prepare("SELECT nombre, apellido, dni, matricula FROM users WHERE firma != ''");
                 $stmt->execute();
@@ -502,76 +510,79 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
               } catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
               }
-              
+
               ?>
             </datalist>
           </div>
           <div style="display: flex; justify-content: flex-end;">
             <div style="background-color: #fff; padding: .5vw; border-radius: .8vw; border: .1vw #000 solid" id="datos-prescriptor">
-            <?php
-            
-            if ($firmante != '') {
-              $presquery = ("SELECT nombre, apellido, matricula FROM users WHERE matricula = :matricula");
+              <?php
 
-              $presstatement = $pdo->prepare($presquery);
-              $presstatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
+              if ($firmante != '') {
+                $presquery = ("SELECT nombre, apellido, matricula FROM users WHERE matricula = :matricula");
 
-              if ($presstatement->execute()) {
-                $sig = $presstatement->fetch(PDO::FETCH_ASSOC);
+                $presstatement = $pdo->prepare($presquery);
+                $presstatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
 
-                $apellidoPrescriptor = $sig['apellido'];
-                $nombrePrescriptor = $sig['nombre'];
-                $matriculaPrescriptor = $sig['matricula'];
+                if ($presstatement->execute()) {
+                  $sig = $presstatement->fetch(PDO::FETCH_ASSOC);
+
+                  $apellidoPrescriptor = $sig['apellido'];
+                  $nombrePrescriptor = $sig['nombre'];
+                  $matriculaPrescriptor = $sig['matricula'];
+                }
+              } else {
+
+                $apellidoPrescriptor = "";
+                $nombrePrescriptor = "";
+                $matriculaPrescriptor = "";
               }
-            } else {
-              
-              $apellidoPrescriptor = "";
-              $nombrePrescriptor = "";
-              $matriculaPrescriptor = "";
-            }
 
-            ?>
-            Nombre completo: <?php echo $apellidoPrescriptor . " " . $nombrePrescriptor ?> <br>
-            Matricula: <?php echo $matriculaPrescriptor ?>
+              ?>
+              Nombre completo: <?php echo $apellidoPrescriptor . " " . $nombrePrescriptor ?> <br>
+              Matricula: <?php echo $matriculaPrescriptor ?>
             </div>
           </div>
         </div>
       </div>
 
       <script>
-    // Función para manejar el cambio en el campo de entrada
-    function actualizarDatosPrescriptor() {
-        var firmanteInput = document.getElementsByName("firmante")[0];
-        var datosPrescriptorDiv = document.getElementById("datos-prescriptor");
+        // Función para manejar el cambio en el campo de entrada
+        function actualizarDatosPrescriptor() {
+          var firmanteInput = document.getElementsByName("firmante")[0];
+          var datosPrescriptorDiv = document.getElementById("datos-prescriptor");
 
-        // Verificar si se seleccionó un firmante
-        if (firmanteInput.value) {
+          // Verificar si se seleccionó un firmante
+          if (firmanteInput.value) {
             // Realizar una solicitud asíncrona al servidor para obtener los detalles del prescriptor
             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Actualizar el contenido del segundo div con los datos del prescriptor
-                    datosPrescriptorDiv.innerHTML = xhr.responseText;
-                }
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                // Actualizar el contenido del segundo div con los datos del prescriptor
+                datosPrescriptorDiv.innerHTML = xhr.responseText;
+              }
             };
 
             // Enviar la solicitud al servidor
             xhr.open("GET", "obtenerDatosPrescriptor.php?firmante=" + firmanteInput.value, true);
             xhr.send();
-        } else {
+          } else {
             // Si no se selecciona un firmante, restablecer los datos del prescriptor
             datosPrescriptorDiv.innerHTML = "Nombre completo: <br> Matricula: ";
+          }
         }
-    }
 
-    // Agregar un evento de cambio al campo de entrada
-    var firmanteInput = document.getElementsByName("firmante")[0];
-    firmanteInput.addEventListener("input", actualizarDatosPrescriptor);
-</script>
-
+        // Agregar un evento de cambio al campo de entrada
+        var firmanteInput = document.getElementsByName("firmante")[0];
+        firmanteInput.addEventListener("input", actualizarDatosPrescriptor);
+      </script>
 
 
-      <button type="submit" class="btn-verde"><i class="fa-solid fa-floppy-disk"></i> Registrar cambios</button>
+
+      <div class="saveContainer">
+        <p class="pSave">Registrar cambios</p>
+        <button type="submit" class="btn-verde saveButton"><i class="fa-solid fa-floppy-disk"></i></button>
+      </div>
     </form>
 
     <h3 class="fa-texto" id="fa-texto" style="color: #fff;" onclick="panel()">Referencias</h3>
