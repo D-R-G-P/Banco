@@ -40,7 +40,7 @@
             <a href="/Banco/">Inicio</a>
             <a href="/Banco/public/layouts/modificarStock">Modificar stock</a>
             <a href="/Banco/public/layouts/seguimientoSolicitudes">Seguimiento</a>
-            <a href="/Banco/public/layouts/realizarPedido" class="disabled">Realizar pedido</a>
+            <a href="/Banco/public/layouts/realizarPedido">Realizar pedido</a>
         </div>
 
         <button class="perfil" id="perfilButton" style="cursor: pointer;">

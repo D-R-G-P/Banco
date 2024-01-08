@@ -17,7 +17,7 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
     $pdo = $db->connect();
 
     // Consulta SQL para obtener el ID y el estado actual del item
-    $query = "SELECT id, intervencion FROM solicitudes WHERE id = :solicitudId";
+    $query = "SELECT id, intervencion, items_JSON FROM solicitudes WHERE id = :solicitudId";
 
     // Preparar la sentencia
     $statement = $pdo->prepare($query);
@@ -33,9 +33,9 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
         if ($result) {
             $currentState = $result['intervencion'];
 
-            // Verificar si el estado actual es diferente a "act"
-            if ($currentState == 'no') {
-                // Consulta SQL para actualizar el estado a "act"
+            // Verificar si el estado actual es diferente a "deleted"
+            if ($currentState != 'deleted') {
+                // Consulta SQL para actualizar el estado a "deleted"
                 $updateQuery = "UPDATE solicitudes SET intervencion = 'deleted' WHERE id = :solicitudId";
 
                 // Preparar la sentencia de actualización
@@ -46,6 +46,31 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
 
                 // Ejecutar la actualización
                 if ($updateStatement->execute()) {
+                    // Obtener el JSON de items
+                    $itemsJSON = $result['items_JSON'];
+
+                    // Convertir el JSON a un array asociativo
+                    $arrayItems = json_decode($itemsJSON, true);
+
+                    // Restaurar la cantidad al stock en la tabla items
+                    foreach ($arrayItems as $item) {
+                        $itemId = $item['id'];
+                        $cantidad = $item['cantidad'];
+
+                        // Consulta para restaurar la cantidad al stock actual
+                        $renewQuery = "UPDATE items SET stock = stock + :cantidad WHERE id = :itemId";
+
+                        // Preparar la consulta de restauración
+                        $renewStatement = $pdo->prepare($renewQuery);
+
+                        // Bind de los parámetros
+                        $renewStatement->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+                        $renewStatement->bindParam(':itemId', $itemId, PDO::PARAM_INT);
+
+                        // Ejecutar la consulta de restauración
+                        $renewStatement->execute();
+                    }
+
                     $_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Solicitud anulada correctamente</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
                     // Redireccionar a una página de éxito o mostrar un mensaje de éxito
                     header('Location: /Banco/public/layouts/getForm.php');
@@ -82,3 +107,4 @@ if (isset($_GET['solicitudId']) && is_numeric($_GET['solicitudId'])) {
     header('Location: /Banco/public/layouts/getForm.php');
     exit();
 }
+?>

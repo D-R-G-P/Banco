@@ -17,5 +17,20 @@ form select {
 
 .sendButton {
     position:fixed;
-    top: 30vw;
+    bottom: 3vw;
+    left: 3vw;
+}
+
+.left div {
+    display: flex;
+    flex-direction: column;
+}
+
+.left input, .left select {
+    width: 70%;
+    margin: 0;
+}
+
+label {
+    margin: 2vw 0vw .5vw 0vw;
 }

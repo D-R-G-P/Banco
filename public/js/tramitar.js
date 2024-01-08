@@ -27,3 +27,32 @@ function panel() {
     panel.classList.toggle('panel-abierto');
     fatexto.classList.toggle('fa-textopen');
 }
+
+// Función para manejar el cambio en el campo de entrada
+function actualizarDatosPrescriptor() {
+    var firmanteInput = document.getElementsByName("firmante")[0];
+    var datosPrescriptorDiv = document.getElementById("datos-prescriptor");
+
+    // Verificar si se seleccionó un firmante
+    if (firmanteInput.value) {
+        // Realizar una solicitud asíncrona al servidor para obtener los detalles del prescriptor
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Actualizar el contenido del segundo div con los datos del prescriptor
+                datosPrescriptorDiv.innerHTML = xhr.responseText;
+            }
+        };
+
+        // Enviar la solicitud al servidor
+        xhr.open("GET", "obtenerDatosPrescriptor.php?firmante=" + firmanteInput.value, true);
+        xhr.send();
+    } else {
+        // Si no se selecciona un firmante, restablecer los datos del prescriptor
+        datosPrescriptorDiv.innerHTML = "Nombre completo: <br> Matricula: ";
+    }
+}
+
+// Agregar un evento de cambio al campo de entrada
+var firmanteInput = document.getElementsByName("firmante")[0];
+firmanteInput.addEventListener("input", actualizarDatosPrescriptor);

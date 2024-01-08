@@ -165,8 +165,8 @@ textarea {
 
 .backContainer {
     position: fixed;
-    top: 1vw;
-    left: 1vw;
+    top: .5vw;
+    left: .5vw;
     display: flex;
     align-items: center;
 }
@@ -182,35 +182,36 @@ textarea {
     font-size: 1.5vw;
     color: #fff;
     
-    width: 0;
+    width: 3vw;
+    text-align: right;
+    direction: rtl;
     white-space: nowrap;
     overflow: hidden;
     height: 3vw;
-    transition: width .5s ease-in-out;
+    transition: width 0.4s ease-in-out;
     z-index: -1;
-    /* left: 3vw; */
     padding: 0.5vw;
     border-radius: 0.5vw;
     cursor: pointer;
-
     background-color: var(--color1);
     border: var(--color3);
 }
 
 .backContainer:hover .pBack {
-    width: 10vw;
-    transition: width .5s ease-in-out;
-    text-align: right;
+    width: 12vw;
+    transition: width 0.4s ease-in-out;
 }
+
+
 
 @media (max-width: 600px) {
 
     .fa-textopen {
-        right: 52.5vw;
+        right: 50vw;
     }
 
     .panel {
-        right: -30%;
+        right: -29vw;
     }
 
     .panel-abierto {
