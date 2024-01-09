@@ -13,8 +13,10 @@ $db = new DB();
 $pdo = $db->connect();
 
 $titulo_pestaña = "Perfil";
+$permisosUsuario = $user->getTipo_usuario();
 
 ?>
+
 <?php include_once 'bases/header.php'; ?>
 
 <link rel="stylesheet" href="/Banco/public/css/profile.css">
@@ -28,7 +30,10 @@ $titulo_pestaña = "Perfil";
 	?>
 
 	<article>
-		<div class="accordion">
+		<?php 
+		
+		if ($permisosUsuario == "SuperAdmin") {
+			echo '<div class="accordion">
 			<div class="accordion-item">
 
 
@@ -155,7 +160,11 @@ $titulo_pestaña = "Perfil";
 				<a class="btn-tematico" href="/Banco/app/search/user.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar usuarios</a>
 				<a class="btn-tematico" href="/Banco/app/search/expediente.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar expedientes</a>
 			</div>
-		</div>
+		</div>';
+		}
+
+		?>
+		
 
 		<div class="datosForm">
 			<h2 class="datos-cabeza">Modificar mis datos</h2>
