@@ -16,7 +16,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 
     // Consulta SQL para obtener los datos del usuario por ID
-    $stmt = $pdo->prepare("SELECT id, nombre, apellido, dni, cargo FROM users WHERE id = :id");
+    $stmt = $pdo->prepare("SELECT id, nombre, apellido, dni, cargo, matricula, firma FROM users WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -31,6 +31,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $apellido = $userData['apellido'];
         $dni = $userData['dni'];
         $cargo = $userData['cargo'];
+        $matricula = $userData['matricula'];
+        $firma = $userData['firma'];
     } else {
         // Redirigir o mostrar un mensaje de error si no se encontraron datos
         echo "No se encontraron datos para el ID proporcionado";
@@ -61,41 +63,54 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 <body>
 
-    <article>
-        <div class="datosForm">
+    <article class="signDatos" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1vw; justify-items: center;
+    align-items: stretch;">
+        <div class="datosForm" style="width: 80%;">
             <h2 class="datos-cabeza">Añadir firma al usuario</h2>
 
             <div class="datos-contenido">
                 <form action="/Banco/app/search/addSignForm.php" method="post" enctype="multipart/form-data">
-                
-                <input type="hidden" name="idUser" value="<?php echo $idUsuario; ?>">
 
-                <input type="hidden" name="titulo" value="Firma <?php echo $nombre . " " . $apellido ?>">
-                
-                <label for="nombre">Nombres</label>
-                <input type="text" value="<?php echo $nombre; ?>" required readonly>
-                
-                <label for="apellido">Apellidos</label>
-                <input type="text" value="<?php echo $apellido; ?>" required readonly>
-                
-                <label for="dni">D.N.I.</label>
-                <input type="text" value="<?php echo $dni; ?>" required readonly>
-                
-                <label for="cargo">Cargo</label>
-                <input type="text" name="cargo" value="<?php echo $cargo; ?>" required readonly>
+                    <input type="hidden" name="idUser" value="<?php echo $idUsuario; ?>">
+
+                    <input type="hidden" name="titulo" value="Firma <?php echo $nombre . " " . $apellido ?>">
+
+                    <label for="nombre">Nombres</label>
+                    <input type="text" value="<?php echo $nombre; ?>" required readonly>
+
+                    <label for="apellido">Apellidos</label>
+                    <input type="text" value="<?php echo $apellido; ?>" required readonly>
+
+                    <label for="dni">D.N.I.</label>
+                    <input type="text" value="<?php echo $dni; ?>" required readonly>
+
+                    <label for="cargo">Cargo</label>
+                    <input type="text" name="cargo" value="<?php echo $cargo; ?>" required readonly>
 
                     <h2 class="datos-cabeza">Agregar firma</h2>
 
                     <input type="hidden" name="dato" value="inserta_archivo">
 
-                    <input type="number" name="matricula" placeholder="Matricula (solo números)" style="margin-top: 1vw;" required>
+                    <input type="number" value="<?php echo $matricula; ?>" name="matricula" placeholder="Matricula (solo números)" style="margin-top: 1vw;" required>
 
                     <input type="file" name="imagen[]" id="imagen" accept="image/*" style="margin-top: 1vw;" required>
 
                     <button type="submit" class="btn-verde"><i class="fa-solid fa-pencil"></i> Modificar datos</button>
                 </form>
+
             </div>
         </div>
+        <?php if ($firma != "") { ?>
+            <div class="datosForm" style="width: 80%;">
+                <h2 class="datos-cabeza">Firma de usuario cargada</h2>
+
+                <div class="datos-contenido" id="firm">
+
+                    <img src="data:image/png;base64,<?php echo $firma; ?>" alt="Firma" class="firmacar">
+
+                </div>
+            </div>
+        <?php } ?>
     </article>
 </body>
 

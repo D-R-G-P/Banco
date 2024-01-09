@@ -32,8 +32,10 @@ $permisosUsuario = $user->getTipo_usuario();
 	<article>
 		<?php 
 		
-		if ($permisosUsuario == "SuperAdmin") {
-			echo '<div class="accordion">
+		if ($permisosUsuario == "Admin" | $permisosUsuario == "SuperAdmin") {
+
+		?>
+			<div class="accordion">
 			<div class="accordion-item">
 
 
@@ -100,6 +102,8 @@ $permisosUsuario = $user->getTipo_usuario();
 					</form>
 				</div>
 			</div>
+
+			<?php if ($permisosUsuario == "SuperAdmin") { ?>
 			<div class="accordion-item">
 
 
@@ -156,11 +160,16 @@ $permisosUsuario = $user->getTipo_usuario();
 				</div>
 			</div>
 
+			<?php } ?>
+
 			<div class="botones">
 				<a class="btn-tematico" href="/Banco/app/search/user.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar usuarios</a>
 				<a class="btn-tematico" href="/Banco/app/search/expediente.php"><i class="fa-solid fa-magnifying-glass"></i> Buscar expedientes</a>
 			</div>
-		</div>';
+		</div>
+
+		<?php
+		
 		}
 
 		?>

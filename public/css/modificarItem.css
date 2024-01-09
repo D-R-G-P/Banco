@@ -43,8 +43,8 @@ article {
 }
 
 .datos-contenido {
-    max-height: 35vw;
-    transition: max-height 0.3s ease-in;
+    min-height: 35vw;
+    transition: min-height 0.3s ease-in;
     background-color: #c1c1c1;
     border-radius: 0 0 0.8vw 0.8vw;
     padding: 1vw;
@@ -57,27 +57,7 @@ article {
     display: flex;
 }
 
-input,
-select {
-    width: 100%;
-}
-
 textarea {
-    resize: none;
-    height: 25vh;
-}
-
-.signDatos {
-    display: flex;
-    flex-direction: row;
-}
-
-#firm {
-    background-color: #fff;
-}
-
-.firmacar {
-    height: auto;
     width: 100%;
-    object-fit: contain;
+    resize: vertical;
 }

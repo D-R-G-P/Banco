@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="copyright" content="Dirección de Redes y Gestión de Personas - H.I.G.A. General San Martín" />
     <meta name="author" content="Lamas Cristian Jonathan" />
-    <title>S.C.S. - <?php echo $titulo_pestaña ?></title>
+    <title>S.G.B. - <?php echo $titulo_pestaña ?></title>
     <link rel="shortcut icon" href="/Banco/public/image/logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Banco/public/css/header.css">
     <link rel="stylesheet" href="/Banco/public/css/base.css">
