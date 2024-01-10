@@ -31,59 +31,49 @@ article .formContainer {
     align-items: center;
 }
 
-table {
-  border: 0.2vw solid #000;
-  border-collapse: separate;
-  border-left: 0;
-  border-radius: 0.8vw;
-  border-spacing: 0px;
+.background {
+  background-color: #0000007a;
+  position: fixed;
   width: 100%;
-  font-size: 1vw;
+  height: 100%;
+  top: 0;
+  left:0;
+  z-index: 10000;
 }
 
-thead {
-  display: table-header-group;
-  vertical-align: middle;
-  border-color: inherit;
-  border-collapse: separate;
-  background-color: var(--color2);
-  border-radius: 0.8vw;
-  color: #fff;
+.archive {
+  display: flex;
+  flex-direction: column;
+  background-color: #dddddd;
+  padding: 1vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: .8vw;
+  border: .2vw #000 solid;
 }
 
-tr {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
+textarea {
+  width: 100%;
+  min-height: 2.5vw;
+  resize: vertical;
+  margin-bottom: 1vw;
 }
 
-th,
-td {
-  padding: 0.3vw;
-  text-align: left;
-  vertical-align: top;
-  border-left: 0.2vw solid #000;
+input, select {
+  height: 2.5vw;
+  width: 100%;
+  margin-bottom: 1vw;
 }
 
-td {
-  border-top: 0.2vw solid #000;
-  background-color: #e3e3e3;
+.boton {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
-thead:first-child tr:first-child th:first-child,
-tbody:first-child tr:first-child td:first-child {
-  border-radius: 0.7vw 0 0 0;
-}
-
-thead:last-child tr:last-child th:first-child,
-tbody:last-child tr:last-child td:first-child {
-  border-radius: 0 0 0 0.7vw;
-}
-
-thead tr th:last-child {
-  border-radius: 0 0.6vw 0 0;
-}
-
-table tr:last-child td:last-child {
-  border-radius: 0 0 0.7vw 0;
+.cerrar {
+  width: 2.3vw;
+  height: 2.3vw;
 }

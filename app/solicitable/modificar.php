@@ -82,20 +82,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 $id_banco = $row['id'];
-                                $banco = $row['banco'];
+                                $bancoNew = $row['banco'];
                                 $siglas = $row['siglas'];
 
-                                if ($bancos == $siglas) {
-                                    echo "<option value='$siglas' selected>$banco - $siglas</option>";
-                                } else {
-                                    echo "<option value='$siglas'>$banco - $siglas</option>";
+                                // Agrega esto para depurar
+                                echo "<option value='$siglas'";
+                                if ($banco == $siglas) {
+                                    echo " selected";
                                 }
+                                echo ">$bancoNew - $siglas</option>";
                             }
                         } catch (PDOException $e) {
                             echo 'Error: ' . $e->getMessage();
                         }
                         ?>
                     </select>
+
 
                     <label for="item">Item</label>
                     <input type="number" name="item" value="<?php echo $item; ?>" required>
