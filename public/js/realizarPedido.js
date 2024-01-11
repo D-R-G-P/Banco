@@ -1,17 +1,17 @@
 // Obtener referencia al elemento select y al contenedor de las tablas
 const bancoSelect = document.getElementById('bancoSelect');
-const formContainerr = document.getElementById('formContainer');
+const tablasContainer = document.getElementById('tabla-resultados');
 
 // Función para actualizar las tablas según el banco seleccionado
-function actualizarFormulario() {
+function actualizarTablas() {
     const idBanco = bancoSelect.value;
 
     // Realizar una solicitud al servidor para obtener las categorías y los datos de las tablas actualizados
-    fetch(`/Banco/app/config/actualizar_formulario.php?idBanco=${idBanco}`)
+    fetch(`../../app/solicitable/getTable.php?idBanco=${idBanco}`)
         .then(response => response.text())
         .then(html => {
             // Actualizar el contenido del contenedor de las tablas con el HTML obtenido
-            formContainerr.innerHTML = html;
+            tablasContainer.innerHTML = html;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -19,41 +19,75 @@ function actualizarFormulario() {
 }
 
 // Escuchar el evento de cambio en el elemento select
-bancoSelect.addEventListener('change', actualizarFormulario);
+bancoSelect.addEventListener('change', actualizarTablas);
 
-// Obtener el elemento del select y el div del formulario
-const selectElement = document.getElementById("bancoSelect");
-const formContainer = document.getElementById("formContainer");
+// Actualizar las tablas al cargar la página inicialmente
+actualizarTablas();
 
-// Manejar el evento onchange del select
-selectElement.addEventListener("change", () => {
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
 
-    // Actualizar el contenido del div según el valor seleccionado
-    if (selectedValue === "CIGE") {
-        // Realizar una solicitud al servidor para obtener el contenido de CIGE.php
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Insertar el contenido en el div correspondiente
-                document.getElementById("contenidoDinamico").innerHTML = xhr.responseText;
+// Obtener y formatear el campo de DNI
+function formatDNI(input) {
+    // Obtener el valor del input y eliminar cualquier carácter no numérico
+    var num = input.value.replace(/\D/g, '');
 
-                // Inicializar Select2 para los elementos cargados dinámicamente
-                $('#controlBuscador').select2();
-                $('#controlBuscadorSecond').select2();
+    // Si hay al menos un número
+    if (num) {
+        // Formatear el número con puntos
+        var formattedNum = '';
+        for (var i = 0; i < num.length; i++) {
+            if (i > 0 && i % 3 === 0) {
+                formattedNum = '.' + formattedNum;
             }
-        };
-        xhr.open("GET", "formsPedidos/CIGE.php", true);
-        xhr.send();
-    } else if (selectedValue === "OTRA_OPCION") {
-        formContainer.innerHTML = "Contenido específico para otra opción";
+            formattedNum = num[num.length - 1 - i] + formattedNum;
+        }
+
+        // Establecer el valor formateado en el input
+        input.value = formattedNum;
     } else {
-        // Contenido predeterminado si no se selecciona ninguna opción válida
-        formContainer.innerHTML = "Contenido predeterminado";
+        input.value = '';
+    }
+}
+
+document.getElementById('banco').addEventListener('change', function () {
+    var selectedBanco = this.value;
+    if (selectedBanco) {
+        fetch('/Banco/app/solicitable/getTable.php?idBanco=' + selectedBanco)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // Manipular los datos y actualizar la tabla aquí
+                var tablaResultados = document.getElementById('tabla-resultados').getElementsByTagName('tbody')[0];
+                tablaResultados.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
+                data.forEach(function (row) {
+                    var newRow = tablaResultados.insertRow(-1);
+                    newRow.insertCell(0).appendChild(document.createTextNode(row.item));
+                    newRow.insertCell(1).appendChild(document.createTextNode(row.descripcion));
+                    newRow.insertCell(2).appendChild(document.createTextNode(row.descripcionAmpliada));
+                    newRow.insertCell(3).appendChild(document.createTextNode(row.estPre));
+                    newRow.insertCell(4).appendChild(document.createTextNode(row.estPos));
+                    var inputCell = newRow.insertCell(5);
+                    var input = document.createElement('input');
+                    input.type = 'number';
+                    inputCell.appendChild(input);
+                });
+            })
+            .catch(function (error) {
+                console.log('Error: ' + error);
+            });
     }
 });
-$(document).ready(function () {
-    $('#controlBuscador').select2();
-    $('#controlBuscadorSecond').select2();
-});
+
+function carga() {
+    // Verificar si se ha seleccionado un banco
+    if (bancoSelect.value !== "") {
+        // Eliminar el contenido del contenedor de la tabla
+        tablaCruda.remove();
+
+        // Aquí puedes realizar cualquier otra acción que necesites al cambiar el banco
+        // Por ejemplo, cargar una nueva tabla o realizar una solicitud al servidor
+    }
+}
+
+// Agregar un evento change al elemento select
+bancoSelect.addEventListener('change', carga);

@@ -46,13 +46,7 @@ if (isset($_SESSION['error_message'])) {
         <tbody>
 
             <?php
-            // Definir la consulta SQL para obtener los items
-            $itemsQuery = "SELECT `id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`, `estado` FROM `items`";
 
-            // Preparar y ejecutar la consulta para obtener los items
-            $itemsStatement = $pdo->prepare($itemsQuery);
-            $itemsStatement->execute();
-            $itemsData = $itemsStatement->fetchAll(PDO::FETCH_ASSOC);
 
             // Definir la consulta SQL para obtener las solicitudes
             $solicitudesQuery = "SELECT id, tipo_solicitud, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, banco, intervencion FROM solicitudes WHERE intervencion = 'no' ORDER BY id ASC";
@@ -71,26 +65,65 @@ if (isset($_SESSION['error_message'])) {
                     <td><?= $solicitud['dni'] ?></td>
                     <td>
                         <?php
-                        // Decodificar el JSON de items
-                        $itemsJson = json_decode($solicitud['items_JSON'], true);
+                        if ($solicitud['tipo_solicitud'] == "Para nominalizar stock") {
+                            // Definir la consulta SQL para obtener los items
+                            $itemsQuery = "SELECT `id`, `item`, `barcode`, `nombre`, `d_corta`, `d_larga`, `estudios`, `stock`, `categoria`, `banco`, `estado` FROM `items`";
 
-                        // Traducir y mostrar los items
-                        foreach ($itemsJson as $itemJson) {
-                            $itemId = $itemJson['id'];
-                            $cantidad = $itemJson['cantidad'];
+                            // Preparar y ejecutar la consulta para obtener los items
+                            $itemsStatement = $pdo->prepare($itemsQuery);
+                            $itemsStatement->execute();
+                            $itemsData = $itemsStatement->fetchAll(PDO::FETCH_ASSOC);
+                            // Decodificar el JSON de items
+                            $itemsJson = json_decode($solicitud['items_JSON'], true);
 
-                            // Buscar el nombre del item en la tabla de items
-                            $nombreItem = '';
-                            foreach ($itemsData as $itemData) {
-                                if ($itemData['id'] == $itemId) {
-                                    $numItem = $itemData['item'];
-                                    $nombreItem = $itemData['nombre'];
-                                    break;
+                            // Traducir y mostrar los items
+                            foreach ($itemsJson as $itemJson) {
+                                $itemId = $itemJson['id'];
+                                $cantidad = $itemJson['cantidad'];
+
+                                // Buscar el nombre del item en la tabla de items
+                                $nombreItem = '';
+                                foreach ($itemsData as $itemData) {
+                                    if ($itemData['id'] == $itemId) {
+                                        $numItem = $itemData['item'];
+                                        $nombreItem = $itemData['nombre'];
+                                        break;
+                                    }
                                 }
-                            }
 
-                            // Mostrar el nombre del item y la cantidad
-                            echo "<b>Item:</b> $numItem, $nombreItem -> <b>Cantidad:</b> $cantidad<br>";
+                                // Mostrar el nombre del item y la cantidad
+                                echo "<p><b>Item:</b> $numItem, $nombreItem -> <b>Cantidad:</b> $cantidad</p><br>";
+                            }
+                        } elseif ($solicitud['tipo_solicitud'] == "Para cirugía") {
+                            // Definir la consulta SQL para obtener los items
+                            $itemsQuery = "SELECT `id`, `item`, `descripcion`, `descripcionAmpliada` FROM `itemssolicitables`";
+
+                            // Preparar y ejecutar la consulta para obtener los items
+                            $itemsStatement = $pdo->prepare($itemsQuery);
+                            $itemsStatement->execute();
+                            $itemsData = $itemsStatement->fetchAll(PDO::FETCH_ASSOC);
+                            // Decodificar el JSON de items
+                            $itemsJson = json_decode($solicitud['items_JSON'], true);
+
+                            // Traducir y mostrar los items
+                            foreach ($itemsJson as $itemJson) {
+                                $itemId = $itemJson['id'];
+                                $cantidad = $itemJson['cantidad'];
+
+                                // Buscar el nombre del item en la tabla de items
+                                $nombreItem = '';
+                                foreach ($itemsData as $itemData) {
+                                    if ($itemData['id'] == $itemId) {
+                                        $numItem = $itemData['item'];
+                                        $descripcion = $itemData['descripcion'];
+                                        $descripcionAmpliada = $itemData['descripcionAmpliada'];
+                                        break;
+                                    }
+                                }
+
+                                // Mostrar el nombre del item y la cantidad
+                                echo "<p><b>Item:</b> $numItem, $descripcion, $descripcionAmpliada -> <b>Cantidad:</b> $cantidad</p><br>";
+                            }
                         }
                         ?>
                     </td>

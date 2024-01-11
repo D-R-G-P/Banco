@@ -12,6 +12,7 @@ class User extends DB
     private $username;
     private $banco;
     private $pass;
+    private $matricula;
 
     public function userExists($user, $pass)
     {
@@ -29,7 +30,7 @@ class User extends DB
 
     public function setUser($user)
     {
-        $query = $this->connect()->prepare('SELECT nombre, apellido, password, cargo, tipo_usuario, dni, username, banco FROM users WHERE username = :user');
+        $query = $this->connect()->prepare('SELECT nombre, apellido, password, cargo, tipo_usuario, dni, username, banco, matricula FROM users WHERE username = :user');
         $query->execute(['user' => $user]);
 
         if ($query->rowCount()) {
@@ -42,6 +43,7 @@ class User extends DB
             $this->dni = $result['dni'];
             $this->username = $result['username'];
             $this->banco = $result['banco'];
+            $this->matricula = $result['matricula'];
         }
     }
 
@@ -68,5 +70,9 @@ class User extends DB
     }
     public function getPassword() {
         return $this->pass;
+    }
+
+    public function getMatricula() {
+        return $this->matricula;
     }
 }

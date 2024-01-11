@@ -14,7 +14,7 @@ $idBanco = $_GET['idBanco'];
 
 try {
   // Consulta para obtener las categorías relacionadas al banco
-  $query = "SELECT DISTINCT categoria FROM items WHERE banco = (SELECT siglas FROM bancos WHERE id = :idBanco)";
+  $query = "SELECT DISTINCT categoria FROM items WHERE banco = :idBanco";
   $statement = $pdo->prepare($query);
   $statement->bindParam(':idBanco', $idBanco);
   $statement->execute();
@@ -37,7 +37,7 @@ try {
     $html .= '<tbody>';
 
     // Consulta para obtener los datos de la tabla "items" filtrados por el id del banco y la categoría actual
-    $itemsQuery = "SELECT item, nombre, stock, estado FROM items WHERE banco = (SELECT siglas FROM bancos WHERE id = :idBanco) AND categoria = :categoria AND estado = 'act' ORDER BY item ASC";
+    $itemsQuery = "SELECT item, nombre, stock, estado FROM items WHERE banco = :idBanco AND categoria = :categoria AND estado = 'act' ORDER BY item ASC";
     $itemsStatement = $pdo->prepare($itemsQuery);
     $itemsStatement->bindParam(':idBanco', $idBanco);
     $itemsStatement->bindParam(':categoria', $categoria);

@@ -14,17 +14,35 @@ $titulo_pestaña = "Inicio";
   <div class="banco">
     Banco:
     <select name="banco" id="bancoSelect">
+      <option value="" disabled>Seleccione una opción</option>
       <?php
       try {
-        $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+        $stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
         $stmt->execute();
 
         $options = "";
+        $userBanco = $user->getBanco();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $id_banco = $row['id'];
           $banco = $row['banco'];
           $siglas = $row['siglas'];
-          $options .= "<option value='$id_banco'>$banco - $siglas</option>";
+          $selected = ($userBanco == $siglas) ? "selected" : "";
+
+          $options .= "<option value='$siglas' $selected>$banco - $siglas</option>";
+        }
+
+        // Verificar si el banco almacenado no está en la lista
+        $stmt->execute(); // Reiniciar el cursor del conjunto de resultados
+        $found = false;
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          if ($row['siglas'] == $userBanco) {
+            $found = true;
+            break;
+          }
+        }
+
+        // Agregar opción para "Otro" si el banco almacenado no está en la lista
+        if (!$found && $userBanco != "") {
+          $options .= "<option value='otro' selected>Otro</option>";
         }
 
         // Escribir las opciones en el DOM
@@ -34,6 +52,8 @@ $titulo_pestaña = "Inicio";
       }
       ?>
     </select>
+
+
   </div>
 
   <hr>

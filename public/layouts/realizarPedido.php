@@ -16,170 +16,111 @@ $titulo_pestaña = "Realizar pedido";
 
 ?>
 
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	// Recoger los datos del formulario
+	$tipo_solicitud = 'Para cirugía';
+	$fecha_solicitud = $_POST['fecha_solicitud'];
+	$GDEBA = '';
+	// $items_JSON = $_POST['jsonItems'];
+	$paciente = $_POST['paciente'];
+	$dni = $_POST['dni'];
+	$telefono = $_POST['telefono'];
+	$estado = ''; // Puedes establecer un valor por defecto para el estado
+	$tipo_cirugia = ''; // Puedes establecer un valor por defecto para el tipo de cirugía
+	$fecha_perfeccionamiento = ''; // Puedes establecer un valor por defecto para la fecha de perfeccionamiento
+	$sol_provision = ''; // Puedes establecer un valor por defecto para la solución de provisión
+	$fecha_cirugia = ''; // Puedes establecer un valor por defecto para la fecha de cirugía
+	$comentarios = ''; // Puedes establecer un valor por defecto para los comentarios
+	// Inicializar el array para almacenar los datos
+	$nomencladores = $_POST['nomencladores'];
+	$categoriascie = $_POST['categoriascie'];
+	$banco = $_POST['banco'];
+	$firmante = $user->getMatricula();
+	$intervencion = 'no';
+	$arrayItems = array();
+
+	// Recorrer los datos del formulario
+	foreach ($_POST['material'] as $key => $value) {
+		// Verificar si la cantidad es mayor o igual a 1
+		if ($value >= 1) {
+			// Extraer id y item de la clave
+			$idStart = strpos($key, "id:") + 4;
+			$idEnd = strpos($key, ",");
+			$id = substr($key, $idStart, $idEnd - $idStart);
+
+			// Crear el array con los datos necesarios
+			$arrayItem = array('id' => $id, 'cantidad' => $value);
+
+			// Agregar el array al array principal
+			array_push($arrayItems, $arrayItem);
+		}
+	}
+
+	// Convertir el array a formato JSON
+	$items_JSON = json_encode($arrayItems);
+
+	try {
+		// Crear la consulta de inserción
+		$query = "INSERT INTO solicitudes (tipo_solicitud, fecha_solicitud, items_JSON, paciente, dni, telefono, nomencladores, categoriascie, banco, firmante, intervencion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		// Preparar la consulta
+		$stmt = $pdo->prepare($query);
+
+		// Ejecutar la consulta
+		$stmt->execute([$tipo_solicitud, $fecha_solicitud, $items_JSON, $paciente, $dni, $telefono, $nomencladores, $categoriascie, $banco, $firmante, $intervencion]);
+
+		// Obtener el último ID insertado
+		$lastInsertId = $pdo->lastInsertId();
+
+		// Mostrar un mensaje de éxito
+		$_SESSION['success_message'] = '<div class="notisContent"><div class="notis" id="notis">Paciente y material nominalizado correctamente.</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+
+		// Redirigir a otra página después de la inserción
+		header("Location: realizarPedido.php");
+		exit(); // Asegurar que no se ejecute nada más después de la redirección
+
+	} catch (PDOException $e) {
+		// Mostrar un mensaje de error en caso de que ocurra un error en la consulta
+		$_SESSION['error_message'] = '<div class="notisContent"><div class="notiserror" id="notis">Error al nominalizar. Vuelva a intentarlo o póngase en contacto con la administración. ' . $e->getMessage() . '</div></div><script>setTimeout(() => {notis.classList.toggle("active");out();}, 1);function out() {setTimeout(() => {notis.classList.toggle("active");}, 2500);}</script>';
+		echo 'Error: ' . $e->getMessage();
+
+		header("Location: realizarPedido.php");
+		exit(); // Asegurar que no se ejecute nada más después de la redirección
+	}
+}
+?>
+
 <?php include_once 'bases/header.php'; ?>
 <link rel="stylesheet" href="/Banco/public/css/realizarPedido.css">
 <link rel="stylesheet" href="/Banco/public/css/table.css">
 
 <?php
 if (isset($_SESSION['success_message'])) {
-    echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
-    // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
-    unset($_SESSION['success_message']);
+	echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
+	// Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+	unset($_SESSION['success_message']);
 }
 if (isset($_SESSION['error_message'])) {
-    echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
-    // Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
-    unset($_SESSION['error_message']);
+	echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
+	// Borrar el mensaje de éxito de la variable de sesión para no mostrarlo nuevamente
+	unset($_SESSION['error_message']);
 }
 ?>
 
 
 <article style="padding: 1vw">
 
-    <div class="tabla">
-        <div style="display: flex; flex-direction: row;">
-            <h1>Listado de items</h1>
-            <button class="btn-verde" style="margin-left: 2vw; margin-bottom: 2vw;" onclick="itemAdd()"><i class="fa-solid fa-plus"></i> Agregar item</button>
-        </div>
-        <div class="background" id="background" style="display: none;">
-            <div class="archive">
-                <div class="boton">
-                <button class="btn-rojo cerrar" onclick="itemAdd()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <form action="/Banco/app/solicitable/addItemForm.php" method="post">
-                    <label for="banco">Banco</label>
-                    <select name="banco" id="banco" required>
-                        <option value="" selected disabled>Seleccinar banco</option>
-                        <?php
-                        try {
-                            $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
-                            $stmt->execute();
-
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $id_banco = $row['id'];
-                                $banco = $row['banco'];
-                                $siglas = $row['siglas'];
-
-                                if ($bancos == $siglas) {
-                                    echo "<option value='$siglas' selected>$banco - $siglas</option>";
-                                } else {
-                                    echo "<option value='$siglas'>$banco - $siglas</option>";
-                                }
-                            }
-                        } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                        }
-                        ?>
-                    </select>
-
-                    <label for="item">Item</label>
-                    <input type="number" name="item" id="item" required>
-
-                    <label for="descripcion">Descripcion</label>
-                    <textarea name="descripcion" id="descripcion" required></textarea>
-
-                    <label for="descripcionAmpliada">Descripcion ampliada</label>
-                    <textarea name="descripcionAmpliada" id="descripcionAmpliada" required></textarea>
-
-                    <label for="estPre">Estudios pre quirurgicos</label>
-                    <textarea name="estPre" id="estPre" required></textarea>
-
-                    <label for="estPos">Estudios post quirurgicos</label>
-                    <textarea name="estPos" id="estPos"></textarea>
-
-                    <button type="submit" class="btn-verde"><i class="fa-solid fa-plus"></i> Agregar item</button>
-
-                </form>
-
-            </div>
-        </div>
-
-        <script>
-            function itemAdd() {
-                if (background.style.display == "flex") {
-                    background.style.display = "none";
-                    banco.value = "";
-                    item.value = "";
-                    descripcion.value = "";
-                    descripcionAmpiada.value = "";
-                    estPre.value = "";
-                    estPos.value = "";
-                } else {
-                    background.style.display = "flex";
-                    banco.value = "";
-                    item.value = "";
-                    descripcion.value = "";
-                    descripcionAmpiada.value = "";
-                    estPre.value = "";
-                    estPos.value = "";
-                }
-            }
-        </script>
-        <!-- style="text-align: center; vertical-align: middle;" -->
-
-        <?php
-        try {
-            $stmt = $pdo->prepare("SELECT i.id, i.banco, i.item, i.descripcion, i.descripcionAmpliada, i.estPre, i.estPos, i.estado
-            FROM itemssolicitables AS i
-            WHERE i.estado <> 'del'
-            ORDER BY i.item;");
-            $stmt->execute();
-
-            echo '<table>';
-            echo '<thead>';
-            echo '<tr>';
-            echo '<th style="text-align: center;">Banco</th>';
-            echo '<th style="text-align: center;">Item</th>';
-            echo '<th style="text-align: center;">Descripción</th>';
-            echo '<th style="text-align: center;">Descripción ampliada</th>';
-            echo '<th style="text-align: center;">Estudios prequirurgicos</th>';
-            echo '<th style="text-align: center;">Estudios post quirurgicos</th>';
-            echo '<th style="text-align: center;">Acciones</th>';
-            echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $id = $row['id'];
-                $banco = $row['banco'];
-                $item = $row['item'];
-                $descripcion = $row['descripcion'];
-                $descripcionAmpliada = $row['descripcionAmpliada'];
-                $estPre = $row['estPre'];
-                $estPos = $row['estPos'];
-                $estado = $row['estado'];
-
-                echo '<tr style="min-height: 3vw; height: 3vw;">';
-                echo '<td style="text-align: center; vertical-align: middle;">' . $banco . '</td>';
-                echo '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
-                echo '<td style="vertical-align: middle;">' . $descripcion . '</td>';
-                echo '<td style="vertical-align: middle;">' . $descripcionAmpliada . '</td>';
-                echo '<td style="vertical-align: middle;">' . $estPre . '</td>';
-                echo '<td style="text-align: center; vertical-align: middle;">' . $estPos . '</td>';
-                if ($estado == "act") {
-                    echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/disable?id=' . $id . '" title="Deshabilitar item"><i class="fa-regular fa-circle-check"></i></i></a>
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/delete?id=' . $id . '" title="Eliminar item"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-verde actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/modificar?id=' . $id . '" title="Modificar este item"><i class="fa-solid fa-pencil"></i></a>
-							</td>';
-                } else if ($estado == "des") {
-                    echo '<td style="vertical-align: middle; width: 8vw; text-align-last: justify;">
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/enable?id=' . $id . '" title="Habilitar item"><i class="fa-regular fa-circle-xmark"></i></a>
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/delete?id=' . $id . '" title="Eliminar item (no deberá haber stock disponible)"><i class="fa-solid fa-trash"></i></a>
-						<a class="btn-rojo actionButton" style="font-size: 1.3vw;" href="/Banco/app/solicitable/modificar?id=' . $id . '" title="Modificar este item"><i class="fa-solid fa-pencil"></i></a>
-					</td>';
-                }
-                echo '</tr>';
-            }
-
-            echo '</tbody>';
-            echo '</table>';
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
-        ?>
-    </div>
+	<?php
+	
+	if ($user->getTipo_usuario() != "Cirujano") {
+		include_once "realizar/admi.php";
+	} elseif ($user->getTipo_usuario() == "Cirujano") {
+		include_once "realizar/ciruja.php";
+	}
+	
+	?>
 
 </article>
 
@@ -190,5 +131,11 @@ if (isset($_SESSION['error_message'])) {
 </body>
 
 <script src="/Banco/public/js/realizarPedido.js"></script>
+
+
+
+
+
+
 
 </html>

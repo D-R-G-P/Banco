@@ -112,7 +112,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <textarea name="estPre" required><?php echo $estPre; ?></textarea>
 
                     <label for="estPos">Estudios pos operatorios</label>
-                    <textarea name="estPos" required><?php echo $estPos; ?></textarea>
+                    <textarea name="estPos"><?php echo $estPos; ?></textarea>
 
 
                     <button type="submit" class="btn-verde"><i class="fa-solid fa-pencil"></i> Modificar datos</button>

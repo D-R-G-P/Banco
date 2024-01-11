@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $idSol = $_GET['idSol'];
 
     // Consulta SQL para obtener el ID y el estado actual del item
-    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, categoriascie, domicilio, localidad, sexo, edad, tipoDoc, firmante FROM solicitudes WHERE id = :idSol";
+    $query = "SELECT id, tipo_solicitud, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, items_JSON, paciente, dni, categoriascie, domicilio, localidad, sexo, edad, tipoDoc, firmante FROM solicitudes WHERE id = :idSol";
 
     // Preparar la sentencia
     $statement = $pdo->prepare($query);
@@ -31,6 +31,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         $fecha_solicitud = $result['fecha_solicitud'];
+        $tipo_solicitud = $result['tipo_solicitud'];
         $items_JSON = $result['items_JSON'];
         $paciente = $result['paciente'];
         $dni = $result['dni'];
@@ -47,32 +48,32 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
     $firmQuery = "SELECT matricula, ref, firma FROM users WHERE matricula = :matricula";
 
-try {
-    $firmStatement = $pdo->prepare($firmQuery);
+    try {
+        $firmStatement = $pdo->prepare($firmQuery);
 
-    if (!$firmStatement) {
-        throw new PDOException("Error al preparar la consulta.");
+        if (!$firmStatement) {
+            throw new PDOException("Error al preparar la consulta.");
+        }
+
+        $firmStatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
+
+        if (!$firmStatement->execute()) {
+            throw new PDOException("Error al ejecutar la consulta.");
+        }
+
+        $firmResult = $firmStatement->fetch(PDO::FETCH_ASSOC);
+
+        if ($firmResult === false) {
+            // La consulta no devolvió resultados
+            throw new PDOException("No se encontraron resultados para la matrícula proporcionada.");
+        }
+
+        $ref = $firmResult['ref'];
+        $firma = $firmResult['firma'];
+    } catch (PDOException $e) {
+        // Manejar el error (puedes imprimir el mensaje de error o realizar alguna otra acción)
+        echo "Error: " . $e->getMessage();
     }
-
-    $firmStatement->bindParam(':matricula', $firmante, PDO::PARAM_INT);
-
-    if (!$firmStatement->execute()) {
-        throw new PDOException("Error al ejecutar la consulta.");
-    }
-
-    $firmResult = $firmStatement->fetch(PDO::FETCH_ASSOC);
-
-    if ($firmResult === false) {
-        // La consulta no devolvió resultados
-        throw new PDOException("No se encontraron resultados para la matrícula proporcionada.");
-    }
-
-    $ref = $firmResult['ref'];
-    $firma = $firmResult['firma'];
-} catch (PDOException $e) {
-    // Manejar el error (puedes imprimir el mensaje de error o realizar alguna otra acción)
-    echo "Error: " . $e->getMessage();
-}
 }
 
 
@@ -212,43 +213,84 @@ try {
                     <b style="font-size: 1vw;">
                         <?php
 
-                        // Decodificar el JSON
-                        $items_array = json_decode($items_JSON, true);
+                        if ($tipo_solicitud == "Para nominalizar stock") {
+                            // Decodificar el JSON
+                            $items_array = json_decode($items_JSON, true);
 
-                        $html = '';
+                            $html = '';
 
-                        // Recorrer cada elemento del array
-                        foreach ($items_array as $item) {
-                            // Obtener el ID y la cantidad del array
-                            $id = $item['id'];
-                            $cantidad = $item['cantidad'];
+                            // Recorrer cada elemento del array
+                            foreach ($items_array as $item) {
+                                // Obtener el ID y la cantidad del array
+                                $id = $item['id'];
+                                $cantidad = $item['cantidad'];
 
-                            // Realizar la consulta para obtener la información del item
-                            $query = "SELECT item, nombre FROM items WHERE id = :id";
+                                // Realizar la consulta para obtener la información del item
+                                $query = "SELECT item, nombre FROM items WHERE id = :id";
 
-                            $stmt = $pdo->prepare($query);
-                            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-                            $stmt->execute();
+                                $stmt = $pdo->prepare($query);
+                                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                                $stmt->execute();
 
-                            // Obtener el resultado de la consulta
-                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                                // Obtener el resultado de la consulta
+                                $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                            // Verificar si se encontró la información
-                            if ($result) {
-                                // Extraer la información
-                                $item = $result['item'];
-                                $nombre = $result['nombre'];
+                                // Verificar si se encontró la información
+                                if ($result) {
+                                    // Extraer la información
+                                    $item = $result['item'];
+                                    $nombre = $result['nombre'];
 
-                                // Agregar la fila a la tabla HTML
-                                $html .= "Item $item - $nombre - Cantidad: $cantidad";
-                            } else {
-                                // Manejar el caso donde no se encontró información para el ID
-                                $html .= 'No se encontró información para el ID ' . $id . '';
+                                    // Agregar la fila a la tabla HTML
+                                    $html .= "<p>Item $item - $nombre - Cantidad: $cantidad </p></br>";
+                                } else {
+                                    // Manejar el caso donde no se encontró información para el ID
+                                    $html .= 'No se encontró información para el ID ' . $id . '';
+                                }
                             }
+
+                            // Mostrar la tabla HTML
+                            echo $html;
+                        } elseif ($tipo_solicitud == "Para cirugía") {
+                            // Decodificar el JSON
+                            $items_array = json_decode($items_JSON, true);
+
+                            $html = '';
+
+                            // Recorrer cada elemento del array
+                            foreach ($items_array as $item) {
+                                // Obtener el ID y la cantidad del array
+                                $id = $item['id'];
+                                $cantidad = $item['cantidad'];
+
+                                // Realizar la consulta para obtener la información del item
+                                $query = "SELECT item, descripcion FROM itemssolicitables WHERE id = :id";
+
+                                $stmt = $pdo->prepare($query);
+                                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                                $stmt->execute();
+
+                                // Obtener el resultado de la consulta
+                                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                // Verificar si se encontró la información
+                                if ($result) {
+                                    // Extraer la información
+                                    $item = $result['item'];
+                                    $nombre = $result['descripcion'];
+
+                                    // Agregar la fila a la tabla HTML
+                                    $html .= "<p>Item $item - $nombre - Cantidad: $cantidad </p></br>";
+                                } else {
+                                    // Manejar el caso donde no se encontró información para el ID
+                                    $html .= 'No se encontró información para el ID ' . $id . '';
+                                }
+                            }
+
+                            // Mostrar la tabla HTML
+                            echo $html;
                         }
 
-                        // Mostrar la tabla HTML
-                        echo $html;
                         ?>
                     </b>
                 </td>

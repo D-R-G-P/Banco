@@ -17,7 +17,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     $idSol = $_GET['idSol'];
 
     // Consulta SQL para obtener el ID y el estado actual del item
-    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, GDEBA, items_JSON, paciente, dni, nomencladores, categoriascie, firmante FROM solicitudes WHERE id = :idSol";
+    $query = "SELECT id, DATE_FORMAT(fecha_solicitud, '%d/%m/%Y') AS fecha_solicitud, GDEBA, items_JSON, paciente, dni, nomencladores, categoriascie, firmante, tipo_solicitud FROM solicitudes WHERE id = :idSol";
 
     // Preparar la sentencia
     $statement = $pdo->prepare($query);
@@ -31,6 +31,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         $fecha_solicitud = $result['fecha_solicitud'];
+        $tipo_solicitud = $result['tipo_solicitud'];
         $items_JSON = $result['items_JSON'];
         $paciente = $result['paciente'];
         $dni = $result['dni'];
@@ -115,11 +116,13 @@ try {
             <table style="margin-top: .8vw;">
                 <?php
 
-                // Decodificar el JSON
-                $items_array = json_decode($items_JSON, true);
+                if ($tipo_solicitud == "Para nominalizar sotck") {
 
-                // Cabecera de la tabla HTML
-                $html = '<thead>
+                    // Decodificar el JSON
+                    $items_array = json_decode($items_JSON, true);
+
+                    // Cabecera de la tabla HTML
+                    $html = '<thead>
             <tr>
               <th>Item</th>
               <th>Descripción</th>
@@ -129,49 +132,112 @@ try {
           </thead>
           <tbody>';
 
-                // Recorrer cada elemento del array
-                foreach ($items_array as $item) {
-                    // Obtener el ID y la cantidad del array
-                    $id = $item['id'];
-                    $cantidad = $item['cantidad'];
+                    // Recorrer cada elemento del array
+                    foreach ($items_array as $item) {
+                        // Obtener el ID y la cantidad del array
+                        $id = $item['id'];
+                        $cantidad = $item['cantidad'];
 
-                    // Realizar la consulta para obtener la información del item
-                    $query = "SELECT item, d_corta, d_larga FROM items WHERE id = :id";
 
-                    $stmt = $pdo->prepare($query);
-                    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-                    $stmt->execute();
+                        // Realizar la consulta para obtener la información del item
+                        $query = "SELECT item, d_corta, d_larga FROM items WHERE id = :id";
 
-                    // Obtener el resultado de la consulta
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $stmt = $pdo->prepare($query);
+                        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                        $stmt->execute();
 
-                    // Verificar si se encontró la información
-                    if ($result) {
-                        // Extraer la información
-                        $item = $result['item'];
-                        $d_corta = $result['d_corta'];
-                        $d_larga = $result['d_larga'];
+                        // Obtener el resultado de la consulta
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                        // Agregar la fila a la tabla HTML
-                        $html .= '<tr>';
-                        $html .= '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
-                        $html .= '<td>' . $d_corta . '</td>';
-                        $html .= '<td>' . $d_larga . '</td>';
-                        $html .= '<td style="text-align: center; vertical-align: middle;">' . $cantidad . '</td>';
-                        $html .= '</tr>';
-                    } else {
-                        // Manejar el caso donde no se encontró información para el ID
-                        $html .= '<tr>';
-                        $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
-                        $html .= '</tr>';
+                        // Verificar si se encontró la información
+                        if ($result) {
+                            // Extraer la información
+                            $item = $result['item'];
+                            $d_corta = $result['d_corta'];
+                            $d_larga = $result['d_larga'];
+
+                            // Agregar la fila a la tabla HTML
+                            $html .= '<tr>';
+                            $html .= '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
+                            $html .= '<td>' . $d_corta . '</td>';
+                            $html .= '<td>' . $d_larga . '</td>';
+                            $html .= '<td style="text-align: center; vertical-align: middle;">' . $cantidad . '</td>';
+                            $html .= '</tr>';
+                        } else {
+                            // Manejar el caso donde no se encontró información para el ID
+                            $html .= '<tr>';
+                            $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
+                            $html .= '</tr>';
+                        }
                     }
+
+
+                    // Cierre de la tabla HTML
+                    $html .= '</tbody>';
+
+                    // Mostrar la tabla HTML
+                    echo $html;
+                } elseif ($tipo_solicitud == "Para cirugía") {
+                    // Decodificar el JSON
+                    $items_array = json_decode($items_JSON, true);
+
+                    // Cabecera de la tabla HTML
+                    $html = '<thead>
+            <tr>
+              <th>Item</th>
+              <th>Descripción</th>
+              <th>Descripcion alternativa</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>';
+
+                    // Recorrer cada elemento del array
+                    foreach ($items_array as $item) {
+                        // Obtener el ID y la cantidad del array
+                        $id = $item['id'];
+                        $cantidad = $item['cantidad'];
+
+
+                        // Realizar la consulta para obtener la información del item
+                        $query = "SELECT item, descripcion, descripcionAmpliada FROM itemssolicitables WHERE id = :id";
+
+                        $stmt = $pdo->prepare($query);
+                        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                        $stmt->execute();
+
+                        // Obtener el resultado de la consulta
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                        // Verificar si se encontró la información
+                        if ($result) {
+                            // Extraer la información
+                            $item = $result['item'];
+                            $d_corta = $result['descripcion'];
+                            $d_larga = $result['descripcionAmpliada'];
+
+                            // Agregar la fila a la tabla HTML
+                            $html .= '<tr>';
+                            $html .= '<td style="text-align: center; vertical-align: middle;">' . $item . '</td>';
+                            $html .= '<td>' . $d_corta . '</td>';
+                            $html .= '<td>' . $d_larga . '</td>';
+                            $html .= '<td style="text-align: center; vertical-align: middle;">' . $cantidad . '</td>';
+                            $html .= '</tr>';
+                        } else {
+                            // Manejar el caso donde no se encontró información para el ID
+                            $html .= '<tr>';
+                            $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
+                            $html .= '</tr>';
+                        }
+                    }
+
+
+                    // Cierre de la tabla HTML
+                    $html .= '</tbody>';
+
+                    // Mostrar la tabla HTML
+                    echo $html;
                 }
-
-                // Cierre de la tabla HTML
-                $html .= '</tbody>';
-
-                // Mostrar la tabla HTML
-                echo $html;
                 ?>
 
 

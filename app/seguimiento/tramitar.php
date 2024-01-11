@@ -98,20 +98,35 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
   <script src="/Banco/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
 
   <script>
-    function copyTextAndAnimate(button, textToCopy) {
-      // Copiar el texto al portapapeles
-      navigator.clipboard.writeText(textToCopy);
+    async function copyTextAndAnimate(button, textToCopy) {
+      try {
+        // Intentar copiar al portapapeles utilizando el nuevo método
+        await navigator.clipboard.writeText(textToCopy);
 
-      // Obtener el texto completo del botón
-      const buttonText = button.textContent;
+        // Cambiar el contenido del botón a un ícono por 3 segundos
+        const buttonText = button.textContent;
+        button.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(() => {
+          // Volver al contenido original del botón después de 3 segundos
+          button.innerHTML = buttonText;
+        }, 3000);
+      } catch (err) {
+        // Si falla, intentar el método antiguo (puede no funcionar en todos los navegadores)
+        const textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
 
-      // Cambiar el contenido del botón a un ícono por 3 segundos
-      button.innerHTML = '<i class="fa-solid fa-check"></i>';
-
-      setTimeout(() => {
-        // Volver al contenido original del botón después de 3 segundos
-        button.innerHTML = buttonText;
-      }, 3000);
+        // Cambiar el contenido del botón a un ícono por 3 segundos
+        const buttonText = button.textContent;
+        button.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(() => {
+          // Volver al contenido original del botón después de 3 segundos
+          button.innerHTML = buttonText;
+        }, 3000);
+      }
     }
   </script>
 </head>
@@ -121,7 +136,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
     <?php
 
     if ($intervencion == "archivo") {
-      echo '<div class="notiswarning">
+      echo '<div class="notiswarning" style="z-index: -2; margin-top: 3vw;">
       ¡ATENCIÓN! El expediente al que accedió se encuentra archivado.
     </div>';
     }
@@ -138,7 +153,7 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
 
     <div class="backContainer">
       <a class="btn-tematico backButton" href="/Banco/public/layouts/seguimientoSolicitudes.php"><i class="fa-solid fa-arrow-left"></i></a>
-      <p class="pBack">    Volver atrás</p>
+      <p class="pBack"> Volver atrás</p>
     </div>
 
 
@@ -314,11 +329,12 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
         <table style="margin-top: .8vw;">
           <?php
 
-          // Decodificar el JSON
-          $items_array = json_decode($items_JSON, true);
+          if ($tipo_solicitud == "Para nominalizar stock") {
+            // Decodificar el JSON
+            $items_array = json_decode($items_JSON, true);
 
-          // Cabecera de la tabla HTML
-          $html = '<thead>
+            // Cabecera de la tabla HTML
+            $html = '<thead>
             <tr>
               <th>Item</th>
               <th>Nombre</th>
@@ -328,49 +344,114 @@ if (isset($_GET['idSol']) && is_numeric($_GET['idSol'])) {
           </thead>
           <tbody>';
 
-          // Recorrer cada elemento del array
-          foreach ($items_array as $item) {
-            // Obtener el ID y la cantidad del array
-            $id = $item['id'];
-            $cantidad = $item['cantidad'];
+            // Recorrer cada elemento del array
+            foreach ($items_array as $item) {
+              // Obtener el ID y la cantidad del array
+              $id = $item['id'];
+              $cantidad = $item['cantidad'];
 
-            // Realizar la consulta para obtener la información del item
-            $query = "SELECT item, nombre, d_corta FROM items WHERE id = :id";
+              // Realizar la consulta para obtener la información del item
+              $query = "SELECT item, nombre, d_corta FROM items WHERE id = :id";
 
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
+              $stmt = $pdo->prepare($query);
+              $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+              $stmt->execute();
 
-            // Obtener el resultado de la consulta
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+              // Obtener el resultado de la consulta
+              $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verificar si se encontró la información
-            if ($result) {
-              // Extraer la información
-              $item_nombre = $result['item'];
-              $nombre = $result['nombre'];
-              $descripcion = $result['d_corta'];
+              // Verificar si se encontró la información
+              if ($result) {
+                // Extraer la información
+                $item_nombre = $result['item'];
+                $nombre = $result['nombre'];
+                $descripcion = $result['d_corta'];
 
-              // Agregar la fila a la tabla HTML
-              $html .= '<tr>';
-              $html .= '<td>' . $item_nombre . '</td>';
-              $html .= '<td>' . $nombre . '</td>';
-              $html .= '<td>' . $descripcion . '</td>';
-              $html .= '<td>' . $cantidad . '</td>';
-              $html .= '</tr>';
-            } else {
-              // Manejar el caso donde no se encontró información para el ID
-              $html .= '<tr>';
-              $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
-              $html .= '</tr>';
+                // Agregar la fila a la tabla HTML
+                $html .= '<tr>';
+                $html .= '<td>' . $item_nombre . '</td>';
+                $html .= '<td>' . $nombre . '</td>';
+                $html .= '<td>' . $descripcion . '</td>';
+                $html .= '<td>' . $cantidad . '</td>';
+                $html .= '</tr>';
+              } else {
+                // Manejar el caso donde no se encontró información para el ID
+                $html .= '<tr>';
+                $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
+                $html .= '</tr>';
+              }
             }
+
+            // Cierre de la tabla HTML
+            $html .= '</tbody>';
+
+            // Mostrar la tabla HTML
+            echo $html;
+          } elseif ($tipo_solicitud == "Para cirugía") {
+            // Decodificar el JSON
+            $items_array = json_decode($items_JSON, true);
+
+            // Cabecera de la tabla HTML
+            $html = '<thead>
+            <tr>
+              <th>Item</th>
+              <th>Descripcion</th>
+              <th>Descripcion ampliada</th>
+              <th>Estudios prequirurgicos</th>
+              <th>Estudios posquirurgicos</th>
+              <th>Cantidad solicitada</th>
+            </tr>
+          </thead>
+          <tbody>';
+
+            // Recorrer cada elemento del array
+            foreach ($items_array as $item) {
+              // Obtener el ID y la cantidad del array
+              $id = $item['id'];
+              $cantidad = $item['cantidad'];
+
+              // Realizar la consulta para obtener la información del item
+              $query = "SELECT item, descripcion, descripcionAmpliada, estPre, estPos FROM itemssolicitables WHERE id = :id";
+
+              $stmt = $pdo->prepare($query);
+              $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+              $stmt->execute();
+
+              // Obtener el resultado de la consulta
+              $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+              // Verificar si se encontró la información
+              if ($result) {
+                // Extraer la información
+                $item = $result['item'];
+                $descripcion = $result['descripcion'];
+                $descripcionAmpliada = $result['descripcionAmpliada'];
+                $estPos = $result['estPos'];
+                $estPre = $result['estPre'];
+
+                // Agregar la fila a la tabla HTML
+                $html .= '<tr>';
+                $html .= '<td>' . $item . '</td>';
+                $html .= '<td>' . $descripcion . '</td>';
+                $html .= '<td>' . $descripcionAmpliada . '</td>';
+                $html .= '<td>' . $estPos . '</td>';
+                $html .= '<td>' . $estPre . '</td>';
+                $html .= '<td>' . $cantidad . '</td>';
+                $html .= '</tr>';
+              } else {
+                // Manejar el caso donde no se encontró información para el ID
+                $html .= '<tr>';
+                $html .= '<td colspan="4">No se encontró información para el ID ' . $id . '</td>';
+                $html .= '</tr>';
+              }
+            }
+
+            // Cierre de la tabla HTML
+            $html .= '</tbody>';
+
+            // Mostrar la tabla HTML
+            echo $html;
           }
-
-          // Cierre de la tabla HTML
-          $html .= '</tbody>';
-
-          // Mostrar la tabla HTML
-          echo $html;
           ?>
 
 

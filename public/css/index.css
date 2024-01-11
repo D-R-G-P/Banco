@@ -31,14 +31,15 @@ article .banco select {
 
 article .tablas {
   margin-top: 1vw;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+  gap: 1vw;
+  justify-items: center;
 }
 
+
 article .tablas div {
-  width: 30%;
+  width: 30vw;
 }
 
 h2 {
