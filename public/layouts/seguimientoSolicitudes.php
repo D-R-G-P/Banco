@@ -40,14 +40,32 @@ if (isset($_SESSION['error_message'])) {
             <option value="" selected disabled>Seleccione una opción</option>
             <?php
             try {
-               $stmt = $pdo->prepare("SELECT id, banco, siglas FROM bancos");
+               $stmt = $pdo->prepare("SELECT banco, siglas FROM bancos");
                $stmt->execute();
 
                $options = "";
+               $userBanco = $user->getBanco();
                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                   $banco = $row['banco'];
                   $siglas = $row['siglas'];
-                  $options .= "<option value='$siglas'>$banco - $siglas</option>";
+                  $selected = ($userBanco == $siglas) ? "selected" : "";
+
+                  $options .= "<option value='$siglas' $selected>$banco - $siglas</option>";
+               }
+
+               // Verificar si el banco almacenado no está en la lista
+               $stmt->execute(); // Reiniciar el cursor del conjunto de resultados
+               $found = false;
+               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  if ($row['siglas'] == $userBanco) {
+                     $found = true;
+                     break;
+                  }
+               }
+
+               // Agregar opción para "Otro" si el banco almacenado no está en la lista
+               if (!$found && $userBanco != "") {
+                  $options .= "<option value='' selected>Otro</option>";
                }
 
                // Escribir las opciones en el DOM
@@ -63,12 +81,6 @@ if (isset($_SESSION['error_message'])) {
          <a class="" id="newA" href="/Banco/public/layouts/getForm"><i class="fa-solid fa-receipt"></i></a>
       </div>
    </div>
-
-
-
-
-
-
 
    <div class="tabla" style="width: 100%; display: flex; justify-content: center;">
       <table style="max-width: 95%;">

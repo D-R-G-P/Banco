@@ -102,20 +102,25 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             $stmt->execute();
 
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $id_banco = $row['id'];
                                 $banco = $row['banco'];
                                 $siglas = $row['siglas'];
 
-                                if ($bancos == $siglas) {
-                                    echo "<option value='$siglas' selected>$banco - $siglas</option>";
+                                
+                                // Verifica si es el banco seleccionado y agrega el atributo "selected" en consecuencia
+                                if ($bancos == "Otro") {
+                                    echo "<option value='Otro' selected>Otro</option>";
                                 } else {
-                                    echo "<option value='$siglas'>$banco - $siglas</option>";
+                                $selected = ($bancos == $siglas) ? 'selected' : '';
+
+                                echo "<option value='$siglas' $selected>$banco - $siglas</option>";
                                 }
                             }
                         } catch (PDOException $e) {
                             echo 'Error: ' . $e->getMessage();
                         }
+
                         ?>
+
                         <option value="Otro">Otro</option>
                     </select>
 
