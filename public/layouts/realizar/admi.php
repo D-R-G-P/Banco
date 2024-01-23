@@ -83,9 +83,10 @@
 		<?php
 		try {
 			$stmt = $pdo->prepare("SELECT i.id, i.banco, i.item, i.descripcion, i.descripcionAmpliada, i.estPre, i.estPos, i.estado
-            FROM itemssolicitables AS i
-            WHERE i.estado <> 'del'
-            ORDER BY i.item;");
+			FROM itemssolicitables AS i
+			WHERE i.estado <> 'del'
+			ORDER BY i.banco, CAST(i.item AS SIGNED);
+			");
 			$stmt->execute();
 
 			echo '<table>';

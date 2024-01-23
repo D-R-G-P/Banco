@@ -15,7 +15,11 @@ try {
     $html = '';
 
     // Consulta para obtener los datos de la tabla "items" filtrados por el id del banco y la categoría actual
-    $itemsQuery = "SELECT id, banco, item, descripcion, descripcionAmpliada, estPre, estPos, estado FROM itemssolicitables WHERE banco = :idBanco AND estado = 'act' ORDER BY item ASC";
+    $itemsQuery = "SELECT id, banco, item, descripcion, descripcionAmpliada, estPre, estPos, estado
+    FROM itemssolicitables
+    WHERE banco = :idBanco AND estado = 'act'
+    ORDER BY CAST(item AS SIGNED) ASC;
+    ";
     $itemsStatement = $pdo->prepare($itemsQuery);
     $itemsStatement->bindParam(':idBanco', $idBanco);
     $itemsStatement->execute();
