@@ -116,7 +116,7 @@ try {
             <table style="margin-top: .8vw;">
                 <?php
 
-                if ($tipo_solicitud == "Para nominalizar sotck") {
+                if ($tipo_solicitud == "Para nominalizar stock") {
 
                     // Decodificar el JSON
                     $items_array = json_decode($items_JSON, true);
@@ -239,7 +239,6 @@ try {
                     echo $html;
                 }
                 ?>
-
 
                 </tbody>
             </table>
